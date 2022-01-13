@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { FlexElementStyling, FlexStyling, GridElementStyling, GridStyling } from '../types/types';
 
 export const Flex = styled.div<FlexStyling>`
   display: flex;
@@ -34,3 +33,37 @@ export const GridElement = styled.div<GridElementStyling>`
   grid-row: ${props => props.row || 'auto auto'};
   grid-column: ${props => props.column || 'auto auto'};
 `;
+
+type FlexStyling = {
+  justify?: string;
+  alignItems?: string;
+  alignContent?: string;
+  direction?: string;
+  wrap?: string;
+  gap?: string;
+};
+
+type GridStyling = {
+  repeat?: boolean;
+  columns?: string;
+  rows?: string;
+  gap?: string;
+  justifyItems?: string;
+  alignItems?: string;
+  justifyContent?: string;
+  alignContent?: string;
+};
+
+type FlexElementStyling = {
+  order: number;
+  grow: number;
+  shrink: number;
+  align: number;
+};
+
+type GridElementStyling = {
+  row?: string;
+  column?: string;
+  justifySelf?: string;
+  alignSelf?: string;
+};
