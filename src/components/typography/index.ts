@@ -67,4 +67,3 @@ export const GridElement = styled.div<GridElementStyling>`
   grid-row: ${props => props.row || 'auto auto'};
   grid-column: ${props => props.column || 'auto auto'};
 `;
-
