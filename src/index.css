@@ -1,5 +1,5 @@
 @import './styles/fonts.css';
-@import './components/typography/normalize.css';
+@import './styles/normalize.css';
 
 body {
   margin: 0;
