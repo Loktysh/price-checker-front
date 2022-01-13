@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { COLOR_WHITE, COLOR_GREEN_100 } from '../constants/colors';
-import { Flex } from '../constants/layouts';
+import { Flex } from '../../typography';
+import { COLOR_WHITE } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
 
 export const StyledHeader = styled(Flex)`
