@@ -5,6 +5,7 @@ import {
   COLOR_GRAY_200,
   COLOR_GRAY_300,
   COLOR_GREEN_100,
+  COLOR_RED,
   COLOR_WHITE,
 } from '../constants/colors';
 
@@ -26,6 +27,8 @@ export const StyledInput = styled.input`
   height: 3.5rem;
   padding: 1rem 1.5rem;
   border-radius: 2px;
+  font-size: 2rem;
+  color: ${COLOR_BLACK};
 
   ::placeholder {
     color: ${COLOR_GRAY_200};
@@ -92,4 +95,9 @@ export const StyledButton = styled.button`
   :hover {
     border-color: ${COLOR_BLACK};
   }
+`;
+
+export const StyledErrorMessage = styled.p`
+  font-size: 1.2rem;
+  color: ${COLOR_RED};
 `;
