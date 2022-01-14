@@ -1,12 +1,15 @@
 import React from 'react';
 import AppHeader from '../common/AppHeader';
-import AuthForm from '../common/AuthForm';
+import { AuthForm } from '../common/AuthForm';
+import { AuthPage } from './AuthPage';
 
 const MainPage = () => {
   return (
     <>
       <AppHeader />
-      <AuthForm />
+      <AuthPage>
+        <AuthForm type='login' />
+      </AuthPage>
     </>
   );
 };
