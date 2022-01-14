@@ -12,3 +12,4 @@ export const COLOR_GRAY_300 = '#738193';
 
 // Accent colors
 export const COLOR_GREEN_100 = '#2BAB7D';
+export const COLOR_GREEN_300 = '#01937C';
