@@ -28,11 +28,14 @@ export const AuthForm = ({ type }: AuthFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>();
+  } = useForm<IFormInput>({
+    mode: 'onBlur',
+  });
   const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
+  const onErrors = (errors: any) => console.log(errors);
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+    <StyledForm onSubmit={handleSubmit(onSubmit, onErrors)}>
       <Flex direction='column' gap='3rem'>
         <FormTitle>{type === 'login' ? 'LOGIN' : 'SIGN UP'}</FormTitle>
         <StyledInput
@@ -48,10 +51,16 @@ export const AuthForm = ({ type }: AuthFormProps) => {
           id='password'
           type='password'
           placeholder='Password'
-          {...register('password', { required: true, minLength: 6 })}
+          {...register('password', {
+            required: true,
+            minLength: 6,
+            pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+          })}
         />
         {errors.password && (
-          <StyledErrorMessage>Password must have at least 6 characters!</StyledErrorMessage>
+          <StyledErrorMessage>
+            Password must have at least 6 characters (include numbers)!
+          </StyledErrorMessage>
         )}
         <OptionalStyledDiv>
           <StyledRememberOptionContainer>

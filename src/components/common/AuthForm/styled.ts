@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import {
   COLOR_BLACK,
-  COLOR_GRAY_100,
   COLOR_GRAY_200,
   COLOR_GRAY_300,
   COLOR_GREEN_100,
@@ -98,6 +97,7 @@ export const StyledButton = styled.button`
 `;
 
 export const StyledErrorMessage = styled.p`
+  margin: -2rem 0 -2rem;
   font-size: 1.2rem;
   color: ${COLOR_RED};
 `;
