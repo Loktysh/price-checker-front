@@ -4,6 +4,9 @@ import {
   StyledSearchField,
   StyledSearchButton,
   StyledSearchInput,
+  StyledSearchDropdown,
+  StyledDropdownItem,
+  StyledDropdownImage,
 } from './styled';
 import React, { useState, useEffect } from 'react';
 import { COLOR_GREEN_100 } from '../constants/colors';
@@ -13,6 +16,7 @@ import { useDebounce } from '../../../hooks/';
 const AppHeader = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [searchItems, setSearchItems] = useState([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
   const debouncedSearch = useDebounce(inputValue, 500);
 
@@ -28,9 +32,13 @@ const AppHeader = () => {
     if (inputValue.length > 0) {
       setIsSearching(true);
       fetchProducts().then(data => {
-        console.log(data);
+        console.log(data.products);
+        setDropdown(true);
+        setSearchItems(data.products);
         setIsSearching(false);
       });
+    } else {
+      setDropdown(false);
     }
   }, [debouncedSearch]);
 
@@ -46,6 +54,17 @@ const AppHeader = () => {
           onInput={(e: any) => setInputValue(e.target.value)}
         />
         <StyledSearchButton color={COLOR_GREEN_100}>Search!</StyledSearchButton>
+        <StyledSearchDropdown direction='column' visible={dropDown}>
+          {searchItems.map((item: any, index) => {
+            const oddNumber = index % 2 !== 0 ? true : false;
+            return (
+              <StyledDropdownItem key={item.id} odd={oddNumber}>
+                {item.extended_name}
+                <StyledDropdownImage src={item.images.header} />
+              </StyledDropdownItem>
+            );
+          })}
+        </StyledSearchDropdown>
       </StyledSearchField>
     </StyledHeader>
   );
