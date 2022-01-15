@@ -53,17 +53,21 @@ const AppHeader = () => {
         <StyledSearchButton color={COLOR_GREEN_100}>Search!</StyledSearchButton>
         {searchItems ? (
           <StyledSearchDropdown direction='column' visible={dropDown}>
-            {searchItems.map((item: any, index) => {
-              const oddNumber = index % 2 !== 0 ? true : false;
-              return (
-                <Link key={item.id} to='/items'>
-                  <StyledDropdownItem odd={oddNumber}>
-                    {item.extended_name}
-                    <StyledDropdownImage src={item.images.header} />
-                  </StyledDropdownItem>
-                </Link>
-              );
-            })}
+            {searchItems.length > 0 ? (
+              searchItems.map((item: any, index) => {
+                const oddNumber = index % 2 !== 0 ? true : false;
+                return (
+                  <Link key={item.id} to='/items'>
+                    <StyledDropdownItem odd={oddNumber}>
+                      {item.extended_name}
+                      <StyledDropdownImage src={item.images.header} />
+                    </StyledDropdownItem>
+                  </Link>
+                );
+              })
+            ) : (
+              <StyledDropdownItem>Sorry, no items found...</StyledDropdownItem>
+            )}
           </StyledSearchDropdown>
         ) : null}
       </StyledSearchField>
