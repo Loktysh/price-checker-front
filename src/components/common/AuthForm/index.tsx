@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Flex } from '../../typography';
 import {
-  BasicLinkStyle,
+  BasicReactRouterLink,
   FormTitle,
   OptionalStyledDiv,
   StyledButton,
@@ -16,6 +16,7 @@ import {
 
 interface AuthFormProps {
   type: 'login' | 'signup';
+  onAuthSubmit: (params: any) => void;
 }
 
 interface IFormInput {
@@ -23,7 +24,7 @@ interface IFormInput {
   password: string;
 }
 
-export const AuthForm = ({ type }: AuthFormProps) => {
+export const AuthForm = ({ type, onAuthSubmit }: AuthFormProps) => {
   const {
     register,
     handleSubmit,
@@ -31,8 +32,21 @@ export const AuthForm = ({ type }: AuthFormProps) => {
   } = useForm<IFormInput>({
     mode: 'onBlur',
   });
-  const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = data => {
+    onAuthSubmit(data);
+  };
   const onErrors = (errors: any) => console.log(errors);
+
+  const navLink = useMemo(
+    () =>
+      type === 'login'
+        ? {
+            label: 'No account?',
+            path: '/signup',
+          }
+        : { label: 'Have an account?', path: '/login' },
+    [type],
+  );
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit, onErrors)}>
@@ -59,7 +73,7 @@ export const AuthForm = ({ type }: AuthFormProps) => {
         />
         {errors.password && (
           <StyledErrorMessage>
-            Password must have at least 6 characters (include numbers)!
+            Password must have minimum 8 characters, at least one letter and one number!
           </StyledErrorMessage>
         )}
         <OptionalStyledDiv>
@@ -67,12 +81,10 @@ export const AuthForm = ({ type }: AuthFormProps) => {
             <StyledCheckbox type='checkbox' name='remember' id='remember-user' />
             <StyledLabel htmlFor='remember-user'>Remember me</StyledLabel>
           </StyledRememberOptionContainer>
-          {type === 'login' && <BasicLinkStyle href='#'>Forgot password?</BasicLinkStyle>}
+          {type === 'login' && <BasicReactRouterLink to='#'>Forgot password?</BasicReactRouterLink>}
         </OptionalStyledDiv>
         <StyledButton type='submit'>Login</StyledButton>
-        <BasicLinkStyle href='#'>
-          {type === 'login' ? 'No account?' : 'Have an account?'}
-        </BasicLinkStyle>
+        <BasicReactRouterLink to={navLink.path}>{navLink.label}</BasicReactRouterLink>
       </Flex>
     </StyledForm>
   );
