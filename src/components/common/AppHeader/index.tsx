@@ -12,6 +12,7 @@ import React, { useState, useEffect } from 'react';
 import { COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
+import { Link } from 'react-router-dom';
 
 const AppHeader = () => {
   const [inputValue, setInputValue] = useState<string>('');
@@ -58,10 +59,12 @@ const AppHeader = () => {
           {searchItems.map((item: any, index) => {
             const oddNumber = index % 2 !== 0 ? true : false;
             return (
-              <StyledDropdownItem key={item.id} odd={oddNumber}>
-                {item.extended_name}
-                <StyledDropdownImage src={item.images.header} />
-              </StyledDropdownItem>
+              <Link key={item.id} to='/items'>
+                <StyledDropdownItem odd={oddNumber}>
+                  {item.extended_name}
+                  <StyledDropdownImage src={item.images.header} />
+                </StyledDropdownItem>
+              </Link>
             );
           })}
         </StyledSearchDropdown>
