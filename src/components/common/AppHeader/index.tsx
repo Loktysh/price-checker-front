@@ -35,7 +35,6 @@ const AppHeader = () => {
       console.log(data.products);
       setDropdown(true);
       setSearchItems([...Object.values(data)]);
-      console.log();
     });
   }, [debouncedSearch]);
 
