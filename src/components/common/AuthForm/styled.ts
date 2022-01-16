@@ -14,7 +14,7 @@ export const StyledForm = styled.form`
   width: 40rem;
 `;
 
-export const FormTitle = styled.h3`
+export const FormTitle = styled.h2`
   margin: 0;
   font-weight: 700;
   font-size: 2.4rem;

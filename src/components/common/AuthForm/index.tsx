@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Flex } from '../../typography';
+import { IFormInput } from '../types';
 import {
   BasicReactRouterLink,
   FormTitle,
@@ -16,15 +17,10 @@ import {
 
 interface AuthFormProps {
   type: 'login' | 'signup';
-  onAuthSubmit: (params: any) => void;
+  onAuthSubmit: (params: IFormInput) => void;
 }
 
-interface IFormInput {
-  username: string;
-  password: string;
-}
-
-export const AuthForm = ({ type, onAuthSubmit }: AuthFormProps) => {
+export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -35,7 +31,6 @@ export const AuthForm = ({ type, onAuthSubmit }: AuthFormProps) => {
   const onSubmit: SubmitHandler<IFormInput> = data => {
     onAuthSubmit(data);
   };
-  const onErrors = (errors: any) => console.log(errors);
 
   const navLink = useMemo(
     () =>
@@ -49,7 +44,7 @@ export const AuthForm = ({ type, onAuthSubmit }: AuthFormProps) => {
   );
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit, onErrors)}>
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <Flex direction='column' gap='3rem'>
         <FormTitle>{type === 'login' ? 'LOGIN' : 'SIGN UP'}</FormTitle>
         <StyledInput

@@ -3,8 +3,9 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { AuthForm } from '../common/AuthForm';
 import { COLOR_GRAY_100 } from '../common/constants/colors';
+import { IFormInput } from '../common/types';
 
-// TEMP
+// TODO: Implement main page for auth forms
 const AuthPageContainer = styled.div`
   background-color: ${COLOR_GRAY_100};
   height: 80rem;
@@ -12,8 +13,8 @@ const AuthPageContainer = styled.div`
 `;
 
 export const SignupPage = () => {
-  const handleSubmit = useCallback((params: any) => {
-    console.log('Signup: ', JSON.stringify(params));
+  const handleSubmit = useCallback((params: IFormInput) => {
+    JSON.stringify(params);
   }, []);
 
   return (
