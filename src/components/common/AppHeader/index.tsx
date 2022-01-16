@@ -13,10 +13,11 @@ import { COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
 import { Link } from 'react-router-dom';
+import { Product, ItemsData } from '../types';
 
 const AppHeader = () => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [searchItems, setSearchItems] = useState<Array<any>>([]);
+  const [searchItems, setSearchItems] = useState<Product[]>([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
   const debouncedSearch = useDebounce(inputValue, 600);
 
@@ -24,9 +25,9 @@ const AppHeader = () => {
   //? where to put helpers in folder structure
 
   useEffect(() => {
-    const fetchProducts = async (): Promise<any> => {
+    const fetchProducts = async (): Promise<ItemsData> => {
       const res: Response = await fetch(API_LINK + debouncedSearch);
-      const data: any = await res.json();
+      const data: ItemsData = await res.json();
       return data;
     };
 
@@ -34,7 +35,7 @@ const AppHeader = () => {
       console.log(data);
       console.log(data.products);
       setDropdown(true);
-      setSearchItems([...Object.values(data)]);
+      setSearchItems(data.products);
     });
   }, [debouncedSearch]);
 
@@ -47,14 +48,14 @@ const AppHeader = () => {
         <StyledSearchInput
           type='text'
           placeholder='Search products'
-          onInput={(e: any) => setInputValue(e.target.value)}
+          onInput={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
           value={inputValue}
         />
         <StyledSearchButton color={COLOR_GREEN_100}>Search!</StyledSearchButton>
         {searchItems ? (
           <StyledSearchDropdown direction='column' visible={dropDown}>
             {searchItems.length > 0 ? (
-              searchItems.map((item: any, index) => {
+              searchItems.map((item: Product, index) => {
                 const oddNumber = index % 2 !== 0 ? true : false;
                 return (
                   <Link key={item.id} to='/items'>
