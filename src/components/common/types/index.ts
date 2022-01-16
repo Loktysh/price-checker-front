@@ -2,7 +2,7 @@
 
 export type Something = number | string;
 
-export interface IFormInput {
+export interface AuthFormParams {
   username: string;
   password: string;
 }

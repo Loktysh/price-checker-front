@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Flex } from '../../typography';
-import { IFormInput } from '../types';
+import { AuthFormParams } from '../types';
 import {
   BasicReactRouterLink,
   FormTitle,
@@ -17,7 +17,7 @@ import {
 
 interface AuthFormProps {
   type: 'login' | 'signup';
-  onAuthSubmit: (params: IFormInput) => void;
+  onAuthSubmit: (params: AuthFormParams) => void;
 }
 
 export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
@@ -25,10 +25,10 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>({
+  } = useForm<AuthFormParams>({
     mode: 'onBlur',
   });
-  const onSubmit: SubmitHandler<IFormInput> = data => {
+  const onSubmit: SubmitHandler<AuthFormParams> = data => {
     onAuthSubmit(data);
   };
 
