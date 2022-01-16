@@ -34,7 +34,8 @@ const AppHeader = () => {
       console.log(data);
       console.log(data.products);
       setDropdown(true);
-      setSearchItems(data.products);
+      setSearchItems([...Object.values(data)]);
+      console.log();
     });
   }, [debouncedSearch]);
 
@@ -60,7 +61,7 @@ const AppHeader = () => {
                   <Link key={item.id} to='/items'>
                     <StyledDropdownItem odd={oddNumber}>
                       {item.extended_name}
-                      <StyledDropdownImage src={item.images.header} />
+                      <StyledDropdownImage src={item.image} />
                     </StyledDropdownItem>
                   </Link>
                 );
