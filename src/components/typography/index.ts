@@ -78,5 +78,5 @@ export const Button = styled.button<ButtonStyling>`
   background-color: ${props =>
     props.outline ? 'transparent' : props.color ? props.color : 'black'};
   border-color: ${props => (props.outline ? (props.color ? props.color : 'black') : 'transparent')};
-  color: ${props => (props.textColor ? props.textColor : 'white')};
+  color: ${props => (props.textColor ? props.textColor : props.outline ? 'black' : 'white')};
 `;
