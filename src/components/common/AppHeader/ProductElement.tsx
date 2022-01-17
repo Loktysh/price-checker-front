@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Flex } from '../../typography';
 import { Product } from '../types';
 import {
@@ -13,19 +12,17 @@ import {
 const ProductElement: React.FC<{ item: Product }> = props => {
   const { item } = props;
 
-  const rating = Math.floor(item.rating / 10);
-
-  console.log(rating);
+  const itemRating = Math.floor(item.rating / 10);
 
   const ratingArr = new Array(5).fill(false).map((_, index) => {
-    if (index <= rating - 1) {
+    if (index <= itemRating - 1) {
       return true;
     } else {
       return false;
     }
   });
 
-  console.log(ratingArr);
+  // TODO: implement routing eg /items/<productid>
 
   return (
     <StyledDropdownItem justify='flex-start'>
@@ -43,7 +40,7 @@ const ProductElement: React.FC<{ item: Product }> = props => {
 
           <p>{item.extended_name}</p>
           <p>От {item.price_min} BYN</p>
-          <p>Рейтинг: {rating}.0</p>
+          <p>Рейтинг: {itemRating}.0</p>
         </Flex>
       </StyledItemLink>
     </StyledDropdownItem>

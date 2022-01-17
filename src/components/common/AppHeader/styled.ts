@@ -6,7 +6,17 @@ import { SHADOW_SMALL } from '../constants/shadows';
 import { Link, NavLink } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 
-// TODO: implement better styling
+type Dropdown = {
+  visible: boolean;
+};
+
+type Image = {
+  bgImage: string;
+};
+
+type Star = {
+  enabled: boolean;
+};
 
 export const StyledHeader = styled(Flex)`
   background-color: ${COLOR_WHITE};
@@ -56,18 +66,6 @@ export const StyledAccountButton = styled(Button)`
   justify-content: center;
   align-items: center;
 `;
-
-type Dropdown = {
-  visible: boolean;
-};
-
-type Image = {
-  bgImage: string;
-};
-
-type Star = {
-  enabled: boolean;
-};
 
 export const StyledSearchDropdown = styled(Flex)<Dropdown>`
   width: 200%;

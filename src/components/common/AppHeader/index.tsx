@@ -6,15 +6,12 @@ import {
   StyledSearchInput,
   StyledSearchDropdown,
   StyledDropdownItem,
-  StyledDropdownImage,
 } from './styled';
 import React, { useState, useEffect } from 'react';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
-import { Link } from 'react-router-dom';
 import { Product, ItemsData } from '../types';
-import { Button } from '../../typography';
 import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
 
@@ -37,10 +34,14 @@ const AppHeader = () => {
     fetchProducts().then(data => {
       console.log(data);
       console.log(data.products);
-      setDropdown(true);
       setSearchItems(data.products);
+      setDropdown(true);
     });
   }, [debouncedSearch]);
+
+  useEffect(() => {
+    if (inputValue.length === 0) setDropdown(false);
+  }, [inputValue]);
 
   return (
     <StyledHeader justify='space-around'>
