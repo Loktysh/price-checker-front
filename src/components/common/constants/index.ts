@@ -1,1 +1,1 @@
-export const API_LINK = 'https://pricecheckerapp.herokuapp.com/goods?query=';
+export const API_LINK = 'https://pricecheckerapp.herokuapp.com/products?query=';

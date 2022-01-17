@@ -9,11 +9,14 @@ import {
   StyledDropdownImage,
 } from './styled';
 import React, { useState, useEffect } from 'react';
-import { COLOR_GREEN_100 } from '../constants/colors';
+import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
 import { Link } from 'react-router-dom';
 import { Product, ItemsData } from '../types';
+import { Button } from '../../typography';
+import ProductElement from './ProductElement';
+import { StyledAccountButton } from './styled';
 
 const AppHeader = () => {
   const [inputValue, setInputValue] = useState<string>('');
@@ -53,18 +56,10 @@ const AppHeader = () => {
         />
         <StyledSearchButton color={COLOR_GREEN_100}>Search!</StyledSearchButton>
         {searchItems ? (
-          <StyledSearchDropdown direction='column' visible={dropDown}>
+          <StyledSearchDropdown visible={dropDown} direction='column'>
             {searchItems.length > 0 ? (
-              searchItems.map((item: Product, index) => {
-                const oddNumber = index % 2 !== 0 ? true : false;
-                return (
-                  <Link key={item.id} to='/items'>
-                    <StyledDropdownItem odd={oddNumber}>
-                      {item.extended_name}
-                      <StyledDropdownImage src={item.image} />
-                    </StyledDropdownItem>
-                  </Link>
-                );
+              searchItems.map((item: Product) => {
+                return <ProductElement key={item.id} item={item} />;
               })
             ) : (
               <StyledDropdownItem>Sorry, no items found...</StyledDropdownItem>
@@ -72,6 +67,9 @@ const AppHeader = () => {
           </StyledSearchDropdown>
         ) : null}
       </StyledSearchField>
+      <StyledAccountButton outline textColor={COLOR_GRAY_300}>
+        Log in
+      </StyledAccountButton>
     </StyledHeader>
   );
 };

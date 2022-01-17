@@ -1,9 +1,10 @@
-import { COLOR_GRAY_100 } from './../constants/colors';
+import { COLOR_YELLOW, COLOR_GRAY_300 } from './../constants/colors';
 import styled from 'styled-components';
 import { Button, Flex } from '../../typography';
 import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300 } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { FaStar } from 'react-icons/fa';
 
 // TODO: implement better styling
 
@@ -32,41 +33,87 @@ export const StyledSearchField = styled(Flex)`
 export const StyledSearchInput = styled.input`
   height: 100%;
   width: 400px;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  margin-right: 1rem;
 `;
 
 export const StyledSearchButton = styled(Button)`
   height: 100%;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const StyledAccountButton = styled(Button)`
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 type Dropdown = {
   visible: boolean;
 };
 
-export const StyledSearchDropdown = styled(Flex)<Dropdown>`
-  width: 100%;
-  height: auto;
-  left: 0px;
-  top: 100%;
-  position: absolute;
-  border: 1px solid ${COLOR_GREEN_300};
-  background-color: ${COLOR_WHITE};
-  display: ${props => (props.visible ? 'block' : 'none')};
-`;
-
-type DropdownItem = {
-  odd?: boolean;
+type Image = {
+  bgImage: string;
 };
 
-export const StyledDropdownItem = styled(Flex)<DropdownItem>`
-  width: 100%;
-  height: 5rem;
-  padding: 5px;
-  background-color: ${props => (props.odd ? COLOR_GRAY_100 : COLOR_WHITE)};
-  font-size: 1.4rem;
+type Star = {
+  enabled: boolean;
+};
+
+export const StyledSearchDropdown = styled(Flex)<Dropdown>`
+  width: 200%;
+  height: 80vh;
+  top: 280%;
+  position: absolute;
+  box-shadow: ${SHADOW_SMALL};
+  background-color: ${COLOR_WHITE};
+  display: ${props => (props.visible ? 'block' : 'none')};
+  overflow-y: auto;
+  padding-left: 8rem;
 `;
 
-export const StyledDropdownImage = styled.img`
+export const StyledDropdownItem = styled(Flex)`
+  width: 100%;
+  min-height: 12rem;
+  font-size: 1.4rem;
+  padding: 2rem;
+  flex-shrink: 0;
+`;
+
+export const StyledDropdownImage = styled.div<Image>`
+  height: 11rem;
+  width: 11rem;
+  margin-right: 3rem;
+  background-image: url(${props => props.bgImage});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+`;
+
+export const StyledItemLink = styled(Link)`
   height: 100%;
-  margin-left: auto;
-  background-image: ${props => props.src};
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: ${COLOR_GRAY_300};
+`;
+
+export const StyledStar = styled(FaStar)<Star>`
+  height: 20px;
+  width: 20px;
+  margin: 0 0.2rem;
+  color: ${props => (props.enabled ? COLOR_YELLOW : COLOR_GRAY_300)};
+`;
+
+export const StyledStarContainer = styled(Flex)`
+  margin-left: 1rem;
 `;

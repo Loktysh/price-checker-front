@@ -8,6 +8,7 @@ export type Product = {
   description: string;
   rating: number;
   image: URL;
+  price_min: string;
 };
 
 export type ItemsData = {
