@@ -35,7 +35,9 @@ const AppHeader = () => {
   }, [debouncedSearch]);
 
   useEffect(() => {
-    if (inputValue.length === 0) setDropdown(false);
+    if (!inputValue.length) {
+      setDropdown(false);
+    }
   }, [inputValue]);
 
   return (
