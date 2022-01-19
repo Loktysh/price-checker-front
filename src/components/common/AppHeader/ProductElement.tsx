@@ -10,9 +10,7 @@ import {
   StyledStarContainer,
 } from './styled';
 
-const ProductElement: FC<{ item: Product }> = props => {
-  const { item } = props;
-
+const ProductElement: FC<{ item: Product }> = ({ item }) => {
   const itemRating = Math.floor(item.rating / RATING_DIVISOR);
 
   const ratingArr = new Array(5).fill(false).map((_, index) => index <= itemRating - 1);
