@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, SubmitErrorHandler, FieldErrors } from 'react-hook-form';
 import { Flex } from '../../typography';
 import {
   BasicLinkStyle,
@@ -32,7 +32,7 @@ export const AuthForm = ({ type }: AuthFormProps) => {
     mode: 'onBlur',
   });
   const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
-  const onErrors = (errors: any) => console.log(errors);
+  const onErrors: SubmitErrorHandler<IFormInput> = (errors: FieldErrors) => console.log(errors);
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit, onErrors)}>

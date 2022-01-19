@@ -7,7 +7,7 @@ import {
   StyledSearchDropdown,
   StyledDropdownItem,
 } from './styled';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
@@ -21,9 +21,6 @@ const AppHeader = () => {
   const [dropDown, setDropdown] = useState<boolean>(false);
   const debouncedSearch = useDebounce(inputValue, 600);
 
-  // TODO: move fetch to helpers
-  //? where to put helpers in folder structure
-
   useEffect(() => {
     const fetchProducts = async (): Promise<ItemsData> => {
       const res: Response = await fetch(API_LINK + debouncedSearch);
@@ -32,8 +29,6 @@ const AppHeader = () => {
     };
 
     fetchProducts().then(data => {
-      console.log(data);
-      console.log(data.products);
       setSearchItems(data.products);
       setDropdown(true);
     });
@@ -52,21 +47,17 @@ const AppHeader = () => {
         <StyledSearchInput
           type='text'
           placeholder='Search products'
-          onInput={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+          onInput={(e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
           value={inputValue}
         />
         <StyledSearchButton color={COLOR_GREEN_100}>Search!</StyledSearchButton>
-        {searchItems ? (
-          <StyledSearchDropdown visible={dropDown} direction='column'>
-            {searchItems.length > 0 ? (
-              searchItems.map((item: Product) => {
-                return <ProductElement key={item.id} item={item} />;
-              })
-            ) : (
-              <StyledDropdownItem>Sorry, no items found...</StyledDropdownItem>
-            )}
-          </StyledSearchDropdown>
-        ) : null}
+        <StyledSearchDropdown visible={dropDown} direction='column'>
+          {searchItems.length > 0 ? (
+            searchItems.map((item: Product) => <ProductElement key={item.id} item={item} />)
+          ) : (
+            <StyledDropdownItem>Sorry, no items were found...</StyledDropdownItem>
+          )}
+        </StyledSearchDropdown>
       </StyledSearchField>
       <StyledAccountButton outline textColor={COLOR_GRAY_300}>
         Log in

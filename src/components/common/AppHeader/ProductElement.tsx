@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Flex } from '../../typography';
+import { RATING_DIVISOR } from '../constants';
 import { Product } from '../types';
 import {
   StyledDropdownItem,
@@ -9,20 +10,12 @@ import {
   StyledStarContainer,
 } from './styled';
 
-const ProductElement: React.FC<{ item: Product }> = props => {
+const ProductElement: FC<{ item: Product }> = props => {
   const { item } = props;
 
-  const itemRating = Math.floor(item.rating / 10);
+  const itemRating = Math.floor(item.rating / RATING_DIVISOR);
 
-  const ratingArr = new Array(5).fill(false).map((_, index) => {
-    if (index <= itemRating - 1) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-
-  // TODO: implement routing eg /items/<productid>
+  const ratingArr = new Array(5).fill(false).map((_, index) => index <= itemRating - 1);
 
   return (
     <StyledDropdownItem justify='flex-start'>
@@ -32,9 +25,9 @@ const ProductElement: React.FC<{ item: Product }> = props => {
           <Flex>
             <h3>{item.name}</h3>
             <StyledStarContainer direction='row'>
-              {ratingArr.map((elem, index) => {
-                return <StyledStar enabled={elem} key={index} />;
-              })}
+              {ratingArr.map((elem, index) => (
+                <StyledStar enabled={elem} key={index} />
+              ))}
             </StyledStarContainer>
           </Flex>
 
