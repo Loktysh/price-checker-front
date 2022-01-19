@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   COLOR_BLACK,
@@ -13,7 +14,7 @@ export const StyledForm = styled.form`
   width: 40rem;
 `;
 
-export const FormTitle = styled.h3`
+export const FormTitle = styled.h2`
   margin: 0;
   font-weight: 700;
   font-size: 2.4rem;
@@ -69,7 +70,7 @@ export const StyledLabel = styled.label`
   }
 `;
 
-export const BasicLinkStyle = styled.a`
+export const BasicReactRouterLink = styled(Link)`
   text-decoration: none;
   font-size: 1.2rem;
   color: ${COLOR_GRAY_300};

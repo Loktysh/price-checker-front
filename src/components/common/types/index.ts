@@ -14,3 +14,9 @@ export type Product = {
 export type ItemsData = {
   products: Product[];
 };
+export type Something = number | string;
+
+export interface AuthFormParams {
+  username: string;
+  password: string;
+}

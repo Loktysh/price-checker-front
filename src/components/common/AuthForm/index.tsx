@@ -1,8 +1,9 @@
-import React from 'react';
-import { useForm, SubmitHandler, SubmitErrorHandler, FieldErrors } from 'react-hook-form';
+import React, { FC, useMemo } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { Flex } from '../../typography';
+import { AuthFormParams } from '../types';
 import {
-  BasicLinkStyle,
+  BasicReactRouterLink,
   FormTitle,
   OptionalStyledDiv,
   StyledButton,
@@ -16,26 +17,34 @@ import {
 
 interface AuthFormProps {
   type: 'login' | 'signup';
+  onAuthSubmit: (params: AuthFormParams) => void;
 }
 
-interface IFormInput {
-  username: string;
-  password: string;
-}
-
-export const AuthForm = ({ type }: AuthFormProps) => {
+export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>({
+  } = useForm<AuthFormParams>({
     mode: 'onBlur',
   });
-  const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
-  const onErrors: SubmitErrorHandler<IFormInput> = (errors: FieldErrors) => console.log(errors);
+  const onSubmit: SubmitHandler<AuthFormParams> = data => {
+    onAuthSubmit(data);
+  };
+
+  const navLink = useMemo(
+    () =>
+      type === 'login'
+        ? {
+            label: 'No account?',
+            path: '/signup',
+          }
+        : { label: 'Have an account?', path: '/login' },
+    [type],
+  );
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit, onErrors)}>
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <Flex direction='column' gap='3rem'>
         <FormTitle>{type === 'login' ? 'LOGIN' : 'SIGN UP'}</FormTitle>
         <StyledInput
@@ -59,7 +68,7 @@ export const AuthForm = ({ type }: AuthFormProps) => {
         />
         {errors.password && (
           <StyledErrorMessage>
-            Password must have at least 6 characters (include numbers)!
+            Password must have minimum 8 characters, at least one letter and one number!
           </StyledErrorMessage>
         )}
         <OptionalStyledDiv>
@@ -67,12 +76,10 @@ export const AuthForm = ({ type }: AuthFormProps) => {
             <StyledCheckbox type='checkbox' name='remember' id='remember-user' />
             <StyledLabel htmlFor='remember-user'>Remember me</StyledLabel>
           </StyledRememberOptionContainer>
-          {type === 'login' && <BasicLinkStyle href='#'>Forgot password?</BasicLinkStyle>}
+          {type === 'login' && <BasicReactRouterLink to='#'>Forgot password?</BasicReactRouterLink>}
         </OptionalStyledDiv>
         <StyledButton type='submit'>Login</StyledButton>
-        <BasicLinkStyle href='#'>
-          {type === 'login' ? 'No account?' : 'Have an account?'}
-        </BasicLinkStyle>
+        <BasicReactRouterLink to={navLink.path}>{navLink.label}</BasicReactRouterLink>
       </Flex>
     </StyledForm>
   );

@@ -1,15 +1,12 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import AppHeader from '../common/AppHeader';
-import { AuthForm } from '../common/AuthForm';
-import { AuthPage } from './AuthPage';
 
 const MainPage = () => {
   return (
     <>
       <AppHeader />
-      <AuthPage>
-        <AuthForm type='login' />
-      </AuthPage>
+      <Outlet />
     </>
   );
 };
