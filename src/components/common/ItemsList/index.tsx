@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyledHeading } from './styled';
+import { StyledHeading, StyledItemsWrapper } from './styled';
 import { useParams } from 'react-router-dom';
 import { API_LINK } from '../constants';
 import { fetchProducts } from '../../../utils';
 import { Product } from '../types';
+import { Grid } from '../../typography';
+import ItemCard from './ItemCard';
 
 const ItemsList: React.FC = () => {
   const { id } = useParams();
@@ -15,10 +17,30 @@ const ItemsList: React.FC = () => {
     setSearchQuery(id);
     fetchProducts(API_LINK + id).then(data => {
       setFoundItems(data.products);
+      console.log(foundItems);
     });
   }, [id]);
 
-  return <StyledHeading>Search results:</StyledHeading>;
+  return (
+    <>
+      <StyledHeading>Search results:</StyledHeading>
+      <StyledItemsWrapper columns='3' repeat gap='40px 20px'>
+        {foundItems.map((elem, index) => {
+          if (index < foundItems.length - 1) {
+            return (
+              <ItemCard
+                key={elem.id}
+                name={elem.name}
+                desc={elem.extended_name}
+                bgImage={elem.image}
+                rating={elem.rating}
+              ></ItemCard>
+            );
+          }
+        })}
+      </StyledItemsWrapper>
+    </>
+  );
 };
 
 export default ItemsList;

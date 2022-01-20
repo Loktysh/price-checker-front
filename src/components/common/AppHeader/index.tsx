@@ -50,7 +50,12 @@ const AppHeader = () => {
           onInput={(e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
           value={inputValue}
         />
-        <StyledSearchButton color={COLOR_GREEN_100}>Search!</StyledSearchButton>
+        <Link to={'/product/' + inputValue}>
+          <StyledSearchButton color={COLOR_GREEN_100} onClick={() => setDropdown(false)}>
+            Search!
+          </StyledSearchButton>
+        </Link>
+
         <StyledSearchDropdown visible={dropDown} direction='column'>
           {searchItems.length > 0 ? (
             searchItems.map((item: Product) => <ProductElement key={item.id} item={item} />)

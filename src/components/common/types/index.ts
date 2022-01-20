@@ -11,6 +11,10 @@ export type Product = {
   price_min: string;
 };
 
+export type Image = {
+  bgImage: string;
+};
+
 export type ItemsData = {
   products: Product[];
 };

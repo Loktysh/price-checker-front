@@ -1,4 +1,6 @@
+import { FaStar } from 'react-icons/fa';
 import styled from 'styled-components';
+import { COLOR_GRAY_300, COLOR_YELLOW } from '../common/constants/colors';
 
 type FlexStyling = {
   justify?: string;
@@ -40,6 +42,10 @@ type ButtonStyling = {
   textColor?: string;
 };
 
+type Star = {
+  enabled: string;
+};
+
 export const Flex = styled.div<FlexStyling>`
   display: flex;
   justify-content: ${props => props.justify || 'center'};
@@ -79,4 +85,11 @@ export const Button = styled.button<ButtonStyling>`
     props.outline ? 'transparent' : props.color ? props.color : 'black'};
   border-color: ${props => (props.outline ? (props.color ? props.color : 'black') : 'transparent')};
   color: ${props => (props.textColor ? props.textColor : props.outline ? 'black' : 'white')};
+`;
+
+export const StyledStar = styled(FaStar)<Star>`
+  height: 20px;
+  width: 20px;
+  margin: 0 0.2rem;
+  color: ${props => (props.enabled === 'true' ? COLOR_YELLOW : COLOR_GRAY_300)};
 `;

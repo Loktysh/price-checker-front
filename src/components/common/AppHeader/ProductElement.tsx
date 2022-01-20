@@ -1,19 +1,17 @@
 import React, { FC } from 'react';
-import { Flex } from '../../typography';
+import { getProductRating } from '../../../utils';
+import { Flex, StyledStar } from '../../typography';
 import { RATING_DIVISOR } from '../constants';
 import { Product } from '../types';
 import {
   StyledDropdownItem,
   StyledDropdownImage,
   StyledItemLink,
-  StyledStar,
   StyledStarContainer,
 } from './styled';
 
 const ProductElement: FC<{ item: Product }> = ({ item }) => {
-  const itemRating = Math.floor(item.rating / RATING_DIVISOR);
-
-  const ratingArr = new Array(5).fill(false).map((_, index) => index <= itemRating - 1);
+  const [ratingArr, itemRating] = getProductRating(item.rating);
 
   return (
     <StyledDropdownItem justify='flex-start'>
@@ -24,7 +22,6 @@ const ProductElement: FC<{ item: Product }> = ({ item }) => {
             <h3>{item.name}</h3>
             <StyledStarContainer direction='row'>
               {ratingArr.map((elem, index) => {
-                //! toString() обязателен т.к. реакт будет ругаться
                 return <StyledStar enabled={elem.toString()} key={index} />;
               })}
             </StyledStarContainer>

@@ -5,17 +5,10 @@ import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300 } from '../constants/colo
 import { SHADOW_SMALL } from '../constants/shadows';
 import { Link, NavLink } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
+import { Image } from '../types';
 
 type Dropdown = {
   visible: boolean;
-};
-
-type Image = {
-  bgImage: string;
-};
-
-type Star = {
-  enabled: string;
 };
 
 export const StyledHeader = styled(Flex)`
@@ -103,13 +96,6 @@ export const StyledItemLink = styled(Link)`
   align-items: center;
   text-decoration: none;
   color: ${COLOR_GRAY_300};
-`;
-
-export const StyledStar = styled(FaStar)<Star>`
-  height: 20px;
-  width: 20px;
-  margin: 0 0.2rem;
-  color: ${props => (props.enabled ? COLOR_YELLOW : COLOR_GRAY_300)};
 `;
 
 export const StyledStarContainer = styled(Flex)`
