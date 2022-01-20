@@ -15,7 +15,7 @@ type Image = {
 };
 
 type Star = {
-  enabled: boolean;
+  enabled: string;
 };
 
 export const StyledHeader = styled(Flex)`

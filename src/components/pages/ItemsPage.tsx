@@ -1,7 +1,14 @@
 import React from 'react';
+import AppHeader from '../common/AppHeader';
+import ItemsList from '../common/ItemsList';
 
 const ItemsPage = () => {
-  return <p>There will be items... temporary</p>;
+  return (
+    <>
+      <AppHeader />
+      <ItemsList />
+    </>
+  );
 };
 
 export default ItemsPage;

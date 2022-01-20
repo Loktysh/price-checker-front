@@ -17,15 +17,16 @@ const ProductElement: FC<{ item: Product }> = ({ item }) => {
 
   return (
     <StyledDropdownItem justify='flex-start'>
-      <StyledItemLink to='/items'>
+      <StyledItemLink to={'/product/' + item.id}>
         <StyledDropdownImage bgImage={item.image}></StyledDropdownImage>
         <Flex direction='column' alignItems='flex-start'>
           <Flex>
             <h3>{item.name}</h3>
             <StyledStarContainer direction='row'>
-              {ratingArr.map((elem, index) => (
-                <StyledStar enabled={elem} key={index} />
-              ))}
+              {ratingArr.map((elem, index) => {
+                //! toString() обязателен т.к. реакт будет ругаться
+                return <StyledStar enabled={elem.toString()} key={index} />;
+              })}
             </StyledStarContainer>
           </Flex>
 

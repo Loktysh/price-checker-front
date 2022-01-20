@@ -14,6 +14,8 @@ import { useDebounce } from '../../../hooks/';
 import { Product, ItemsData } from '../types';
 import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
+import { Link } from 'react-router-dom';
+import { fetchProducts } from '../../../utils';
 
 const AppHeader = () => {
   const [inputValue, setInputValue] = useState<string>('');
@@ -22,13 +24,9 @@ const AppHeader = () => {
   const debouncedSearch = useDebounce(inputValue, 600);
 
   useEffect(() => {
-    const fetchProducts = async (): Promise<ItemsData> => {
-      const res: Response = await fetch(API_LINK + debouncedSearch);
-      const data: ItemsData = await res.json();
-      return data;
-    };
-
-    fetchProducts().then(data => {
+    fetchProducts(API_LINK + debouncedSearch).then(data => {
+      console.log(data);
+      console.log(data.products);
       setSearchItems(data.products);
       setDropdown(true);
     });
