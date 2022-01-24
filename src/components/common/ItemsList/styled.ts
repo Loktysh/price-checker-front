@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Grid } from '../../typography';
+import { Flex, Grid } from '../../typography';
 import { COLOR_GRAY_300 } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
 import { Image } from '../types';
@@ -16,8 +16,14 @@ export const StyledItemCard = styled.article`
   box-shadow: ${SHADOW_SMALL};
 `;
 
+export const StyledItemsPage = styled(Flex)`
+  width: 80%;
+  margin: 0 auto;
+`;
+
 export const StyledItemsWrapper = styled(Grid)`
-  width: 70%;
+  padding: 3rem;
+  width: 80%;
   height: 80vh;
   margin: 0 auto;
   overflow-y: auto;
@@ -39,4 +45,11 @@ export const StyledItemName = styled.h3`
 
 export const StyledItemDescription = styled.p`
   margin: 1rem 2rem;
+`;
+
+export const StyledRelatedItems = styled.aside`
+  padding: 3rem;
+  width: 20%;
+  height: 80vh;
+  box-shadow: ${SHADOW_SMALL};
 `;
