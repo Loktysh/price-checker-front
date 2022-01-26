@@ -1,4 +1,4 @@
-import { COLOR_YELLOW, COLOR_GRAY_300 } from './../constants/colors';
+import { COLOR_YELLOW, COLOR_GRAY_300, COLOR_GRAY_100 } from './../constants/colors';
 import styled from 'styled-components';
 import { Button, Flex } from '../../typography';
 import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300 } from '../constants/colors';
@@ -43,13 +43,16 @@ export const StyledSearchInput = styled.input`
 `;
 
 export const StyledSearchButton = styled(Button)`
-  height: 100%;
+  height: 3rem;
   font-size: 1.5rem;
   padding: 1.5rem;
   vertical-align: middle;
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    background-color: ${COLOR_GREEN_300};
+  }
 `;
 
 export const StyledAccountButton = styled(Button)`
@@ -70,15 +73,17 @@ export const StyledSearchDropdown = styled(Flex)<Dropdown>`
   background-color: ${COLOR_WHITE};
   display: ${props => (props.visible ? 'block' : 'none')};
   overflow-y: auto;
-  padding-left: 8rem;
 `;
 
 export const StyledDropdownItem = styled(Flex)`
   width: 100%;
   min-height: 12rem;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   padding: 2rem;
   flex-shrink: 0;
+  &:hover {
+    background-color: ${COLOR_GRAY_100};
+  }
 `;
 
 export const StyledDropdownImage = styled.div<Image>`
@@ -99,6 +104,7 @@ export const StyledItemLink = styled(Link)`
   color: ${COLOR_GRAY_300};
 `;
 
-export const StyledStarContainer = styled(Flex)`
-  margin-left: 1rem;
+export const StyledRating = styled.p`
+  margin-right: 2rem;
+  font-weight: bold;
 `;
