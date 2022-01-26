@@ -1,6 +1,6 @@
 import { FaStar } from 'react-icons/fa';
 import styled from 'styled-components';
-import { COLOR_GRAY_300, COLOR_YELLOW } from '../common/constants/colors';
+import { COLOR_GRAY_300, COLOR_GREEN_100, COLOR_YELLOW } from '../common/constants/colors';
 
 type FlexStyling = {
   justify?: string;
@@ -92,4 +92,21 @@ export const StyledStar = styled(FaStar)<Star>`
   width: 20px;
   margin: 0 0.2rem;
   color: ${props => (props.enabled === 'true' ? COLOR_YELLOW : COLOR_GRAY_300)};
+`;
+
+export const StyledScrollBar = styled.div`
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: ${COLOR_GREEN_100};
+    border-radius: 10px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;

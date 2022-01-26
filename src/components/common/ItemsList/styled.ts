@@ -17,15 +17,17 @@ export const StyledItemCard = styled.article`
 `;
 
 export const StyledItemsPage = styled(Flex)`
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
+  position: relative;
 `;
 
 export const StyledItemsWrapper = styled(Grid)`
+  grid-template-columns: repeat(3, 24%);
   padding: 3rem;
-  width: 80%;
+  width: 100%;
   height: 80vh;
-  margin: 0 auto;
+  margin-left: 0;
   overflow-y: auto;
 `;
 
@@ -48,8 +50,11 @@ export const StyledItemDescription = styled.p`
 `;
 
 export const StyledRelatedItems = styled.aside`
+  position: absolute;
   padding: 3rem;
-  width: 20%;
+  width: 24%;
   height: 80vh;
+  right: 20px;
+  top: 0;
   box-shadow: ${SHADOW_SMALL};
 `;

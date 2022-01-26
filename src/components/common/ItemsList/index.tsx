@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { API_LINK } from '../constants';
 import { fetchProducts } from '../../../utils';
 import { Product } from '../types';
-import { Button, Flex, Grid } from '../../typography';
+import { Button, Flex, Grid, StyledScrollBar } from '../../typography';
 import ItemCard from './ItemCard';
 
 const ItemsList: React.FC = () => {
@@ -23,21 +23,23 @@ const ItemsList: React.FC = () => {
 
   return (
     <>
-      <StyledHeading>Search results:</StyledHeading>
-      <StyledItemsPage>
-        <StyledItemsWrapper columns='3' repeat gap='40px 20px'>
-          {foundItems.map((elem, index) => {
-            if (index < foundItems.length - 1) {
-              return <ItemCard elem={elem}></ItemCard>;
-            }
-          })}
-        </StyledItemsWrapper>
-        <StyledRelatedItems>
-          <p>Related items</p>
-        </StyledRelatedItems>
-      </StyledItemsPage>
+      <StyledScrollBar>
+        <StyledHeading>Search results:</StyledHeading>
+        <StyledItemsPage>
+          <StyledItemsWrapper gap='40px 20px' justifyItems='start'>
+            {foundItems.map((elem, index) => {
+              if (index < foundItems.length - 1) {
+                return <ItemCard elem={elem}></ItemCard>;
+              }
+            })}
+          </StyledItemsWrapper>
+          <StyledRelatedItems>
+            <p>Related items</p>
+          </StyledRelatedItems>
+        </StyledItemsPage>
 
-      <Button outline>Load more items</Button>
+        <Button outline>Load more items</Button>
+      </StyledScrollBar>
     </>
   );
 };
