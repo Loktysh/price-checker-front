@@ -1,36 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyledHeading, StyledItemsPage, StyledItemsWrapper, StyledRelatedItems } from './styled';
 import { useParams } from 'react-router-dom';
 import { API_LINK } from '../constants';
 import { fetchProducts } from '../../../utils';
 import { Product } from '../types';
-import { Button, Flex, Grid, StyledScrollBar } from '../../typography';
+import { Button, StyledScrollBar } from '../../typography';
 import ItemCard from './ItemCard';
 
 const ItemsList: React.FC = () => {
   const { query } = useParams();
 
-  const [searchQuery, setSearchQuery] = useState<string | undefined>();
   const [foundItems, setFoundItems] = useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const scrollRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
-    setSearchQuery(query);
-    fetchProducts(API_LINK + query).then(data => {
+    fetchProducts(API_LINK + query + `&page=${currentPage}`).then(data => {
       setFoundItems(data.products);
-      console.log(foundItems);
+      scrollToTop();
     });
   }, [query]);
+
+  const loadNextPage = () => {
+    setCurrentPage(page => page + 1);
+    fetchProducts(API_LINK + query + `&page=${currentPage}`).then(data => {
+      setFoundItems(items => [...items, ...data.products]);
+    });
+  };
+
+  const scrollToTop = () => {
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+  };
 
   return (
     <>
       <StyledScrollBar>
         <StyledHeading>Search results:</StyledHeading>
         <StyledItemsPage>
-          <StyledItemsWrapper gap='40px 20px' justifyItems='start'>
+          <StyledItemsWrapper ref={scrollRef} gap='40px 20px' justifyItems='start'>
             {foundItems.map((elem, index) => {
-              if (index < foundItems.length - 1) {
-                return <ItemCard elem={elem}></ItemCard>;
-              }
+              return <ItemCard elem={elem} key={index}></ItemCard>;
             })}
           </StyledItemsWrapper>
           <StyledRelatedItems>
@@ -38,7 +47,9 @@ const ItemsList: React.FC = () => {
           </StyledRelatedItems>
         </StyledItemsPage>
 
-        <Button outline>Load more items</Button>
+        <Button outline onClick={loadNextPage}>
+          Load more items
+        </Button>
       </StyledScrollBar>
     </>
   );
