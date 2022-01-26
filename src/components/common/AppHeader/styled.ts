@@ -31,6 +31,7 @@ export const StyledHeaderName = styled(NavLink)`
 export const StyledSearchField = styled(Flex)`
   height: 3rem;
   position: relative;
+  z-index: 2;
 `;
 
 export const StyledSearchInput = styled.input`

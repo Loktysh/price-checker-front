@@ -11,7 +11,7 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
-import { Product, ItemsData } from '../types';
+import { Product } from '../types';
 import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
 import { Link } from 'react-router-dom';
@@ -25,8 +25,6 @@ const AppHeader = () => {
 
   useEffect(() => {
     fetchProducts(API_LINK + debouncedSearch).then(data => {
-      console.log(data);
-      console.log(data.products);
       setSearchItems(data.products);
       setDropdown(true);
     });
@@ -38,6 +36,10 @@ const AppHeader = () => {
     }
   }, [inputValue]);
 
+  const toggleDropDown = (toggle: boolean) => {
+    if (inputValue.length) setDropdown(toggle);
+  };
+
   return (
     <StyledHeader justify='space-around'>
       <StyledHeaderName to='/'>
@@ -48,6 +50,8 @@ const AppHeader = () => {
           type='text'
           placeholder='Search products'
           onInput={(e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+          onFocus={() => toggleDropDown(true)}
+          onBlur={() => toggleDropDown(false)}
           value={inputValue}
         />
         <Link to={'/products/' + inputValue}>
