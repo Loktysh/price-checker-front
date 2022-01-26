@@ -50,7 +50,7 @@ const AppHeader = () => {
           onInput={(e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
           value={inputValue}
         />
-        <Link to={'/product/' + inputValue}>
+        <Link to={'/products/' + inputValue}>
           <StyledSearchButton color={COLOR_GREEN_100} onClick={() => setDropdown(false)}>
             Search!
           </StyledSearchButton>

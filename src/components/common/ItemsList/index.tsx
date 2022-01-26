@@ -8,18 +8,18 @@ import { Button, Flex, Grid } from '../../typography';
 import ItemCard from './ItemCard';
 
 const ItemsList: React.FC = () => {
-  const { id } = useParams();
+  const { query } = useParams();
 
   const [searchQuery, setSearchQuery] = useState<string | undefined>();
   const [foundItems, setFoundItems] = useState<Product[]>([]);
 
   useEffect(() => {
-    setSearchQuery(id);
-    fetchProducts(API_LINK + id).then(data => {
+    setSearchQuery(query);
+    fetchProducts(API_LINK + query).then(data => {
       setFoundItems(data.products);
       console.log(foundItems);
     });
-  }, [id]);
+  }, [query]);
 
   return (
     <>
@@ -28,15 +28,7 @@ const ItemsList: React.FC = () => {
         <StyledItemsWrapper columns='3' repeat gap='40px 20px'>
           {foundItems.map((elem, index) => {
             if (index < foundItems.length - 1) {
-              return (
-                <ItemCard
-                  key={elem.id}
-                  name={elem.name}
-                  desc={elem.extended_name}
-                  bgImage={elem.image}
-                  rating={elem.rating}
-                ></ItemCard>
-              );
+              return <ItemCard elem={elem}></ItemCard>;
             }
           })}
         </StyledItemsWrapper>
