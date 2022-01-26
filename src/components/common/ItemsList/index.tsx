@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyledHeading, StyledItemsPage, StyledItemsWrapper, StyledRelatedItems } from './styled';
+import { StyledHeading, StyledItemsPage, StyledItemsWrapper } from './styled';
 import { useParams } from 'react-router-dom';
 import { API_LINK } from '../constants';
 import { fetchProducts } from '../../../utils';
 import { Product } from '../types';
 import { Button, StyledScrollBar } from '../../typography';
 import ItemCard from './ItemCard';
+import { StyledHistoryPanel } from '../historyPanel/styled';
 
 const ItemsList: React.FC = () => {
   const { query } = useParams();
@@ -19,7 +20,7 @@ const ItemsList: React.FC = () => {
       setFoundItems(data.products);
       scrollToTop();
     });
-  }, [query]);
+  }, [query, currentPage]);
 
   const loadNextPage = () => {
     setCurrentPage(page => page + 1);
@@ -42,9 +43,7 @@ const ItemsList: React.FC = () => {
               return <ItemCard elem={elem} key={index}></ItemCard>;
             })}
           </StyledItemsWrapper>
-          <StyledRelatedItems>
-            <p>Related items</p>
-          </StyledRelatedItems>
+          <StyledHistoryPanel />
         </StyledItemsPage>
 
         <Button outline onClick={loadNextPage}>

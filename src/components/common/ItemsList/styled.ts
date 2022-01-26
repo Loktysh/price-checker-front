@@ -48,13 +48,3 @@ export const StyledItemName = styled.h3`
 export const StyledItemDescription = styled.p`
   margin: 1rem 2rem;
 `;
-
-export const StyledRelatedItems = styled.aside`
-  position: absolute;
-  padding: 3rem;
-  width: 24%;
-  height: 80vh;
-  right: 20px;
-  top: 0;
-  box-shadow: ${SHADOW_SMALL};
-`;
