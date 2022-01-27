@@ -1,10 +1,9 @@
-import { COLOR_YELLOW, COLOR_GRAY_300, COLOR_GRAY_100 } from './../constants/colors';
+import { COLOR_GRAY_300, COLOR_GRAY_100 } from './../constants/colors';
 import styled from 'styled-components';
 import { Button, Flex } from '../../typography';
 import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300 } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
 import { Link, NavLink } from 'react-router-dom';
-import { FaStar } from 'react-icons/fa';
 import { Image } from '../types';
 
 type Dropdown = {
