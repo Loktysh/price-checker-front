@@ -4,6 +4,7 @@ import ItemInfo from './common/ItemInfo';
 import { AboutPage, MainPage } from './pages';
 import ItemsPage from './pages/ItemsPage';
 import { LoginPage } from './pages/LoginPage';
+import ProductPage from './pages/ProductPage';
 import { SignupPage } from './pages/SignupPage';
 
 const App = () => {
@@ -16,7 +17,7 @@ const App = () => {
         </Route>
         <Route path='/about' element={<AboutPage />} />
         <Route path='/products/:query' element={<ItemsPage />} />
-        <Route path='/product/:id' element={<ItemInfo />} />
+        <Route path='/product/:id' element={<ProductPage />} />
       </Routes>
     </Router>
   );
