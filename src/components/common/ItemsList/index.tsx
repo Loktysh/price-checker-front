@@ -1,54 +1,77 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { StyledHeading, StyledItemsPage, StyledItemsWrapper } from './styled';
+import React, { FC, useState, useEffect, useRef } from 'react';
+import {
+  StyledHeading,
+  StyledItemContainer,
+  StyledItemsPage,
+  StyledItemsWrapper,
+  StyledLoadButton,
+} from './styled';
 import { useParams } from 'react-router-dom';
 import { API_LINK } from '../constants';
 import { fetchProducts } from '../../../utils';
 import { Product } from '../types';
-import { Button, StyledScrollBar } from '../../typography';
+import { StyledScrollBar } from '../../typography';
 import ItemCard from './ItemCard';
 import { StyledHistoryPanel } from '../historyPanel/styled';
+import { COLOR_GREEN_100 } from '../constants/colors';
+import spinner from '../../../assets/spinner.gif';
 
-const ItemsList: React.FC = () => {
+const ItemsList: FC<{
+  setCurrentPage: (value: number | ((prevVar: number) => number)) => void;
+  currentPage: number;
+}> = ({ setCurrentPage, currentPage }) => {
   const { query } = useParams();
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [foundItems, setFoundItems] = useState<Product[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const scrollRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
+    setLoading(true);
     fetchProducts(API_LINK + query + `&page=${currentPage}`).then(data => {
-      setFoundItems(data.products);
-      scrollToTop();
+      if (currentPage === 1) {
+        setFoundItems(data.products);
+        scrollToTop();
+      } else {
+        setFoundItems(prev => [...prev, ...data.products]);
+      }
+      setLoading(false);
     });
   }, [query, currentPage]);
-
-  const loadNextPage = () => {
-    setCurrentPage(page => page + 1);
-    fetchProducts(API_LINK + query + `&page=${currentPage}`).then(data => {
-      setFoundItems(items => [...items, ...data.products]);
-    });
-  };
 
   const scrollToTop = () => {
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
   };
 
+  console.log(loading);
+
   return (
     <>
       <StyledScrollBar>
-        <StyledHeading>Search results:</StyledHeading>
-        <StyledItemsPage>
-          <StyledItemsWrapper ref={scrollRef} gap='40px 20px' justifyItems='start'>
-            {foundItems.map((elem, index) => {
-              return <ItemCard elem={elem} key={index}></ItemCard>;
-            })}
-          </StyledItemsWrapper>
+        <StyledHeading>Search results for: {`'${query}'`}</StyledHeading>
+        <StyledItemsPage justify='flex-start'>
+          <StyledItemContainer direction='column'>
+            <StyledItemsWrapper
+              ref={scrollRef}
+              gap='40px 20px'
+              justifyItems='start'
+              repeat
+              columns='3'
+            >
+              {foundItems.map((elem, index) => {
+                return <ItemCard elem={elem} key={index}></ItemCard>;
+              })}
+            </StyledItemsWrapper>
+            <StyledLoadButton
+              color={COLOR_GREEN_100}
+              onClick={() => setCurrentPage(prev => prev + 1)}
+            >
+              {!loading ? 'Load more items' : <img src={spinner} height={25} />}
+            </StyledLoadButton>
+          </StyledItemContainer>
+
           <StyledHistoryPanel />
         </StyledItemsPage>
-
-        <Button outline onClick={loadNextPage}>
-          Load more items
-        </Button>
       </StyledScrollBar>
     </>
   );
