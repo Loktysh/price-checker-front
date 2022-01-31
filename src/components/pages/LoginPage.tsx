@@ -14,7 +14,7 @@ const AuthPageContainer = styled.div`
 
 export const LoginPage = () => {
   const handleSubmit = useCallback(async (params: AuthFormParams) => {
-    const response = await fetch('http://localhost:3001/login', {
+    const response = await fetch('https://pricecheckerapp.herokuapp.com/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -22,8 +22,9 @@ export const LoginPage = () => {
       body: JSON.stringify(params),
     });
     const result = await response.json();
-    console.log(result);
-    // console.log(params);
+
+    localStorage.setItem('token', JSON.stringify(result.token));
+    localStorage.setItem('renewToken', JSON.stringify(result.renewToken));
   }, []);
 
   return (
