@@ -7,7 +7,7 @@ import {
   StyledSearchDropdown,
   StyledDropdownItem,
 } from './styled';
-import React, { FC, useState, useEffect, ChangeEvent } from 'react';
+import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
@@ -36,9 +36,21 @@ const AppHeader: FC<{ setCurrentPage?: (value: number) => void }> = ({ setCurren
     }
   }, [inputValue]);
 
-  const toggleDropDown = (toggle: boolean) => {
-    if (inputValue.length) setDropdown(toggle);
-  };
+  const closeDropdownOnQuery = useCallback(() => {
+    setDropdown(false);
+    if (setCurrentPage) setCurrentPage(1);
+  }, [setCurrentPage]);
+
+  const openDropdown = useCallback(() => {
+    if (inputValue.length) setDropdown(true);
+  }, [inputValue.length]);
+
+  const setQueryValue = useCallback(
+    () => (e: ChangeEvent<HTMLInputElement>) => {
+      setInputValue(e.target.value);
+    },
+    [],
+  );
 
   return (
     <StyledHeader justify='space-around'>
@@ -49,18 +61,12 @@ const AppHeader: FC<{ setCurrentPage?: (value: number) => void }> = ({ setCurren
         <StyledSearchInput
           type='text'
           placeholder='Search products'
-          onInput={(e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
-          onFocus={() => toggleDropDown(true)}
+          onInput={setQueryValue}
+          onFocus={openDropdown}
           value={inputValue}
         />
         <Link to={'/products/' + inputValue}>
-          <StyledSearchButton
-            color={COLOR_GREEN_100}
-            onClick={() => {
-              setDropdown(false);
-              if (setCurrentPage) setCurrentPage(1);
-            }}
-          >
+          <StyledSearchButton color={COLOR_GREEN_100} onClick={closeDropdownOnQuery}>
             Search!
           </StyledSearchButton>
         </Link>
