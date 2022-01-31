@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ItemInfo from './common/ItemInfo';
 import { AboutPage, MainPage } from './pages';
 import ItemsPage from './pages/ItemsPage';
 import { LoginPage } from './pages/LoginPage';

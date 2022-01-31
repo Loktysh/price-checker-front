@@ -43,8 +43,6 @@ const ItemsList: FC<{
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
   };
 
-  console.log(loading);
-
   return (
     <>
       <StyledScrollBar>
@@ -58,8 +56,8 @@ const ItemsList: FC<{
               repeat
               columns='3'
             >
-              {foundItems.map((elem, index) => {
-                return <ItemCard elem={elem} key={index}></ItemCard>;
+              {foundItems.map((item, index) => {
+                return <ItemCard item={item} key={index}></ItemCard>;
               })}
             </StyledItemsWrapper>
             <StyledLoadButton
