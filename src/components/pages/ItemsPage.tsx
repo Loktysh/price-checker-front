@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AppHeader from '../common/AppHeader';
 import ItemsList from '../common/ItemsList';
 
 const ItemsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    console.log(currentPage);
-  }, [currentPage]);
 
   return (
     <>
