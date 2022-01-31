@@ -34,6 +34,12 @@ type GridElementStyling = {
   alignSelf?: string;
 };
 
+type ButtonStyling = {
+  outline?: boolean;
+  color?: string;
+  textColor?: string;
+};
+
 export const Flex = styled.div<FlexStyling>`
   display: flex;
   justify-content: ${props => props.justify || 'center'};
@@ -66,4 +72,11 @@ export const Grid = styled.div<GridStyling>`
 export const GridElement = styled.div<GridElementStyling>`
   grid-row: ${props => props.row || 'auto auto'};
   grid-column: ${props => props.column || 'auto auto'};
+`;
+
+export const Button = styled.button<ButtonStyling>`
+  background-color: ${props =>
+    props.outline ? 'transparent' : props.color ? props.color : 'black'};
+  border-color: ${props => (props.outline ? (props.color ? props.color : 'black') : 'transparent')};
+  color: ${props => (props.textColor ? props.textColor : props.outline ? 'black' : 'white')};
 `;
