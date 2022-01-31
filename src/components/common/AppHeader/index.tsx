@@ -8,12 +8,12 @@ import {
   StyledDropdownItem,
 } from './styled';
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
+import { COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
 import { Product, ItemsData } from '../types';
 import ProductElement from './ProductElement';
-import { StyledAccountButton } from './styled';
+import { StyledAccountLink } from './styled';
 
 const AppHeader = () => {
   const [inputValue, setInputValue] = useState<string>('');
@@ -61,9 +61,7 @@ const AppHeader = () => {
           )}
         </StyledSearchDropdown>
       </StyledSearchField>
-      <StyledAccountButton outline textColor={COLOR_GRAY_300}>
-        Log in
-      </StyledAccountButton>
+      <StyledAccountLink to='/login'>Log in</StyledAccountLink>
     </StyledHeader>
   );
 };
