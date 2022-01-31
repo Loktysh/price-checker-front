@@ -13,8 +13,17 @@ const AuthPageContainer = styled.div`
 `;
 
 export const LoginPage = () => {
-  const handleSubmit = useCallback((params: AuthFormParams) => {
-    JSON.stringify(params);
+  const handleSubmit = useCallback(async (params: AuthFormParams) => {
+    const response = await fetch('http://localhost:3001/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(params),
+    });
+    const result = await response.json();
+    console.log(result);
+    // console.log(params);
   }, []);
 
   return (

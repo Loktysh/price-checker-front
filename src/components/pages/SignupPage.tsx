@@ -13,8 +13,17 @@ const AuthPageContainer = styled.div`
 `;
 
 export const SignupPage = () => {
-  const handleSubmit = useCallback((params: AuthFormParams) => {
-    JSON.stringify(params);
+  const handleSubmit = useCallback(async (params: AuthFormParams) => {
+    const response = await fetch('http://localhost:3001/registration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(params),
+    });
+
+    const result = await response.text();
+    console.log(result);
   }, []);
 
   return (

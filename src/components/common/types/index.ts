@@ -3,6 +3,6 @@
 export type Something = number | string;
 
 export interface AuthFormParams {
-  username: string;
+  login: string;
   password: string;
 }
