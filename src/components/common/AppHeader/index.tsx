@@ -23,7 +23,8 @@ const AppHeader = () => {
 
   useEffect(() => {
     const fetchProducts = async (): Promise<ItemsData> => {
-      const res: Response = await fetch(API_LINK + debouncedSearch);
+      const url = API_LINK + 'products?query=';
+      const res: Response = await fetch(url + debouncedSearch);
       const data: ItemsData = await res.json();
       return data;
     };
