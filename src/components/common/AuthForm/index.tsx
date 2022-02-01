@@ -17,7 +17,7 @@ import {
 
 interface AuthFormProps {
   type: 'login' | 'signup';
-  onAuthSubmit: (params: AuthFormParams) => void;
+  onAuthSubmit: (params: AuthFormParams, type: string) => void;
 }
 
 export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
@@ -29,7 +29,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
     mode: 'onBlur',
   });
   const onSubmit: SubmitHandler<AuthFormParams> = data => {
-    onAuthSubmit(data);
+    onAuthSubmit(data, type);
   };
 
   const navLink = useMemo(
