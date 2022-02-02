@@ -17,7 +17,11 @@ import { StyledAccountButton } from './styled';
 import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../../utils';
 
-const AppHeader: FC<{ setCurrentPage?: (value: number) => void }> = ({ setCurrentPage }) => {
+type HeaderProps = {
+  setCurrentPage?: (value: number) => void;
+};
+
+const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [searchItems, setSearchItems] = useState<Product[]>([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
@@ -45,13 +49,6 @@ const AppHeader: FC<{ setCurrentPage?: (value: number) => void }> = ({ setCurren
     if (inputValue.length) setDropdown(true);
   }, [inputValue.length]);
 
-  const setQueryValue = useCallback(
-    () => (e: ChangeEvent<HTMLInputElement>) => {
-      setInputValue(e.target.value);
-    },
-    [],
-  );
-
   return (
     <StyledHeader justify='space-around'>
       <StyledHeaderName to='/'>
@@ -61,7 +58,7 @@ const AppHeader: FC<{ setCurrentPage?: (value: number) => void }> = ({ setCurren
         <StyledSearchInput
           type='text'
           placeholder='Search products'
-          onInput={setQueryValue}
+          onInput={(e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
           onFocus={openDropdown}
           value={inputValue}
         />
@@ -79,9 +76,11 @@ const AppHeader: FC<{ setCurrentPage?: (value: number) => void }> = ({ setCurren
           )}
         </StyledSearchDropdown>
       </StyledSearchField>
-      <StyledAccountButton outline textColor={COLOR_GRAY_300}>
-        Log in
-      </StyledAccountButton>
+      <Link to={'/login'}>
+        <StyledAccountButton outline textColor={COLOR_GRAY_300}>
+          Log in
+        </StyledAccountButton>
+      </Link>
     </StyledHeader>
   );
 };
