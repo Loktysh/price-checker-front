@@ -2,8 +2,7 @@ import { API_LINK } from '../constants';
 import { AuthFormParams } from '../types';
 
 export const handleAuthSubmit = async (params: AuthFormParams, type: string) => {
-  let url = API_LINK;
-  type === 'login' ? (url += 'login') : (url += 'registration');
+  const url = API_LINK + (type === 'login' ? 'login' : 'registration');
   const response = await fetch(url, {
     method: 'POST',
     headers: {
