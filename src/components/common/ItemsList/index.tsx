@@ -16,10 +16,12 @@ import { StyledHistoryPanel } from '../historyPanel/styled';
 import { COLOR_GREEN_100 } from '../constants/colors';
 import spinner from '../../../assets/spinner.gif';
 
-const ItemsList: FC<{
+type ItemsProps = {
   setCurrentPage: (value: number | ((prevVar: number) => number)) => void;
   currentPage: number;
-}> = ({ setCurrentPage, currentPage }) => {
+};
+
+const ItemsList: FC<ItemsProps> = ({ setCurrentPage, currentPage }) => {
   const { query } = useParams();
 
   const [loading, setLoading] = useState<boolean>(false);
