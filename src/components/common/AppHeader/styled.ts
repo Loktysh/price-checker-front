@@ -1,21 +1,13 @@
-import { COLOR_YELLOW, COLOR_GRAY_300 } from './../constants/colors';
+import { COLOR_GRAY_300, COLOR_GRAY_100 } from './../constants/colors';
 import styled from 'styled-components';
 import { Button, Flex } from '../../typography';
 import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300, COLOR_BLACK } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
 import { Link, NavLink } from 'react-router-dom';
-import { FaStar } from 'react-icons/fa';
+import { Image } from '../types';
 
 type Dropdown = {
   visible: boolean;
-};
-
-type Image = {
-  bgImage: string;
-};
-
-type Star = {
-  enabled: boolean;
 };
 
 export const StyledHeader = styled(Flex)`
@@ -38,6 +30,7 @@ export const StyledHeaderName = styled(NavLink)`
 export const StyledSearchField = styled(Flex)`
   height: 3rem;
   position: relative;
+  z-index: 2;
 `;
 
 export const StyledSearchInput = styled.input`
@@ -49,16 +42,19 @@ export const StyledSearchInput = styled.input`
 `;
 
 export const StyledSearchButton = styled(Button)`
-  height: 100%;
+  height: 3rem;
   font-size: 1.5rem;
   padding: 1.5rem;
   vertical-align: middle;
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    background-color: ${COLOR_GREEN_300};
+  }
 `;
 
-export const StyledAccountLink = styled(Link)`
+export const StyledAccountButton = styled(Button)`
   text-decoration: none;
   color: ${COLOR_GRAY_300};
   font-size: 1.5rem;
@@ -79,15 +75,17 @@ export const StyledSearchDropdown = styled(Flex)<Dropdown>`
   background-color: ${COLOR_WHITE};
   display: ${props => (props.visible ? 'block' : 'none')};
   overflow-y: auto;
-  padding-left: 8rem;
 `;
 
 export const StyledDropdownItem = styled(Flex)`
   width: 100%;
   min-height: 12rem;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   padding: 2rem;
   flex-shrink: 0;
+  &:hover {
+    background-color: ${COLOR_GRAY_100};
+  }
 `;
 
 export const StyledDropdownImage = styled.div<Image>`
@@ -108,13 +106,7 @@ export const StyledItemLink = styled(Link)`
   color: ${COLOR_GRAY_300};
 `;
 
-export const StyledStar = styled(FaStar)<Star>`
-  height: 20px;
-  width: 20px;
-  margin: 0 0.2rem;
-  color: ${props => (props.enabled ? COLOR_YELLOW : COLOR_GRAY_300)};
-`;
-
-export const StyledStarContainer = styled(Flex)`
-  margin-left: 1rem;
+export const StyledRating = styled.p`
+  margin-right: 2rem;
+  font-weight: bold;
 `;
