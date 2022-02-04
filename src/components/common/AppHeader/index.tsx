@@ -28,7 +28,8 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
   const debouncedSearch = useDebounce(inputValue, 600);
 
   useEffect(() => {
-    fetchProducts(API_LINK + debouncedSearch).then(data => {
+    const url = API_LINK + 'products?query=';
+    fetchProducts(url + debouncedSearch).then(data => {
       setSearchItems(data.products);
       setDropdown(true);
     });

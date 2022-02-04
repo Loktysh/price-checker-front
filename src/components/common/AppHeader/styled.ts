@@ -1,7 +1,7 @@
 import { COLOR_GRAY_300, COLOR_GRAY_100 } from './../constants/colors';
 import styled from 'styled-components';
 import { Button, Flex } from '../../typography';
-import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300 } from '../constants/colors';
+import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300, COLOR_BLACK } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
 import { Link, NavLink } from 'react-router-dom';
 import { Image } from '../types';
@@ -55,12 +55,15 @@ export const StyledSearchButton = styled(Button)`
 `;
 
 export const StyledAccountButton = styled(Button)`
+  text-decoration: none;
+  color: ${COLOR_GRAY_300};
   font-size: 1.5rem;
   padding: 1.5rem;
   height: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: solid 2px ${COLOR_BLACK};
 `;
 
 export const StyledSearchDropdown = styled(Flex)<Dropdown>`
