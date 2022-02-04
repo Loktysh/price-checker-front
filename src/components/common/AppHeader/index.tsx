@@ -7,19 +7,27 @@ import {
   StyledSearchDropdown,
   StyledDropdownItem,
 } from './styled';
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { FC, useState, useEffect, ChangeEvent } from 'react';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
 import { Product, ItemsData } from '../types';
 import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
+import { connect } from 'react-redux';
 
-const AppHeader = () => {
+type IState = {
+  logged: boolean;
+  login: string;
+};
+
+const AppHeader: FC<IState> = ({ logged, login }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [searchItems, setSearchItems] = useState<Product[]>([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
   const debouncedSearch = useDebounce(inputValue, 600);
+
+  console.log(login);
 
   useEffect(() => {
     const fetchProducts = async (): Promise<ItemsData> => {
@@ -62,10 +70,17 @@ const AppHeader = () => {
         </StyledSearchDropdown>
       </StyledSearchField>
       <StyledAccountButton outline textColor={COLOR_GRAY_300}>
-        Log in
+        {login}
       </StyledAccountButton>
     </StyledHeader>
   );
 };
 
-export default AppHeader;
+const mapState = (state: IState) => {
+  return {
+    logged: state.logged,
+    login: state.login,
+  };
+};
+
+export default connect(mapState)(AppHeader);
