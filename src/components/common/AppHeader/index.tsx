@@ -7,11 +7,11 @@ import {
   StyledSearchDropdown,
   StyledDropdownItem,
 } from './styled';
-import React, { FC, useState, useEffect, ChangeEvent, useCallback } from 'react';
+import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
-import { Product, ItemsData } from '../types';
+import { Product } from '../types';
 import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
 import { connect } from 'react-redux';
@@ -23,6 +23,14 @@ type IState = {
 };
 
 const AppHeader: FC<IState> = ({ logged, login }) => {
+import { Link } from 'react-router-dom';
+import { fetchProducts } from '../../../utils';
+
+type HeaderProps = {
+  setCurrentPage?: (value: number) => void;
+};
+
+const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [searchItems, setSearchItems] = useState<Product[]>([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
@@ -30,13 +38,8 @@ const AppHeader: FC<IState> = ({ logged, login }) => {
   const debouncedSearch = useDebounce(inputValue, 600);
 
   useEffect(() => {
-    const fetchProducts = async (): Promise<ItemsData> => {
-      const res: Response = await fetch(API_LINK + debouncedSearch);
-      const data: ItemsData = await res.json();
-      return data;
-    };
-
-    fetchProducts().then(data => {
+    const url = API_LINK + 'products?query=';
+    fetchProducts(url + debouncedSearch).then(data => {
       setSearchItems(data.products);
       setDropdown(true);
     });
@@ -53,6 +56,14 @@ const AppHeader: FC<IState> = ({ logged, login }) => {
       setLoginDropdown(prevState => !prevState);
     }
   }, [logged]);
+  const closeDropdownOnQuery = useCallback(() => {
+    setDropdown(false);
+    if (setCurrentPage) setCurrentPage(1);
+  }, [setCurrentPage]);
+
+  const openDropdown = useCallback(() => {
+    if (inputValue.length) setDropdown(true);
+  }, [inputValue.length]);
 
   return (
     <StyledHeader justify='space-around'>
@@ -64,9 +75,15 @@ const AppHeader: FC<IState> = ({ logged, login }) => {
           type='text'
           placeholder='Search products'
           onInput={(e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+          onFocus={openDropdown}
           value={inputValue}
         />
-        <StyledSearchButton color={COLOR_GREEN_100}>Search!</StyledSearchButton>
+        <Link to={'/products/' + inputValue}>
+          <StyledSearchButton color={COLOR_GREEN_100} onClick={closeDropdownOnQuery}>
+            Search!
+          </StyledSearchButton>
+        </Link>
+
         <StyledSearchDropdown visible={dropDown} direction='column'>
           {searchItems.length > 0 ? (
             searchItems.map((item: Product) => <ProductElement key={item.id} item={item} />)
@@ -79,6 +96,11 @@ const AppHeader: FC<IState> = ({ logged, login }) => {
         {logged ? login : 'Log in'}
         {loginDropdown ? <LoginDropdown /> : null}
       </StyledAccountButton>
+      <Link to={'/login'}>
+        <StyledAccountButton outline textColor={COLOR_GRAY_300}>
+          Log in
+        </StyledAccountButton>
+      </Link>
     </StyledHeader>
   );
 };

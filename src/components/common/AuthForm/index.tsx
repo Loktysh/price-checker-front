@@ -17,7 +17,7 @@ import {
 
 interface AuthFormProps {
   type: 'login' | 'signup';
-  onAuthSubmit: (params: AuthFormParams) => void;
+  onAuthSubmit: (params: AuthFormParams, type: string) => void;
 }
 
 export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
@@ -29,7 +29,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
     mode: 'onBlur',
   });
   const onSubmit: SubmitHandler<AuthFormParams> = data => {
-    onAuthSubmit(data);
+    onAuthSubmit(data, type);
   };
 
   const navLink = useMemo(
@@ -44,16 +44,16 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
   );
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+    <StyledForm onSubmit={handleSubmit(onSubmit)} method='POST'>
       <Flex direction='column' gap='3rem'>
         <FormTitle>{type === 'login' ? 'LOGIN' : 'SIGN UP'}</FormTitle>
         <StyledInput
           id='login'
           type='text'
           placeholder='Username'
-          {...register('username', { required: true, minLength: 4 })}
+          {...register('login', { required: true, minLength: 4 })}
         />
-        {errors.username && (
+        {errors.login && (
           <StyledErrorMessage>Username must have at least 4 characters!</StyledErrorMessage>
         )}
         <StyledInput
