@@ -16,21 +16,34 @@ import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
 import { connect } from 'react-redux';
 import LoginDropdown from './LoginDropdown';
+import { Link } from 'react-router-dom';
+import { fetchProducts } from '../../../utils';
 
 type IState = {
   logged: boolean;
   login: string;
 };
 
-const AppHeader: FC<IState> = ({ logged, login }) => {
-import { Link } from 'react-router-dom';
-import { fetchProducts } from '../../../utils';
+type ILoginLink = {
+  isLinkEnabled: boolean;
+  children: JSX.Element;
+};
 
 type HeaderProps = {
   setCurrentPage?: (value: number) => void;
+  logged: boolean;
+  login: string;
 };
 
-const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
+const ConditionalLoginLink: FC<ILoginLink> = ({ isLinkEnabled, children }) => {
+  if (!isLinkEnabled) {
+    return <Link to={'/login'}>{children}</Link>;
+  } else {
+    return children;
+  }
+};
+
+const AppHeader: FC<HeaderProps> = ({ setCurrentPage, logged, login }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [searchItems, setSearchItems] = useState<Product[]>([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
@@ -56,6 +69,7 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
       setLoginDropdown(prevState => !prevState);
     }
   }, [logged]);
+
   const closeDropdownOnQuery = useCallback(() => {
     setDropdown(false);
     if (setCurrentPage) setCurrentPage(1);
@@ -92,15 +106,12 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
           )}
         </StyledSearchDropdown>
       </StyledSearchField>
-      <StyledAccountButton outline onClick={openLoginDropdown} textColor={COLOR_GRAY_300}>
-        {logged ? login : 'Log in'}
-        {loginDropdown ? <LoginDropdown /> : null}
-      </StyledAccountButton>
-      <Link to={'/login'}>
-        <StyledAccountButton outline textColor={COLOR_GRAY_300}>
-          Log in
+      <ConditionalLoginLink isLinkEnabled={logged}>
+        <StyledAccountButton outline onClick={openLoginDropdown} textColor={COLOR_GRAY_300}>
+          {logged ? login : 'Log in'}
+          {loginDropdown ? <LoginDropdown /> : null}
         </StyledAccountButton>
-      </Link>
+      </ConditionalLoginLink>
     </StyledHeader>
   );
 };
