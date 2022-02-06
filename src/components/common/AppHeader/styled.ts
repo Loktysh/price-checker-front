@@ -15,7 +15,7 @@ type Image = {
 };
 
 type Star = {
-  enabled: boolean;
+  enabled: boolean | string;
 };
 
 export const StyledHeader = styled(Flex)`
@@ -65,6 +65,7 @@ export const StyledAccountButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 export const StyledSearchDropdown = styled(Flex)<Dropdown>`
@@ -114,4 +115,13 @@ export const StyledStar = styled(FaStar)<Star>`
 
 export const StyledStarContainer = styled(Flex)`
   margin-left: 1rem;
+`;
+
+export const StyledLoginDropdown = styled(Flex)`
+  height: 50px;
+  width: 100%;
+  top: 150%;
+  background-color: ${COLOR_WHITE};
+  position: absolute;
+  box-shadow: ${SHADOW_SMALL};
 `;

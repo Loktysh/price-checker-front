@@ -24,7 +24,7 @@ const ProductElement: FC<{ item: Product }> = ({ item }) => {
             <h3>{item.name}</h3>
             <StyledStarContainer direction='row'>
               {ratingArr.map((elem, index) => (
-                <StyledStar enabled={elem} key={index} />
+                <StyledStar enabled={elem.toString()} key={index} />
               ))}
             </StyledStarContainer>
           </Flex>
