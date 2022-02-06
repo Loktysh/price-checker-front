@@ -4,7 +4,6 @@ import { Button, Flex } from '../../typography';
 import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300, COLOR_BLACK } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
 import { Link, NavLink } from 'react-router-dom';
-import { Image } from '../types';
 
 type Dropdown = {
   visible: boolean;
@@ -12,10 +11,6 @@ type Dropdown = {
 
 type Image = {
   bgImage: string;
-};
-
-type Star = {
-  enabled: boolean | string;
 };
 
 export const StyledHeader = styled(Flex)`
