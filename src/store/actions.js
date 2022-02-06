@@ -1,12 +1,5 @@
-export const loginUser = () => {
-  return {
-    type: 'LOGIN',
-  };
-};
+import { createAction } from '@reduxjs/toolkit';
 
-export const setLogin = value => {
-  return {
-    type: 'SET_LOGIN',
-    payload: value,
-  };
-};
+export const loginUser = createAction('LOGIN');
+
+export const setLogin = createAction('SET_LOGIN');
