@@ -23,3 +23,9 @@ export interface AuthFormParams {
   login: string;
   password: string;
 }
+
+export type IState = {
+  logged: boolean;
+  login: string;
+  bearerToken: string;
+};

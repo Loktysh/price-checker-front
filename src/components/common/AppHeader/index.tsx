@@ -11,18 +11,13 @@ import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react'
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
-import { Product } from '../types';
+import { IState, Product } from '../types';
 import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
 import { connect } from 'react-redux';
 import LoginDropdown from './LoginDropdown';
 import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../../utils';
-
-type IState = {
-  logged: boolean;
-  login: string;
-};
 
 type ILoginLink = {
   isLinkEnabled: boolean;

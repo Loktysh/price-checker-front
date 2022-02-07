@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react';
+import { connect } from 'react-redux';
 import { getProductRating } from '../../../utils';
 import { Flex, StyledItemLink, StyledStar } from '../../typography';
-import { Product } from '../types';
+import { IState, Product } from '../types';
 import {
   StyledItemCard,
   StyledItemImage,
@@ -13,13 +14,14 @@ import {
   AddButton,
 } from './styled';
 
-const ItemCard: FC<{ item: Product }> = ({ item }) => {
+const ItemCard: FC<{ item: Product } & { token: string }> = ({ item, token }) => {
   const { image, extended_name, rating, id, price_min } = item;
   const [ratingArr, itemRating] = getProductRating(rating);
   const [isTracked, setIsTracked] = useState<boolean>(false);
 
   const handleTrackClick = () => {
     // TODO: implement add to tracked list
+    console.log(`Bearer ${token}`);
     setIsTracked(prev => !prev);
   };
 
@@ -46,4 +48,10 @@ const ItemCard: FC<{ item: Product }> = ({ item }) => {
   );
 };
 
-export default ItemCard;
+const mapState = (state: IState) => {
+  return {
+    token: state.bearerToken,
+  };
+};
+
+export default connect(mapState)(ItemCard);
