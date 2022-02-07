@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { getProductRating } from '../../../utils';
-import { Flex, StyledStar } from '../../typography';
+import { Flex, StyledItemLink, StyledStar } from '../../typography';
 import { Product } from '../types';
-import { StyledDropdownItem, StyledDropdownImage, StyledItemLink, StyledRating } from './styled';
+import { StyledDropdownItem, StyledDropdownImage, StyledRating } from './styled';
 
 const ProductElement: FC<{ item: Product }> = ({ item }) => {
   const [ratingArr, itemRating] = getProductRating(item.rating);

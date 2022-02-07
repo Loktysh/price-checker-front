@@ -30,7 +30,7 @@ const ItemsList: FC<ItemsProps> = ({ setCurrentPage, currentPage }) => {
 
   useEffect(() => {
     setLoading(true);
-    fetchProducts(API_LINK + query + `&page=${currentPage}`).then(data => {
+    fetchProducts(API_LINK + `products?page=${currentPage}&query=${query}`).then(data => {
       if (currentPage === 1) {
         setFoundItems(data.products);
         scrollToTop();

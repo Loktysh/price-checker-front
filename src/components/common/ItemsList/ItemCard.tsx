@@ -1,26 +1,48 @@
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC, useState } from 'react';
 import { getProductRating } from '../../../utils';
-import { StyledStar } from '../../typography';
+import { Flex, StyledItemLink, StyledStar } from '../../typography';
 import { Product } from '../types';
-import { StyledItemCard, StyledItemDescription, StyledItemImage, StyledItemName } from './styled';
+import {
+  StyledItemCard,
+  StyledItemImage,
+  StyledItemName,
+  StyledItemPrice,
+  StyledItemRating,
+  StyledTrackButton,
+  RemoveButton,
+  AddButton,
+} from './styled';
 
 const ItemCard: FC<{ item: Product }> = ({ item }) => {
-  const { image, name, description, rating, id } = item;
+  const { image, extended_name, rating, id, price_min } = item;
   const [ratingArr, itemRating] = getProductRating(rating);
+  const [isTracked, setIsTracked] = useState<boolean>(false);
+
+  const handleTrackClick = () => {
+    // TODO: implement add to tracked list
+    setIsTracked(prev => !prev);
+  };
 
   return (
-    <Link to={'/product/' + id}>
-      <StyledItemCard>
-        <StyledItemImage bgImage={image}></StyledItemImage>
-        <StyledItemName>{name}</StyledItemName>
-        <StyledItemDescription>{description}</StyledItemDescription>
-        <div>{itemRating}.0</div>
+    <StyledItemCard>
+      <StyledItemImage bgImage={image}>
+        <StyledTrackButton onClick={handleTrackClick}>
+          {isTracked ? <RemoveButton /> : <AddButton />}
+        </StyledTrackButton>
+      </StyledItemImage>
+      <Flex justify='space-between'>
+        <StyledItemLink to={'/product/' + id}>
+          <StyledItemName>{extended_name}</StyledItemName>
+          <StyledItemPrice>От {price_min} BYN</StyledItemPrice>
+        </StyledItemLink>
+      </Flex>
+      <Flex justify='flex-start' alignItems='center'>
+        <StyledItemRating>Оценка: {itemRating}.0</StyledItemRating>
         {ratingArr.map((elem, index) => {
           return <StyledStar enabled={elem.toString()} key={index}></StyledStar>;
         })}
-      </StyledItemCard>
-    </Link>
+      </Flex>
+    </StyledItemCard>
   );
 };
 
