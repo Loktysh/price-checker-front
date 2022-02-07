@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import styled from 'styled-components';
 import { AuthForm } from '../common/AuthForm';
@@ -13,9 +13,15 @@ const AuthPageContainer = styled.div`
 `;
 
 export const SignupPage = () => {
+  const [authError, setAuthError] = useState('');
+
+  const onAuthSubmit = useCallback((params, type) => {
+    handleAuthSubmit(params, type).catch(err => setAuthError(err.message));
+  }, []);
+
   return (
     <AuthPageContainer>
-      <AuthForm type='signup' onAuthSubmit={handleAuthSubmit} />
+      <AuthForm type='signup' onAuthSubmit={onAuthSubmit} authError={authError} />
     </AuthPageContainer>
   );
 };

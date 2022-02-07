@@ -20,6 +20,10 @@ export const handleAuthSubmit = async (params: AuthFormParams, type: string): Pr
     body: JSON.stringify(params),
   });
 
+  if (response.status !== 200) {
+    const errorMsg = type === 'signup' ? 'User already exists!' : 'Wrong username or password!';
+    throw new Error(errorMsg);
+  }
   const result: AuthorizationResponse = await response.json();
 
   const savedToken: string | null = localStorage.getItem('token');

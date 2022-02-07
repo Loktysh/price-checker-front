@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Flex } from '../../typography';
 import { AuthFormParams } from '../types';
 import {
+  AuthError,
   BasicReactRouterLink,
   FormTitle,
   OptionalStyledDiv,
@@ -18,9 +19,10 @@ import {
 interface AuthFormProps {
   type: 'login' | 'signup';
   onAuthSubmit: (params: AuthFormParams, type: string) => void;
+  authError: string;
 }
 
-export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
+export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit, authError }) => {
   const {
     register,
     handleSubmit,
@@ -47,6 +49,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
     <StyledForm onSubmit={handleSubmit(onSubmit)} method='POST'>
       <Flex direction='column' gap='3rem'>
         <FormTitle>{type === 'login' ? 'LOGIN' : 'SIGN UP'}</FormTitle>
+        <AuthError>{authError}</AuthError>
         <StyledInput
           id='login'
           type='text'
