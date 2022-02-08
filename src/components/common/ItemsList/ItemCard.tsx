@@ -19,10 +19,25 @@ const ItemCard: FC<{ item: Product } & { token: string }> = ({ item, token }) =>
   const [ratingArr, itemRating] = getProductRating(rating);
   const [isTracked, setIsTracked] = useState<boolean>(false);
 
-  const handleTrackClick = () => {
+  const handleTrackClick = async () => {
     // TODO: implement add to tracked list
     console.log(`Bearer ${token}`);
+    token = JSON.parse(localStorage.getItem('token') as string);
+    const renewToken = JSON.parse(localStorage.getItem('renewToken') as string);
+    const action = isTracked ? 'untrack' : 'track';
+    const params = { product: item.id, action: action };
     setIsTracked(prev => !prev);
+    const url = `http://localhost:3001/products/track`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Bearer ${token + ' ' + renewToken}`,
+      },
+      body: JSON.stringify(params),
+    });
+    const result = await response.json();
+    console.log(result);
   };
 
   return (
