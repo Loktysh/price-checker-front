@@ -21,7 +21,6 @@ export const handleAuthSubmit = async (params: AuthFormParams, type: string): Pr
   });
 
   const result: AuthorizationResponse = await response.json();
-  console.log(result);
   const savedToken: string | null = localStorage.getItem('token');
   const savedRenewToken: string | null = localStorage.getItem('renewToken');
 

@@ -27,6 +27,7 @@ const ItemCard: FC<{ item: Product } & { token: string }> = ({ item, token }) =>
     const action = isTracked ? 'untrack' : 'track';
     const params = { product: item.id, action: action };
     setIsTracked(prev => !prev);
+    // https://pricecheckerapp.herokuapp.com/products/track
     const url = `http://localhost:3001/products/track`;
     const response = await fetch(url, {
       method: 'POST',
