@@ -18,6 +18,7 @@ export const StyledHeader = styled(Flex)`
   min-height: 85px;
   width: 100%;
   box-shadow: ${SHADOW_SMALL};
+  padding: 0 10rem;
 `;
 
 export const StyledHeaderName = styled(NavLink)`
@@ -55,6 +56,20 @@ export const StyledSearchButton = styled(Button)`
   &:hover {
     background-color: ${COLOR_GREEN_300};
   }
+`;
+
+export const StyledHistoryButton = styled(Button)`
+  text-decoration: none;
+  color: ${COLOR_GRAY_300};
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: solid 2px ${COLOR_BLACK};
+  margin-right: 20px;
 `;
 
 export const StyledAccountButton = styled(Button)`

@@ -6,6 +6,7 @@ import {
   StyledSearchInput,
   StyledSearchDropdown,
   StyledDropdownItem,
+  StyledHistoryButton,
 } from './styled';
 import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
@@ -18,6 +19,7 @@ import { connect } from 'react-redux';
 import LoginDropdown from './LoginDropdown';
 import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../../utils';
+import { Button } from '../../typography';
 
 type ILoginLink = {
   isLinkEnabled: boolean;
@@ -26,6 +28,7 @@ type ILoginLink = {
 
 type HeaderProps = {
   setCurrentPage?: (value: number) => void;
+  setHistoryOpen?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
   logged: boolean;
   login: string;
 };
@@ -38,7 +41,7 @@ const ConditionalLoginLink: FC<ILoginLink> = ({ isLinkEnabled, children }) => {
   }
 };
 
-const AppHeader: FC<HeaderProps> = ({ setCurrentPage, logged, login }) => {
+const AppHeader: FC<HeaderProps> = ({ setHistoryOpen, setCurrentPage, logged, login }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [searchItems, setSearchItems] = useState<Product[]>([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
@@ -75,7 +78,7 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage, logged, login }) => {
   }, [inputValue.length]);
 
   return (
-    <StyledHeader justify='space-around'>
+    <StyledHeader as='header' justify='space-around'>
       <StyledHeaderName to='/'>
         <h1>PRICE CHECKER</h1>
       </StyledHeaderName>
@@ -101,6 +104,11 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage, logged, login }) => {
           )}
         </StyledSearchDropdown>
       </StyledSearchField>
+      {logged && setHistoryOpen ? (
+        <StyledHistoryButton outline onClick={() => setHistoryOpen(prev => !prev)}>
+          Show history
+        </StyledHistoryButton>
+      ) : null}
       <ConditionalLoginLink isLinkEnabled={logged}>
         <StyledAccountButton outline onClick={openLoginDropdown} textColor={COLOR_GRAY_300}>
           {logged ? login : 'Log in'}

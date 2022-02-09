@@ -56,7 +56,7 @@ const ItemsList: FC<ItemsProps> = ({ setCurrentPage, currentPage }) => {
               gap='40px 20px'
               justifyItems='start'
               repeat
-              columns='3'
+              columns='4'
             >
               {foundItems.map((item, index) => {
                 return <ItemCard item={item} key={index}></ItemCard>;
@@ -69,8 +69,6 @@ const ItemsList: FC<ItemsProps> = ({ setCurrentPage, currentPage }) => {
               {!loading ? 'Load more items' : <img src={spinner} height={25} />}
             </StyledLoadButton>
           </StyledItemContainer>
-
-          <StyledHistoryPanel />
         </StyledItemsPage>
       </StyledScrollBar>
     </>

@@ -28,7 +28,7 @@ export const StyledItemsPage = styled(Flex)`
 `;
 
 export const StyledItemContainer = styled(Flex)`
-  width: 75%;
+  width: 100%;
   height: 80vh;
 `;
 
@@ -38,7 +38,6 @@ export const StyledItemsWrapper = styled(Grid)`
   height: 100%;
   margin-left: 0;
   overflow-y: auto;
-  direction: rtl;
 `;
 
 export const StyledItemImage = styled.div<Image>`
