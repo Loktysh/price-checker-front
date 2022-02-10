@@ -25,6 +25,10 @@ export const StyledHeaderName = styled(NavLink)`
     color: ${COLOR_GREEN_300};
     transition: 0.1s ease;
   }
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const StyledSearchField = styled(Flex)`
@@ -39,6 +43,14 @@ export const StyledSearchInput = styled.input`
   font-size: 1.5rem;
   padding: 1.5rem;
   margin-right: 1rem;
+
+  @media (max-width: 768px) {
+    width: 300px;
+  }
+
+  @media (max-width: 450px) {
+    width: 75%;
+  }
 `;
 
 export const StyledSearchButton = styled(Button)`
@@ -49,8 +61,20 @@ export const StyledSearchButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid transparent;
+  border-radius: 2px;
   &:hover {
     background-color: ${COLOR_GREEN_300};
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 450px) {
+    padding: 1.5rem 0.6rem;
+    font-size: 1.2rem;
   }
 `;
 
@@ -63,7 +87,18 @@ export const StyledAccountButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid 2px ${COLOR_BLACK};
+  border: solid 1px ${COLOR_GREEN_100};
+  border-radius: 2px;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 450px) {
+    padding: 1.5rem 0.8rem;
+    font-size: 1.2rem;
+  }
 `;
 
 export const StyledSearchDropdown = styled(Flex)<Dropdown>`
@@ -109,4 +144,8 @@ export const StyledItemLink = styled(Link)`
 export const StyledRating = styled.p`
   margin-right: 2rem;
   font-weight: bold;
+`;
+
+export const BasicLink = styled(Link)`
+  text-decoration: none;
 `;
