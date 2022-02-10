@@ -7,7 +7,7 @@ import {
   COLOR_WHITE,
 } from '../../common/constants/colors';
 
-export const SettingContainer = styled.div`
+export const SettingsContainer = styled.div`
   margin: 5rem 10rem;
   display: flex;
   flex-direction: column;
@@ -27,6 +27,12 @@ export const SettingTitle = styled.h3`
   font-weight: 600;
   color: ${COLOR_GRAY_300};
   margin: 0;
+`;
+
+export const CurrentSettingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 `;
 
 export const SettingText = styled.p`

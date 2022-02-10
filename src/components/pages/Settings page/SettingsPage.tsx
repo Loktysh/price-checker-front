@@ -1,13 +1,35 @@
-import React from 'react';
-import { SettingContainer, PageTitle, SettingTitle, SettingText, NotificationLink } from './styled';
+import React, { useState } from 'react';
+import {
+  SettingsContainer,
+  PageTitle,
+  SettingTitle,
+  SettingText,
+  NotificationLink,
+  CurrentSettingContainer,
+} from './styled';
 
 export const SettingsPage = () => {
+  const [enabledNotifications, setNotificationEnabled] = useState(false);
   return (
-    <SettingContainer>
+    <SettingsContainer>
       <PageTitle>My settings</PageTitle>
       <SettingTitle>Notifications in Telegram</SettingTitle>
-      <SettingText>For notifications follow the link below:</SettingText>
-      <NotificationLink to={'/'}>Receive notifications</NotificationLink>
-    </SettingContainer>
+      <CurrentSettingContainer>
+        {!enabledNotifications && (
+          <SettingText>For notifications follow the link below:</SettingText>
+        )}
+        {!enabledNotifications && (
+          <NotificationLink
+            to={'#'}
+            onClick={() => {
+              setNotificationEnabled(true);
+            }}
+          >
+            Receive notifications
+          </NotificationLink>
+        )}
+        {enabledNotifications && <SettingText>Notification enabled</SettingText>}
+      </CurrentSettingContainer>
+    </SettingsContainer>
   );
 };
