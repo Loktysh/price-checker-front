@@ -42,9 +42,8 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
         setError(false);
       })
       .then(() => {
-        const token = localStorage.getItem('token');
-        const renewToken = localStorage.getItem('renewToken');
-        console.log(token, renewToken);
+        const token = JSON.parse(localStorage.getItem('token') as string);
+        const renewToken = JSON.parse(localStorage.getItem('renewToken') as string);
         dispatch(loginUser());
         dispatch(setUserLogin(data.login));
         if (token && renewToken) {

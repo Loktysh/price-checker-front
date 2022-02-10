@@ -7,3 +7,5 @@ export const setUserLogin = createAction<string>('SET_LOGIN');
 export const setUserToken = createAction<string>('SET_USER_TOKEN');
 
 export const setUserRenewToken = createAction<string>('SET_RENEW_TOKEN');
+
+export const logoutUser = createAction('LOGOUT_USER');

@@ -108,7 +108,7 @@ export const StyledRating = styled.p`
 `;
 
 export const StyledLoginDropdown = styled(Flex)`
-  height: 50px;
+  height: auto;
   width: 100%;
   top: 150%;
   background-color: ${COLOR_WHITE};

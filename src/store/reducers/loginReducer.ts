@@ -1,6 +1,7 @@
 import { initialState } from './state';
 import { loginUser, setUserLogin, setUserToken, setUserRenewToken } from '../actions';
 import { createReducer } from '@reduxjs/toolkit';
+import { logoutUser } from '../actions/loginActions';
 
 export const loginReducer = createReducer(initialState, builder => {
   builder
@@ -15,6 +16,12 @@ export const loginReducer = createReducer(initialState, builder => {
     })
     .addCase(setUserRenewToken, (state, action) => {
       state.userRenewToken = action.payload;
+    })
+    .addCase(logoutUser, state => {
+      state.logged = false;
+      state.userLogin = '';
+      state.userToken = '';
+      state.userRenewToken = '';
     })
     .addDefaultCase(() => {});
 });

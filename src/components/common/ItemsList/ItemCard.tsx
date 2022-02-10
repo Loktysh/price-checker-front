@@ -1,4 +1,6 @@
 import React, { FC, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
 import { getProductRating } from '../../../utils';
 import { Flex, StyledItemLink, StyledStar } from '../../typography';
 import { Product } from '../types';
@@ -17,18 +19,16 @@ const ItemCard: FC<{ item: Product }> = ({ item }) => {
   const { image, extended_name, rating, id, price_min } = item;
   const [ratingArr, itemRating] = getProductRating(rating);
   const [isTracked, setIsTracked] = useState<boolean>(false);
+  const token = useSelector((state: RootState) => state.login.userToken);
+  const renewToken = useSelector((state: RootState) => state.login.userRenewToken);
 
   const handleTrackClick = async () => {
-    // TODO: implement add to tracked list
-    let token = '';
-    console.log(`Bearer ${token}`);
-    token = JSON.parse(localStorage.getItem('token') as string);
-    const renewToken = JSON.parse(localStorage.getItem('renewToken') as string);
     const action = isTracked ? 'untrack' : 'track';
     const params = { product: item.id, action: action };
     setIsTracked(prev => !prev);
+    // http://localhost:3001/products/track
     // https://pricecheckerapp.herokuapp.com/products/track
-    const url = `http://localhost:3001/products/track`;
+    const url = `https://pricecheckerapp.herokuapp.com/products/track`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {

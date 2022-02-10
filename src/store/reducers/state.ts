@@ -1,12 +1,5 @@
 import { store } from '../store';
 
-interface IState {
-  logged: boolean;
-  userLogin: string;
-  userToken: string;
-  userRenewToken: string;
-}
-
 const storageState = JSON.parse(localStorage.getItem('state')!);
 
 export const initialState = storageState
