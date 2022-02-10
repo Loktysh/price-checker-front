@@ -1,7 +1,9 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { Flex } from '../../typography';
 import { AuthFormParams } from '../types';
+import { loginUser, setUserLogin, setUserRenewToken } from '../../../store/actions/loginActions';
 import {
   BasicReactRouterLink,
   FormTitle,
@@ -14,13 +16,19 @@ import {
   StyledLabel,
   StyledRememberOptionContainer,
 } from './styled';
+import { useNavigate } from 'react-router-dom';
+import { setUserToken } from '../../../store/actions';
 
 interface AuthFormProps {
   type: 'login' | 'signup';
-  onAuthSubmit: (params: AuthFormParams, type: string) => void;
+  onAuthSubmit: (params: AuthFormParams, type: string) => Promise<void>;
 }
 
 export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
+  const [error, setError] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -29,7 +37,30 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
     mode: 'onBlur',
   });
   const onSubmit: SubmitHandler<AuthFormParams> = data => {
-    onAuthSubmit(data, type);
+    onAuthSubmit(data, type)
+      .then(() => {
+        setError(false);
+      })
+      .then(() => {
+        const token = localStorage.getItem('token');
+        const renewToken = localStorage.getItem('renewToken');
+        console.log(token, renewToken);
+        dispatch(loginUser());
+        dispatch(setUserLogin(data.login));
+        if (token && renewToken) {
+          dispatch(setUserToken(token));
+          dispatch(setUserRenewToken(renewToken));
+        } else {
+          setError(true);
+          throw new Error('Login error');
+        }
+      })
+      .then(() => {
+        navigate('/');
+      })
+      .catch(() => {
+        setError(true);
+      });
   };
 
   const navLink = useMemo(
@@ -79,6 +110,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
           {type === 'login' && <BasicReactRouterLink to='#'>Forgot password?</BasicReactRouterLink>}
         </OptionalStyledDiv>
         <StyledButton type='submit'>Login</StyledButton>
+        {error ? <p>Error logging in... Please retry</p> : null}
         <BasicReactRouterLink to={navLink.path}>{navLink.label}</BasicReactRouterLink>
       </Flex>
     </StyledForm>

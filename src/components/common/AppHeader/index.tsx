@@ -11,13 +11,14 @@ import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react'
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
-import { IState, Product } from '../types';
+import { Product } from '../types';
 import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import LoginDropdown from './LoginDropdown';
 import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../../utils';
+import { RootState } from '../../../store/store';
 
 type ILoginLink = {
   isLinkEnabled: boolean;
@@ -26,8 +27,7 @@ type ILoginLink = {
 
 type HeaderProps = {
   setCurrentPage?: (value: number) => void;
-  logged: boolean;
-  login: string;
+  setHistoryOpen?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 };
 
 const ConditionalLoginLink: FC<ILoginLink> = ({ isLinkEnabled, children }) => {
@@ -38,19 +38,23 @@ const ConditionalLoginLink: FC<ILoginLink> = ({ isLinkEnabled, children }) => {
   }
 };
 
-const AppHeader: FC<HeaderProps> = ({ setCurrentPage, logged, login }) => {
+const AppHeader: FC<HeaderProps> = ({ setHistoryOpen, setCurrentPage }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [searchItems, setSearchItems] = useState<Product[]>([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
   const [loginDropdown, setLoginDropdown] = useState<boolean>(false);
   const debouncedSearch = useDebounce(inputValue, 600);
+  const logged = useSelector((state: RootState) => state.login.logged);
+  const login = useSelector((state: RootState) => state.login.userLogin);
 
   useEffect(() => {
     const url = API_LINK + 'products?query=';
-    fetchProducts(url + debouncedSearch).then(data => {
-      setSearchItems(data.products);
-      setDropdown(true);
-    });
+    if (inputValue.length > 0) {
+      fetchProducts(url + debouncedSearch).then(data => {
+        setSearchItems(data.products);
+        setDropdown(true);
+      });
+    }
   }, [debouncedSearch]);
 
   useEffect(() => {
@@ -111,11 +115,4 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage, logged, login }) => {
   );
 };
 
-const mapState = (state: IState) => {
-  return {
-    logged: state.logged,
-    login: state.login,
-  };
-};
-
-export default connect(mapState)(AppHeader);
+export default AppHeader;
