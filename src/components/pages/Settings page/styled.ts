@@ -20,6 +20,10 @@ export const PageTitle = styled.h2`
   font-size: 2.2rem;
   font-weight: 600;
   color: ${COLOR_GRAY_300};
+
+  @media (max-width: 650px) {
+    font-size: 2rem;
+  }
 `;
 
 export const SettingTitle = styled.h3`
@@ -27,6 +31,10 @@ export const SettingTitle = styled.h3`
   font-weight: 600;
   color: ${COLOR_GRAY_300};
   margin: 0;
+
+  @media (max-width: 650px) {
+    font-size: 1.6rem;
+  }
 `;
 
 export const CurrentSettingContainer = styled.div`
@@ -40,6 +48,10 @@ export const SettingText = styled.p`
   font-weight: 400;
   color: ${COLOR_GRAY_300};
   margin: 0;
+
+  @media (max-width: 650px) {
+    font-size: 1.4rem;
+  }
 `;
 
 export const NotificationLink = styled(Link)`
@@ -59,5 +71,11 @@ export const NotificationLink = styled(Link)`
     background-color: ${COLOR_GREEN_300};
     cursor: pointer;
     border-color: ${COLOR_GRAY_300};
+  }
+
+  @media (max-width: 650px) {
+    font-size: 1.4rem;
+    width: 15rem;
+    height: 4rem;
   }
 `;
