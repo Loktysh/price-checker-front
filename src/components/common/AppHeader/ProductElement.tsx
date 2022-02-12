@@ -2,7 +2,14 @@ import React, { FC } from 'react';
 import { getProductRating } from '../../../utils';
 import { Flex, StyledStar } from '../../typography';
 import { Product } from '../types';
-import { StyledDropdownItem, StyledDropdownImage, StyledItemLink, StyledRating } from './styled';
+import {
+  StyledDropdownItem,
+  StyledDropdownImage,
+  StyledItemLink,
+  StyledRating,
+  StyledItemName,
+  StyledItemPrice,
+} from './styled';
 
 const ProductElement: FC<{ item: Product }> = ({ item }) => {
   const [ratingArr, itemRating] = getProductRating(item.rating);
@@ -12,8 +19,8 @@ const ProductElement: FC<{ item: Product }> = ({ item }) => {
       <StyledItemLink to={'/product/' + item.id}>
         <StyledDropdownImage bgImage={item.image}></StyledDropdownImage>
         <Flex direction='column' alignItems='flex-start'>
-          <p>{item.extended_name}</p>
-          <p>От {item.price_min} BYN</p>
+          <StyledItemName>{item.extended_name}</StyledItemName>
+          <StyledItemPrice>От {item.price_min} BYN</StyledItemPrice>
 
           <Flex direction='row'>
             <StyledRating>Рейтинг: {itemRating}.0</StyledRating>

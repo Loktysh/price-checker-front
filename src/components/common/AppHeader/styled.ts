@@ -45,7 +45,7 @@ export const StyledSearchInput = styled.input`
   margin-right: 1rem;
 
   @media (max-width: 768px) {
-    width: 300px;
+    width: 30rem;
   }
 
   @media (max-width: 450px) {
@@ -61,7 +61,7 @@ export const StyledSearchButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${COLOR_GREEN_300};
+  border: 1px solid ${COLOR_GREEN_100};
   border-radius: 2px;
   &:hover {
     background-color: ${COLOR_GREEN_300};
@@ -110,6 +110,20 @@ export const StyledSearchDropdown = styled(Flex)<Dropdown>`
   background-color: ${COLOR_WHITE};
   display: ${props => (props.visible ? 'block' : 'none')};
   overflow-y: auto;
+
+  @media (max-width: 1060px) {
+    width: 150%;
+  }
+
+  @media (max-width: 850px) {
+    width: 115%;
+    left: 2px;
+  }
+
+  @media (max-width: 450px) {
+    width: 118%;
+    left: 2px;
+  }
 `;
 
 export const StyledDropdownItem = styled(Flex)`
@@ -123,6 +137,22 @@ export const StyledDropdownItem = styled(Flex)`
   }
 `;
 
+export const StyledItemName = styled.p`
+  font-size: 1.6rem;
+
+  @media (max-width: 650px) {
+    font-size: 1.4rem;
+  }
+`;
+
+export const StyledItemPrice = styled.p`
+  font-size: 1.6rem;
+
+  @media (max-width: 650px) {
+    font-size: 1.4rem;
+  }
+`;
+
 export const StyledDropdownImage = styled.div<Image>`
   height: 11rem;
   width: 11rem;
@@ -131,6 +161,12 @@ export const StyledDropdownImage = styled.div<Image>`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+
+  @media (max-width: 650px) {
+    height: 9rem;
+    width: 9rem;
+    margin-right: 0.5rem;
+  }
 `;
 
 export const StyledItemLink = styled(Link)`
@@ -144,6 +180,11 @@ export const StyledItemLink = styled(Link)`
 export const StyledRating = styled.p`
   margin-right: 2rem;
   font-weight: bold;
+  font-size: 1.6rem;
+
+  @media (max-width: 650px) {
+    font-size: 1.4rem;
+  }
 `;
 
 export const BasicLink = styled(Link)`
