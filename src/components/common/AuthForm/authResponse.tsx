@@ -1,10 +1,13 @@
 import { API_LINK } from '../constants';
 import { AuthFormParams } from '../types';
+import { initTrackedItems } from '../../../store/slices/productsSlice';
+import { store } from '../../../store/store';
 
 type AuthorizationResponse = {
   user: {
     login: string;
     user: string;
+    trackingProducts: string[];
   };
   token: string;
   renewToken: string;
@@ -19,8 +22,8 @@ export const handleAuthSubmit = async (params: AuthFormParams, type: string): Pr
     },
     body: JSON.stringify(params),
   });
-
   const result: AuthorizationResponse = await response.json();
+  store.dispatch(initTrackedItems(result.user.trackingProducts));
   const savedToken: string | null = localStorage.getItem('token');
   const savedRenewToken: string | null = localStorage.getItem('renewToken');
 

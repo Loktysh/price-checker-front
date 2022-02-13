@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { getProductRating } from '../../../utils';
 import { Flex, StyledItemLink, StyledStar } from '../../typography';
@@ -15,6 +15,7 @@ import {
   RemoveButton,
   AddButton,
 } from './styled';
+import { trackItem, untrackItem } from '../../../store/slices/productsSlice';
 
 type ItemCardProps = {
   item: Product;
@@ -26,12 +27,21 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
   const [isTracked, setIsTracked] = useState<boolean>(false);
   const token = useSelector((state: RootState) => state.login.userToken);
   const renewToken = useSelector((state: RootState) => state.login.userRenewToken);
+  const allTrackedItems = useSelector((state: RootState) => state.tracking.tracked);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (allTrackedItems.includes(item.key)) setIsTracked(true);
+  }, [allTrackedItems, item.key]);
 
   const handleTrackClick = async () => {
     const action = isTracked ? 'untrack' : 'track';
     const params = { product: item.id, action: action };
-    setIsTracked(!isTracked);
     const URL = API_LINK + 'products/track';
+
+    toggleItemTrack(action);
+    setIsTracked(!isTracked);
+
     const response = await fetch(URL, {
       method: 'POST',
       headers: {
@@ -40,8 +50,17 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
       },
       body: JSON.stringify(params),
     });
+
     const result = await response.json();
     return result;
+  };
+
+  const toggleItemTrack = (actionType: string) => {
+    if (actionType === 'track') {
+      dispatch(trackItem(item.key));
+    } else if (actionType === 'untrack') {
+      dispatch(untrackItem(item.key));
+    }
   };
 
   return (

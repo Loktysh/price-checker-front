@@ -2,9 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { loginReducer } from './reducers/loginReducer';
 import { initialState } from './reducers/state';
+import productReducer from './slices/productsSlice';
 
 const rootReducer = combineReducers({
   login: loginReducer,
+  tracking: productReducer,
 });
 
 export const store = configureStore({
