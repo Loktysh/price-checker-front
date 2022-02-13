@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 
-type DebouncedValue = string | number | boolean;
-
 // Hook specifically used to debounce inputs for optimization
 
-const useDebounce = (value: DebouncedValue, delay: number) => {
-  const [debounceValue, setDebounceValue] = useState<DebouncedValue>(value);
+const useDebounce = <T>(value: T, delay: number) => {
+  const [debounceValue, setDebounceValue] = useState<T>(value);
 
   useEffect(() => {
     const timeout = setTimeout(() => {

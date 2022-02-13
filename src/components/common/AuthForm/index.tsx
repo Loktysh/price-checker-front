@@ -19,10 +19,12 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { setUserToken } from '../../../store/actions';
 
-interface AuthFormProps {
-  type: 'login' | 'signup';
-  onAuthSubmit: (params: AuthFormParams, type: string) => Promise<void>;
-}
+type AuthVariant = 'login' | 'signup';
+
+type AuthFormProps = {
+  type: AuthVariant;
+  onAuthSubmit: (params: AuthFormParams, type: AuthVariant) => Promise<void>;
+};
 
 export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
   const [error, setError] = useState<boolean>(false);
@@ -109,7 +111,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
           {type === 'login' && <BasicReactRouterLink to='#'>Forgot password?</BasicReactRouterLink>}
         </OptionalStyledDiv>
         <StyledButton type='submit'>Login</StyledButton>
-        {error ? <p>Error logging in... Please retry</p> : null}
+        {error && <p>Error logging in... Please retry</p>}
         <BasicReactRouterLink to={navLink.path}>{navLink.label}</BasicReactRouterLink>
       </Flex>
     </StyledForm>

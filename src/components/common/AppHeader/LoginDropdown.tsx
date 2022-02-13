@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../../store/actions/loginActions';
 import { StyledLoginDropdown } from './styled';
 
-const LoginDropdown = () => {
+const LoginDropdown: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

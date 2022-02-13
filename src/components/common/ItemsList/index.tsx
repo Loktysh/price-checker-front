@@ -58,13 +58,13 @@ const ItemsList: FC<ItemsProps> = ({ setCurrentPage, currentPage }) => {
               repeat
               columns='3'
             >
-              {foundItems.map((item, index) => {
-                return <ItemCard item={item} key={index}></ItemCard>;
+              {foundItems.map((item: Product) => {
+                return <ItemCard item={item} key={item.id}></ItemCard>;
               })}
             </StyledItemsWrapper>
             <StyledLoadButton
               color={COLOR_GREEN_100}
-              onClick={() => setCurrentPage(prev => prev + 1)}
+              onClick={() => setCurrentPage(currentPage + 1)}
             >
               {!loading ? 'Load more items' : <img src={spinner} height={25} />}
             </StyledLoadButton>

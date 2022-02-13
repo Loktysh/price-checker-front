@@ -19,23 +19,11 @@ import LoginDropdown from './LoginDropdown';
 import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../../utils';
 import { RootState } from '../../../store/store';
-
-type ILoginLink = {
-  isLinkEnabled: boolean;
-  children: JSX.Element;
-};
+import LoginLink from './LoginLink';
 
 type HeaderProps = {
   setCurrentPage?: (value: number) => void;
   setHistoryOpen?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-};
-
-const ConditionalLoginLink: FC<ILoginLink> = ({ isLinkEnabled, children }) => {
-  if (!isLinkEnabled) {
-    return <Link to={'/login'}>{children}</Link>;
-  } else {
-    return children;
-  }
 };
 
 const AppHeader: FC<HeaderProps> = ({ setHistoryOpen, setCurrentPage }) => {
@@ -49,7 +37,7 @@ const AppHeader: FC<HeaderProps> = ({ setHistoryOpen, setCurrentPage }) => {
 
   useEffect(() => {
     const url = API_LINK + 'products?query=';
-    if (inputValue.length > 0) {
+    if (debouncedSearch.length > 0) {
       fetchProducts(url + debouncedSearch).then(data => {
         setSearchItems(data.products);
         setDropdown(true);
@@ -65,9 +53,9 @@ const AppHeader: FC<HeaderProps> = ({ setHistoryOpen, setCurrentPage }) => {
 
   const openLoginDropdown = useCallback(() => {
     if (logged) {
-      setLoginDropdown(prevState => !prevState);
+      setLoginDropdown(!loginDropdown);
     }
-  }, [logged]);
+  }, [logged, loginDropdown]);
 
   const closeDropdownOnQuery = useCallback(() => {
     setDropdown(false);
@@ -105,12 +93,12 @@ const AppHeader: FC<HeaderProps> = ({ setHistoryOpen, setCurrentPage }) => {
           )}
         </StyledSearchDropdown>
       </StyledSearchField>
-      <ConditionalLoginLink isLinkEnabled={logged}>
+      <LoginLink isLinkEnabled={logged}>
         <StyledAccountButton outline onClick={openLoginDropdown} textColor={COLOR_GRAY_300}>
           {logged ? login : 'Log in'}
-          {loginDropdown ? <LoginDropdown /> : null}
+          {loginDropdown && <LoginDropdown />}
         </StyledAccountButton>
-      </ConditionalLoginLink>
+      </LoginLink>
     </StyledHeader>
   );
 };

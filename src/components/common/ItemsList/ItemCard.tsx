@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { getProductRating } from '../../../utils';
 import { Flex, StyledItemLink, StyledStar } from '../../typography';
+import { API_LINK } from '../constants';
 import { Product } from '../types';
 import {
   StyledItemCard,
@@ -15,7 +16,11 @@ import {
   AddButton,
 } from './styled';
 
-const ItemCard: FC<{ item: Product }> = ({ item }) => {
+type ItemCardProps = {
+  item: Product;
+};
+
+const ItemCard: FC<ItemCardProps> = ({ item }) => {
   const { image, extended_name, rating, id, price_min } = item;
   const [ratingArr, itemRating] = getProductRating(rating);
   const [isTracked, setIsTracked] = useState<boolean>(false);
@@ -25,11 +30,9 @@ const ItemCard: FC<{ item: Product }> = ({ item }) => {
   const handleTrackClick = async () => {
     const action = isTracked ? 'untrack' : 'track';
     const params = { product: item.id, action: action };
-    setIsTracked(prev => !prev);
-    // http://localhost:3001/products/track
-    // https://pricecheckerapp.herokuapp.com/products/track
-    const url = `https://pricecheckerapp.herokuapp.com/products/track`;
-    const response = await fetch(url, {
+    setIsTracked(!isTracked);
+    const URL = API_LINK + 'products/track';
+    const response = await fetch(URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -38,7 +41,7 @@ const ItemCard: FC<{ item: Product }> = ({ item }) => {
       body: JSON.stringify(params),
     });
     const result = await response.json();
-    console.log(result);
+    return result;
   };
 
   return (
