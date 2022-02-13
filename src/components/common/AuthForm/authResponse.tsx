@@ -1,6 +1,6 @@
 import { API_LINK } from '../constants';
 import { AuthFormParams } from '../types';
-import { initTrackedItems } from '../../../store/slices/productsSlice';
+import { initTrackedItems } from '../../../store/slices';
 import { store } from '../../../store/store';
 
 type AuthorizationResponse = {

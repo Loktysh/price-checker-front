@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../../../store/actions/loginActions';
+import { logoutUser } from '../../../store/slices';
 import { StyledLoginDropdown } from './styled';
 
 const LoginDropdown: FC = () => {

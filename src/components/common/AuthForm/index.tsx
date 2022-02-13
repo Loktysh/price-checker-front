@@ -3,7 +3,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Flex } from '../../typography';
 import { AuthFormParams } from '../types';
-import { loginUser, setUserLogin, setUserRenewToken } from '../../../store/actions/loginActions';
 import {
   BasicReactRouterLink,
   FormTitle,
@@ -17,7 +16,7 @@ import {
   StyledRememberOptionContainer,
 } from './styled';
 import { useNavigate } from 'react-router-dom';
-import { setUserToken } from '../../../store/actions';
+import { loginUser, setUserLogin, setUserRenewToken, setUserToken } from '../../../store/slices';
 
 type AuthVariant = 'login' | 'signup';
 

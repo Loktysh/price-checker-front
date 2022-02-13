@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState: { tracked: string[] } = {
+type ProductState = {
+  tracked: string[];
+};
+
+const initialState: ProductState = {
   tracked: [],
 };
 
