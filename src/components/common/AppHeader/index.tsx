@@ -26,7 +26,7 @@ type HeaderProps = {
   setHistoryOpen?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 };
 
-const AppHeader: FC<HeaderProps> = ({ setHistoryOpen, setCurrentPage }) => {
+const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [searchItems, setSearchItems] = useState<Product[]>([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
