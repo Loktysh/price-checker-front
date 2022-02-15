@@ -14,6 +14,7 @@ export const SettingsContainer = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   gap: 2rem;
+  min-height: 55vh;
 `;
 
 export const PageTitle = styled.h2`
