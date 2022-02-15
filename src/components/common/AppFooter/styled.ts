@@ -8,13 +8,17 @@ import {
   COLOR_WHITE,
 } from '../constants/colors';
 
-export const FooterContainer = styled.footer`
+export const FooterContainer = styled.div`
   width: 100%;
   min-height: 24rem;
   padding: 4rem 6rem 6rem 10rem;
   display: flex;
   justify-content: space-between;
   background-color: ${COLOR_WHITE};
+
+  @media (max-width: 600px) {
+    padding: 2rem 3rem 3rem 5rem;
+  }
 `;
 
 export const LeftSide = styled.div`
@@ -42,6 +46,10 @@ export const FooterLink = styled(Link)`
   :hover {
     color: ${COLOR_GRAY_200};
   }
+
+  @media (max-width: 800px) {
+    font-size: 1.8rem;
+  }
 `;
 
 export const GithubLink = styled.a`
@@ -51,6 +59,11 @@ export const GithubLink = styled.a`
 
   :hover {
     transform: scale(1.1);
+  }
+
+  @media (max-width: 800px) {
+    width: 20px;
+    height: 20px;
   }
 `;
 
@@ -68,5 +81,9 @@ export const PriceChecker = styled(Link)`
 
   :hover {
     color: ${COLOR_GREEN_300};
+  }
+
+  @media (max-width: 800px) {
+    font-size: 2rem;
   }
 `;
