@@ -1,2 +1,2 @@
-export { loginUser, logoutUser, setUserLogin, setUserToken, setUserRenewToken } from './loginSlice';
+export { loginUser, logoutUser, setUserLogin } from './loginSlice';
 export { initTrackedItems, trackItem, untrackItem } from './productsSlice';

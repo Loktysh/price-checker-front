@@ -1,6 +1,5 @@
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { Flex } from '../../typography';
 import { AuthFormParams } from '../types';
 import {
@@ -16,18 +15,17 @@ import {
   StyledRememberOptionContainer,
 } from './styled';
 import { useNavigate } from 'react-router-dom';
-import { loginUser, setUserLogin, setUserRenewToken, setUserToken } from '../../../store/slices';
 
 type AuthVariant = 'login' | 'signup';
 
 type AuthFormProps = {
   type: AuthVariant;
-  onAuthSubmit: (params: AuthFormParams, type: AuthVariant) => Promise<void>;
+  onAuthSubmit: (params: AuthFormParams, type: AuthVariant, remember: boolean) => Promise<void>;
 };
 
 export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
-  const [error, setError] = useState<boolean>(false);
-  const dispatch = useDispatch();
+  const [error, setError] = useState<string>('');
+  const [remember, setRemember] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const {
@@ -37,29 +35,14 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
   } = useForm<AuthFormParams>({
     mode: 'onBlur',
   });
+
   const onSubmit: SubmitHandler<AuthFormParams> = data => {
-    onAuthSubmit(data, type)
-      .then(() => {
-        setError(false);
-      })
-      .then(() => {
-        const token = JSON.parse(localStorage.getItem('token') as string);
-        const renewToken = JSON.parse(localStorage.getItem('renewToken') as string);
-        dispatch(loginUser());
-        dispatch(setUserLogin(data.login));
-        if (token && renewToken) {
-          dispatch(setUserToken(token));
-          dispatch(setUserRenewToken(renewToken));
-        } else {
-          setError(true);
-          throw new Error('Login error');
-        }
-      })
+    onAuthSubmit(data, type, remember)
       .then(() => {
         navigate('/');
       })
-      .catch(() => {
-        setError(true);
+      .catch(error => {
+        setError(`Error logging in, please retry. ERROR: ${error}`);
       });
   };
 
@@ -73,6 +56,10 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
         : { label: 'Have an account?', path: '/login' },
     [type],
   );
+
+  const handleRememberCheckbox = useCallback(() => {
+    setRemember(!remember);
+  }, [remember]);
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)} method='POST'>
@@ -104,13 +91,19 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
         )}
         <OptionalStyledDiv>
           <StyledRememberOptionContainer>
-            <StyledCheckbox type='checkbox' name='remember' id='remember-user' />
+            <StyledCheckbox
+              type='checkbox'
+              name='remember'
+              id='remember-user'
+              checked={remember}
+              onChange={handleRememberCheckbox}
+            />
             <StyledLabel htmlFor='remember-user'>Remember me</StyledLabel>
           </StyledRememberOptionContainer>
           {type === 'login' && <BasicReactRouterLink to='#'>Forgot password?</BasicReactRouterLink>}
         </OptionalStyledDiv>
         <StyledButton type='submit'>Login</StyledButton>
-        {error && <p>Error logging in... Please retry</p>}
+        {error.length > 0 && <p>{error}</p>}
         <BasicReactRouterLink to={navLink.path}>{navLink.label}</BasicReactRouterLink>
       </Flex>
     </StyledForm>

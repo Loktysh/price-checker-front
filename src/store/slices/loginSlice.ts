@@ -27,16 +27,9 @@ const loginSlice = createSlice({
     setUserLogin: (state, action) => {
       state.userLogin = action.payload;
     },
-    setUserToken: (state, action) => {
-      state.userToken = action.payload;
-    },
-    setUserRenewToken: (state, action) => {
-      state.userRenewToken = action.payload;
-    },
   },
 });
 
-export const { loginUser, logoutUser, setUserLogin, setUserToken, setUserRenewToken } =
-  loginSlice.actions;
+export const { loginUser, logoutUser, setUserLogin } = loginSlice.actions;
 
 export default loginSlice.reducer;

@@ -10,6 +10,16 @@ export type Product = {
   price_min: string;
 };
 
+export type User = {
+  user: {
+    login: string;
+    user: string;
+    trackingProducts: string[];
+  };
+  currentToken: string;
+  currentRenewToken: string;
+};
+
 export type Image = {
   bgImage: string;
 };

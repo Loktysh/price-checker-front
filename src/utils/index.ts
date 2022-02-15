@@ -19,3 +19,16 @@ export const getProductRating = (rating: number): [boolean[], number] => {
     .map((_, index) => index <= rate - 1);
   return [arr, rate];
 };
+
+export const getStorageItem = (key: string): string | null => {
+  const localItem = JSON.parse(localStorage.getItem(key) as string);
+  const sessionItem = JSON.parse(sessionStorage.getItem(key) as string);
+  return localItem || sessionItem;
+};
+
+export const removeStorageTokens = (): void => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('renewToken');
+  sessionStorage.removeItem('token');
+  sessionStorage.removeItem('renewToken');
+};

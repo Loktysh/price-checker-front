@@ -115,3 +115,11 @@ export const StyledLoginDropdown = styled(Flex)`
   position: absolute;
   box-shadow: ${SHADOW_SMALL};
 `;
+
+export const StyledMenuItem = styled(Flex)`
+  width: 100%;
+  height: 5rem;
+  &:hover {
+    background-color: ${COLOR_GRAY_100};
+  }
+`;

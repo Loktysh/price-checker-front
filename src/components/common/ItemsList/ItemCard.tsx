@@ -42,7 +42,7 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
     toggleItemTrack(action);
     setIsTracked(!isTracked);
 
-    const response = await fetch(URL, {
+    const response: Response = await fetch(URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

@@ -1,23 +1,21 @@
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../../../store/slices';
-import { StyledLoginDropdown } from './styled';
+import { unlogUser } from '../../../store/actions';
+import { removeStorageTokens } from '../../../utils';
+import { StyledLoginDropdown, StyledMenuItem } from './styled';
 
 const LoginDropdown: FC = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logout = () => {
     navigate('/');
-    localStorage.removeItem('token');
-    localStorage.removeItem('renewToken');
-    dispatch(logoutUser());
+    removeStorageTokens();
+    unlogUser();
   };
   return (
     <StyledLoginDropdown direction='column'>
-      <p>Profile</p>
-      <p onClick={logout}>Logout</p>
+      <StyledMenuItem>Profile</StyledMenuItem>
+      <StyledMenuItem onClick={logout}>Logout</StyledMenuItem>
     </StyledLoginDropdown>
   );
 };
