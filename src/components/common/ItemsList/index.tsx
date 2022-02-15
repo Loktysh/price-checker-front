@@ -59,7 +59,7 @@ const ItemsList: FC<ItemsProps> = ({ setCurrentPage, currentPage }) => {
               columns='3'
             >
               {foundItems.map((item: Product) => {
-                return <ItemCard item={item} key={item.key}></ItemCard>;
+                return <ItemCard item={item} key={item.id}></ItemCard>;
               })}
             </StyledItemsWrapper>
             <StyledLoadButton

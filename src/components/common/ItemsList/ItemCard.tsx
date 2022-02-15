@@ -14,8 +14,11 @@ import {
   StyledTrackButton,
   RemoveButton,
   AddButton,
+  StyledTrackInfo,
+  StyledTrackMessage,
 } from './styled';
 import { trackItem, untrackItem } from '../../../store/slices/productsSlice';
+import { getStorageItem } from '../../../utils/index';
 
 type ItemCardProps = {
   item: Product;
@@ -25,14 +28,15 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
   const { image, extended_name, rating, id, price_min } = item;
   const [ratingArr, itemRating] = getProductRating(rating);
   const [isTracked, setIsTracked] = useState<boolean>(false);
-  const token = useSelector((state: RootState) => state.login.userToken);
-  const renewToken = useSelector((state: RootState) => state.login.userRenewToken);
+  const [infoVisible, setInfoVisible] = useState<boolean>(false);
+  const token = getStorageItem('token');
+  const renewToken = getStorageItem('renewToken');
   const allTrackedItems = useSelector((state: RootState) => state.tracking.tracked);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (allTrackedItems.includes(item.key)) setIsTracked(true);
-  }, [allTrackedItems, item.key]);
+    if (allTrackedItems.includes(item.id.toString())) setIsTracked(true);
+  }, [allTrackedItems, item.id]);
 
   const handleTrackClick = async () => {
     const action = isTracked ? 'untrack' : 'track';
@@ -40,7 +44,6 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
     const URL = API_LINK + 'products/track';
 
     toggleItemTrack(action);
-    setIsTracked(!isTracked);
 
     const response: Response = await fetch(URL, {
       method: 'POST',
@@ -51,7 +54,13 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
       body: JSON.stringify(params),
     });
 
-    const result = await response.json();
+    const result = await response.json().then(() => {
+      setIsTracked(!isTracked);
+      setInfoVisible(true);
+      setTimeout(() => {
+        setInfoVisible(false);
+      }, 1000);
+    });
     return result;
   };
 
@@ -69,6 +78,11 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
         <StyledTrackButton onClick={handleTrackClick}>
           {isTracked ? <RemoveButton /> : <AddButton />}
         </StyledTrackButton>
+        <StyledTrackInfo visible={infoVisible}>
+          <StyledTrackMessage>
+            Product successfully {isTracked ? 'tracked' : 'untracked'}!
+          </StyledTrackMessage>
+        </StyledTrackInfo>
       </StyledItemImage>
       <Flex justify='space-between'>
         <StyledItemLink to={'/product/' + id}>
