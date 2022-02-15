@@ -19,11 +19,11 @@ export const AppFooter: FC<FooterProps> = ({ userLogged }) => {
     <FooterContainer>
       <LeftSide>
         {!userLogged ? (
-          <FooterLink to='/'>About Price Checker</FooterLink>
+          <FooterLink to='/about'>About Price Checker</FooterLink>
         ) : (
           <>
             <FooterLink to='/'>Home</FooterLink>
-            <FooterLink to='/'>About Price Checker</FooterLink>
+            <FooterLink to='/about'>About Price Checker</FooterLink>
           </>
         )}
       </LeftSide>
