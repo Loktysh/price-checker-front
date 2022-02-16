@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import { Button, Flex } from '../../typography';
 import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300, COLOR_BLACK } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
-import { Link, NavLink } from 'react-router-dom';
-import { Image } from '../types';
+import { NavLink } from 'react-router-dom';
 
 type Dropdown = {
   visible: boolean;
+};
+
+type Image = {
+  bgImage: string;
 };
 
 export const StyledHeader = styled(Flex)`
@@ -63,6 +66,7 @@ export const StyledAccountButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   border: solid 2px ${COLOR_BLACK};
 `;
 
@@ -98,15 +102,24 @@ export const StyledDropdownImage = styled.div<Image>`
   background-position: center center;
 `;
 
-export const StyledItemLink = styled(Link)`
-  height: 100%;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: ${COLOR_GRAY_300};
-`;
-
 export const StyledRating = styled.p`
   margin-right: 2rem;
   font-weight: bold;
+`;
+
+export const StyledLoginDropdown = styled(Flex)`
+  height: auto;
+  width: 100%;
+  top: 150%;
+  background-color: ${COLOR_WHITE};
+  position: absolute;
+  box-shadow: ${SHADOW_SMALL};
+`;
+
+export const StyledMenuItem = styled(Flex)`
+  width: 100%;
+  height: 5rem;
+  &:hover {
+    background-color: ${COLOR_GRAY_100};
+  }
 `;

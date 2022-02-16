@@ -1,16 +1,23 @@
 import { API_LINK } from '../constants';
-import { AuthFormParams } from '../types';
+import { AuthFormParams, User } from '../types';
+import { logUser } from '../../../store/actions';
+import { getStorageItem } from '../../../utils';
 
 type AuthorizationResponse = {
   user: {
     login: string;
     user: string;
+    trackingProducts: string[];
   };
   token: string;
   renewToken: string;
 };
 
-export const handleAuthSubmit = async (params: AuthFormParams, type: string): Promise<void> => {
+export const handleAuthSubmit = async (
+  params: AuthFormParams,
+  type: string,
+  remember: boolean,
+): Promise<void> => {
   const url = API_LINK + (type === 'login' ? 'login' : 'registration');
   const response = await fetch(url, {
     method: 'POST',
@@ -19,17 +26,26 @@ export const handleAuthSubmit = async (params: AuthFormParams, type: string): Pr
     },
     body: JSON.stringify(params),
   });
-
   const result: AuthorizationResponse = await response.json();
 
-  const savedToken: string | null = localStorage.getItem('token');
-  const savedRenewToken: string | null = localStorage.getItem('renewToken');
-
-  if (!savedToken || savedToken !== result.token) {
+  if (remember) {
     localStorage.setItem('token', JSON.stringify(result.token));
+    localStorage.setItem('renewToken', JSON.stringify(result.renewToken));
+  } else {
+    sessionStorage.setItem('token', JSON.stringify(result.token));
+    sessionStorage.setItem('renewToken', JSON.stringify(result.renewToken));
   }
 
-  if (!savedRenewToken || savedRenewToken !== result.renewToken) {
-    localStorage.setItem('renewToken', JSON.stringify(result.renewToken));
-  }
+  const parsedToken = getStorageItem('token');
+  const parsedRenewToken = getStorageItem('renewToken');
+
+  const userResponse = await fetch(API_LINK + 'auth', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${parsedToken + ' ' + parsedRenewToken}`,
+    },
+  });
+  await userResponse.json().then((data: User) => {
+    logUser(data.user.login, data.user.trackingProducts);
+  });
 };
