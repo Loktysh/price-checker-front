@@ -123,10 +123,18 @@ export const StyledRating = styled.p`
 `;
 
 export const StyledLoginDropdown = styled(Flex)`
-  height: 50px;
+  height: auto;
   width: 100%;
   top: 150%;
   background-color: ${COLOR_WHITE};
   position: absolute;
   box-shadow: ${SHADOW_SMALL};
+`;
+
+export const StyledMenuItem = styled(Flex)`
+  width: 100%;
+  height: 5rem;
+  &:hover {
+    background-color: ${COLOR_GRAY_100};
+  }
 `;

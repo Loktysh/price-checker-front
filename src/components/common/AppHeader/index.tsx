@@ -12,48 +12,38 @@ import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react'
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { API_LINK } from '../constants/index';
 import { useDebounce } from '../../../hooks/';
-import { IState, Product } from '../types';
+import { Product } from '../types';
 import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import LoginDropdown from './LoginDropdown';
 import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../../utils';
-import { Button } from '../../typography';
-
-type ILoginLink = {
-  isLinkEnabled: boolean;
-  children: JSX.Element;
-};
+import { RootState } from '../../../store/store';
+import LoginLink from './LoginLink';
 
 type HeaderProps = {
   setCurrentPage?: (value: number) => void;
   setHistoryOpen?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-  logged: boolean;
-  login: string;
 };
 
-const ConditionalLoginLink: FC<ILoginLink> = ({ isLinkEnabled, children }) => {
-  if (!isLinkEnabled) {
-    return <Link to={'/login'}>{children}</Link>;
-  } else {
-    return children;
-  }
-};
-
-const AppHeader: FC<HeaderProps> = ({ setHistoryOpen, setCurrentPage, logged, login }) => {
+const AppHeader: FC<HeaderProps> = ({ setCurrentPage, setHistoryOpen }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [searchItems, setSearchItems] = useState<Product[]>([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
   const [loginDropdown, setLoginDropdown] = useState<boolean>(false);
   const debouncedSearch = useDebounce(inputValue, 600);
+  const logged = useSelector((state: RootState) => state.login.logged);
+  const login = useSelector((state: RootState) => state.login.userLogin);
 
   useEffect(() => {
     const url = API_LINK + 'products?query=';
-    fetchProducts(url + debouncedSearch).then(data => {
-      setSearchItems(data.products);
-      setDropdown(true);
-    });
+    if (debouncedSearch.length > 0) {
+      fetchProducts(url + debouncedSearch).then(data => {
+        setSearchItems(data.products);
+        setDropdown(true);
+      });
+    }
   }, [debouncedSearch]);
 
   useEffect(() => {
@@ -64,9 +54,9 @@ const AppHeader: FC<HeaderProps> = ({ setHistoryOpen, setCurrentPage, logged, lo
 
   const openLoginDropdown = useCallback(() => {
     if (logged) {
-      setLoginDropdown(prevState => !prevState);
+      setLoginDropdown(!loginDropdown);
     }
-  }, [logged]);
+  }, [logged, loginDropdown]);
 
   const closeDropdownOnQuery = useCallback(() => {
     setDropdown(false);
@@ -109,21 +99,14 @@ const AppHeader: FC<HeaderProps> = ({ setHistoryOpen, setCurrentPage, logged, lo
           Show history
         </StyledHistoryButton>
       ) : null}
-      <ConditionalLoginLink isLinkEnabled={logged}>
+      <LoginLink isLinkEnabled={logged}>
         <StyledAccountButton outline onClick={openLoginDropdown} textColor={COLOR_GRAY_300}>
           {logged ? login : 'Log in'}
-          {loginDropdown ? <LoginDropdown /> : null}
+          {loginDropdown && <LoginDropdown />}
         </StyledAccountButton>
-      </ConditionalLoginLink>
+      </LoginLink>
     </StyledHeader>
   );
 };
 
-const mapState = (state: IState) => {
-  return {
-    logged: state.logged,
-    login: state.login,
-  };
-};
-
-export default connect(mapState)(AppHeader);
+export default AppHeader;

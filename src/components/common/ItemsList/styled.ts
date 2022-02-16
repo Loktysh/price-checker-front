@@ -5,6 +5,10 @@ import { COLOR_GRAY_300, COLOR_GREEN_100, COLOR_WHITE } from '../constants/color
 import { SHADOW_SMALL } from '../constants/shadows';
 import { Image } from '../types';
 
+type TrackInfo = {
+  visible: boolean;
+};
+
 export const StyledHeading = styled.h1`
   color: ${COLOR_GRAY_300};
   width: 70%;
@@ -104,4 +108,20 @@ export const RemoveButton = styled(FaTrashAlt)`
   height: 100%;
   width: 100%;
   font-size: 2rem;
+`;
+
+export const StyledTrackInfo = styled(Flex)<TrackInfo>`
+  height: 5rem;
+  width: 100%;
+  background-color: ${COLOR_GREEN_100};
+  position: absolute;
+  bottom: 0px;
+  transition: all 0.2s ease;
+  opacity: ${props => (props.visible ? 1 : 0)};
+`;
+
+export const StyledTrackMessage = styled.p`
+  font-size: 1.4rem;
+  color: ${COLOR_WHITE};
+  opacity: 1;
 `;
