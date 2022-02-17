@@ -10,6 +10,25 @@ export type Product = {
   price_min: string;
 };
 
+type PriceChartItem = {
+  date: string;
+  price: string;
+};
+
+export type ProductPrice = {
+  prices: {
+    charts: PriceChartItem[];
+    current: string;
+    dbCharts: PriceChartItem[];
+    max: {
+      amount: string;
+      currency: string;
+    };
+    min: string;
+    min_medium: string;
+  };
+};
+
 export type User = {
   user: {
     login: string;
@@ -21,7 +40,7 @@ export type User = {
 };
 
 export type Image = {
-  bgImage: string;
+  bgImage: string | null;
 };
 
 export type ItemsData = {

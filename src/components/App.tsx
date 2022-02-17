@@ -9,24 +9,16 @@ import ItemsPage from './pages/ItemsPage';
 import { LoginPage } from './pages/LoginPage';
 import ProductPage from './pages/ProductPage';
 import { SignupPage } from './pages/SignupPage';
-import { getStorageItem } from '../utils/index';
+import { fetchUser, getStorageItem } from '../utils/index';
 
 const App = () => {
   const dispatch = useDispatch();
 
   const initializeFetch = async () => {
-    const URL = API_LINK + 'auth';
     const token = getStorageItem('token');
     const renewToken = getStorageItem('renewToken');
     if (token && renewToken) {
-      const response: Response = await fetch(URL, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token + ' ' + renewToken}`,
-        },
-      });
-      const data: User = await response.json();
-      return data;
+      return fetchUser(token, renewToken);
     }
     return;
   };
@@ -48,7 +40,7 @@ const App = () => {
         </Route>
         <Route path='/about' element={<AboutPage />} />
         <Route path='/products/:query' element={<ItemsPage />} />
-        <Route path='/product/:id' element={<ProductPage />} />
+        <Route path='/product/:key' element={<ProductPage />} />
       </Routes>
     </Router>
   );

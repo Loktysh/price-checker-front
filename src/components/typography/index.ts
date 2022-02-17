@@ -1,6 +1,7 @@
 import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { keyframes } from 'styled-components';
 import { COLOR_GRAY_300, COLOR_GREEN_100, COLOR_YELLOW } from '../common/constants/colors';
 
 type FlexStyling = {
@@ -45,6 +46,11 @@ type ButtonStyling = {
 
 type Star = {
   enabled: string;
+};
+
+type SpinnerProps = {
+  size?: string;
+  color?: string;
 };
 
 export const Flex = styled.div<FlexStyling>`
@@ -118,4 +124,36 @@ export const StyledItemLink = styled(Link)`
   align-items: center;
   text-decoration: none;
   color: ${COLOR_GRAY_300};
+`;
+
+const spinnerAnimation = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Spinner = styled.div<SpinnerProps>`
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  width: ${props => '80px' && props.size};
+  height: ${props => '80px' && props.size};
+  position: relative;
+  &:after {
+    content: ' ';
+    position: absolute;
+    display: block;
+    width: ${props => '50px' && props.size};
+    height: ${props => '50px' && props.size};
+    margin: 8px;
+    border-radius: 50%;
+    border: 3px solid ${props => 'white' && props.color};
+    border-color: ${props => 'white' && props.color} transparent ${props => 'white' && props.color}
+      transparent;
+    animation: ${spinnerAnimation} 1.2s linear infinite;
+  }
 `;

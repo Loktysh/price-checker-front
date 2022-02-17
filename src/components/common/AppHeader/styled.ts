@@ -4,13 +4,10 @@ import { Button, Flex } from '../../typography';
 import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300, COLOR_BLACK } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
 import { NavLink } from 'react-router-dom';
+import { Image } from '../types';
 
 type Dropdown = {
   visible: boolean;
-};
-
-type Image = {
-  bgImage: string;
 };
 
 export const StyledHeader = styled(Flex)`
@@ -111,7 +108,7 @@ export const StyledDropdownImage = styled.div<Image>`
   height: 11rem;
   width: 11rem;
   margin-right: 3rem;
-  background-image: url(${props => props.bgImage});
+  background-image: url(${props => (props ? props.bgImage : null)});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;

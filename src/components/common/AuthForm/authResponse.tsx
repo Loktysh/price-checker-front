@@ -1,7 +1,7 @@
 import { API_LINK } from '../constants';
 import { AuthFormParams, User } from '../types';
 import { logUser } from '../../../store/actions';
-import { getStorageItem } from '../../../utils';
+import { fetchUser, getStorageItem } from '../../../utils';
 
 type AuthorizationResponse = {
   user: {
@@ -38,14 +38,9 @@ export const handleAuthSubmit = async (
 
   const parsedToken = getStorageItem('token');
   const parsedRenewToken = getStorageItem('renewToken');
-
-  const userResponse = await fetch(API_LINK + 'auth', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${parsedToken + ' ' + parsedRenewToken}`,
-    },
-  });
-  await userResponse.json().then((data: User) => {
-    logUser(data.user.login, data.user.trackingProducts);
-  });
+  if (parsedToken && parsedRenewToken) {
+    fetchUser(parsedToken, parsedRenewToken).then((data: User) => {
+      logUser(data.user.login, data.user.trackingProducts);
+    });
+  }
 };

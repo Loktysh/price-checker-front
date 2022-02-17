@@ -48,7 +48,7 @@ export const StyledItemImage = styled.div<Image>`
   width: 100%;
   height: 60%;
   margin: 3rem 0;
-  background-image: url(${props => props.bgImage});
+  background-image: url(${props => (props ? props.bgImage : null)});
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;

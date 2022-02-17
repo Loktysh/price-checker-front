@@ -37,7 +37,7 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage, setHistoryOpen }) => {
   const login = useSelector((state: RootState) => state.login.userLogin);
 
   useEffect(() => {
-    const url = API_LINK + 'products?query=';
+    const url = API_LINK + 'products?page=1&query=';
     if (debouncedSearch.length > 0) {
       fetchProducts(url + debouncedSearch).then(data => {
         setSearchItems(data.products);

@@ -1,7 +1,5 @@
-import { ItemsData } from '../components/common/types';
-import { RATING_DIVISOR } from '../components/common/constants/index';
-
-const RATING_STAR_AMOUNT = 5;
+import { API_LINK } from '../components/common/constants';
+import { ItemsData, User } from '../components/common/types';
 
 export const fetchProducts = async (query: string): Promise<ItemsData> => {
   const res: Response = await fetch(query);
@@ -12,12 +10,37 @@ export const fetchProducts = async (query: string): Promise<ItemsData> => {
   return data;
 };
 
-export const getProductRating = (rating: number): [boolean[], number] => {
-  const rate = Math.floor(rating / RATING_DIVISOR);
-  const arr = Array(RATING_STAR_AMOUNT)
-    .fill(false)
-    .map((_, index) => index <= rate - 1);
-  return [arr, rate];
+export const fetchUser = async (token: string, renewToken: string): Promise<User> => {
+  const URL = API_LINK + 'auth';
+  const response: Response = await fetch(URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token + ' ' + renewToken}`,
+    },
+  });
+  const result: User = await response.json();
+  return result;
+};
+
+export const fetchTrack = async (
+  token: string,
+  renewToken: string,
+  action: string,
+  id: string | number,
+) => {
+  const params = { product: id, action: action };
+  const URL = API_LINK + 'products/track';
+  const response: Response = await fetch(URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: `Bearer ${token + ' ' + renewToken}`,
+    },
+    body: JSON.stringify(params),
+  });
+
+  const result = await response.json();
+  return result;
 };
 
 export const getStorageItem = (key: string): string | null => {

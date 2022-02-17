@@ -10,11 +10,10 @@ import { useParams } from 'react-router-dom';
 import { API_LINK } from '../constants';
 import { fetchProducts } from '../../../utils';
 import { Product } from '../types';
-import { StyledScrollBar } from '../../typography';
+import { Spinner, StyledScrollBar } from '../../typography';
 import ItemCard from './ItemCard';
 import { StyledHistoryPanel } from '../historyPanel/styled';
 import { COLOR_GREEN_100 } from '../constants/colors';
-import spinner from '../../../assets/spinner.gif';
 
 type ItemsProps = {
   setCurrentPage: (value: number | ((prevVar: number) => number)) => void;
@@ -30,7 +29,8 @@ const ItemsList: FC<ItemsProps> = ({ setCurrentPage, currentPage }) => {
 
   useEffect(() => {
     setLoading(true);
-    fetchProducts(API_LINK + `products?page=${currentPage}&query=${query}`).then(data => {
+
+    fetchProducts(API_LINK + `products?query=${query}&page=${currentPage}`).then(data => {
       if (currentPage === 1) {
         setFoundItems(data.products);
         scrollToTop();
@@ -66,7 +66,7 @@ const ItemsList: FC<ItemsProps> = ({ setCurrentPage, currentPage }) => {
               color={COLOR_GREEN_100}
               onClick={() => setCurrentPage(currentPage + 1)}
             >
-              {!loading ? 'Load more items' : <img src={spinner} height={25} />}
+              {!loading ? 'Load more items' : <Spinner color='white' size='2rem' />}
             </StyledLoadButton>
           </StyledItemContainer>
         </StyledItemsPage>
