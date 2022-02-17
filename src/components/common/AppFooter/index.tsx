@@ -9,16 +9,16 @@ import {
   RightSide,
 } from './styled';
 import github from './github.svg';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
 
-interface FooterProps {
-  userLogged: boolean;
-}
+export const AppFooter: FC = () => {
+  const logged = useSelector((state: RootState) => state.login.logged);
 
-export const AppFooter: FC<FooterProps> = ({ userLogged }) => {
   return (
     <FooterContainer>
       <LeftSide>
-        {!userLogged ? (
+        {!logged ? (
           <FooterLink to='/about'>About Price Checker</FooterLink>
         ) : (
           <>

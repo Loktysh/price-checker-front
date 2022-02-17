@@ -17,7 +17,7 @@ const MainPage = () => {
     <MainContainer>
       <AppHeader />
       <Outlet />
-      <AppFooter userLogged={false} />
+      <AppFooter />
     </MainContainer>
   );
 };

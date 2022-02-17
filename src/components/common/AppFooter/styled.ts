@@ -10,8 +10,7 @@ import {
 
 export const FooterContainer = styled.div`
   width: 100%;
-  min-height: 24rem;
-  padding: 4rem 6rem 6rem 10rem;
+  padding: 4rem 6rem 4rem 10rem;
   display: flex;
   justify-content: space-between;
   background-color: ${COLOR_WHITE};
@@ -50,6 +49,10 @@ export const FooterLink = styled(Link)`
   @media (max-width: 800px) {
     font-size: 1.8rem;
   }
+
+  @media (max-width: 500px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const GithubLink = styled.a`
@@ -85,5 +88,9 @@ export const PriceChecker = styled(Link)`
 
   @media (max-width: 800px) {
     font-size: 2rem;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1.8rem;
   }
 `;
