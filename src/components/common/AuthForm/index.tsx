@@ -17,15 +17,6 @@ import {
 } from './styled';
 import { useNavigate } from 'react-router-dom';
 
-<<<<<<< HEAD
-interface AuthFormProps {
-  type: 'login' | 'signup';
-  onAuthSubmit: (params: AuthFormParams, type: string) => void;
-  authError: string;
-}
-
-export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit, authError }) => {
-=======
 type AuthVariant = 'login' | 'signup';
 
 type AuthFormProps = {
@@ -38,7 +29,6 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
   const [remember, setRemember] = useState<boolean>(false);
   const navigate = useNavigate();
 
->>>>>>> dev
   const {
     register,
     handleSubmit,
@@ -53,7 +43,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
         navigate('/');
       })
       .catch(error => {
-        setError(`Error logging in, please retry. ERROR: ${error}`);
+        setError(`${error} Please, retry. `);
       });
   };
 
@@ -76,7 +66,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
     <StyledForm onSubmit={handleSubmit(onSubmit)} method='POST'>
       <Flex direction='column' gap='3rem'>
         <FormTitle>{type === 'login' ? 'LOGIN' : 'SIGN UP'}</FormTitle>
-        <AuthError>{authError}</AuthError>
+        {error.length > 0 && <AuthError>{error}</AuthError>}
         <StyledInput
           id='login'
           type='text'
@@ -115,7 +105,6 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
           {type === 'login' && <BasicReactRouterLink to='#'>Forgot password?</BasicReactRouterLink>}
         </OptionalStyledDiv>
         <StyledButton type='submit'>Login</StyledButton>
-        {error.length > 0 && <p>{error}</p>}
         <BasicReactRouterLink to={navLink.path}>{navLink.label}</BasicReactRouterLink>
       </Flex>
     </StyledForm>

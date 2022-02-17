@@ -22,10 +22,12 @@ export const FormTitle = styled.h2`
 `;
 
 export const AuthError = styled.h3`
-  height: 25px;
   margin: 0;
-  font-weight: 700;
-  font-size: 2.2rem;
+  line-height: 3rem;
+  font-weight: 400;
+  font-size: 1.6rem;
+  margin-top: -3rem;
+  margin-bottom: -3rem;
   color: ${COLOR_RED};
 `;
 
