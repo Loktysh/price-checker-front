@@ -51,13 +51,7 @@ const ItemsList: FC<ItemsProps> = ({ setCurrentPage, currentPage }) => {
         <StyledHeading>Search results for: {`'${query}'`}</StyledHeading>
         <StyledItemsPage justify='flex-start'>
           <StyledItemContainer direction='column'>
-            <StyledItemsWrapper
-              ref={scrollRef}
-              gap='40px 20px'
-              justifyItems='start'
-              repeat
-              columns='3'
-            >
+            <StyledItemsWrapper ref={scrollRef} justifyItems='center'>
               {foundItems.map((item: Product) => {
                 return <ItemCard item={item} key={item.id}></ItemCard>;
               })}
