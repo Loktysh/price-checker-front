@@ -1,17 +1,20 @@
 import React, { FC } from 'react';
 import { getProductRating } from '../../../utils';
-import { Flex, StyledStar } from '../../typography';
+import { Flex, StyledItemLink, StyledStar } from '../../typography';
 import { Product } from '../types';
 import {
   StyledDropdownItem,
   StyledDropdownImage,
-  StyledItemLink,
   StyledRating,
   StyledItemName,
   StyledItemPrice,
 } from './styled';
 
-const ProductElement: FC<{ item: Product }> = ({ item }) => {
+type ProductElementProps = {
+  item: Product;
+};
+
+const ProductElement: FC<ProductElementProps> = ({ item }) => {
   const [ratingArr, itemRating] = getProductRating(item.rating);
 
   return (

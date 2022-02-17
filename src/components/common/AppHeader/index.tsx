@@ -15,24 +15,35 @@ import { useDebounce } from '../../../hooks/';
 import { Product } from '../types';
 import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
+import { useSelector } from 'react-redux';
+import LoginDropdown from './LoginDropdown';
+import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../../utils';
+import { RootState } from '../../../store/store';
+import LoginLink from './LoginLink';
 
 type HeaderProps = {
   setCurrentPage?: (value: number) => void;
+  setHistoryOpen?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 };
 
 const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [searchItems, setSearchItems] = useState<Product[]>([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
+  const [loginDropdown, setLoginDropdown] = useState<boolean>(false);
   const debouncedSearch = useDebounce(inputValue, 600);
+  const logged = useSelector((state: RootState) => state.login.logged);
+  const login = useSelector((state: RootState) => state.login.userLogin);
 
   useEffect(() => {
     const url = API_LINK + 'products?query=';
-    fetchProducts(url + debouncedSearch).then(data => {
-      setSearchItems(data.products);
-      setDropdown(true);
-    });
+    if (debouncedSearch.length > 0) {
+      fetchProducts(url + debouncedSearch).then(data => {
+        setSearchItems(data.products);
+        setDropdown(true);
+      });
+    }
   }, [debouncedSearch]);
 
   useEffect(() => {
@@ -40,6 +51,12 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
       setDropdown(false);
     }
   }, [inputValue]);
+
+  const openLoginDropdown = useCallback(() => {
+    if (logged) {
+      setLoginDropdown(!loginDropdown);
+    }
+  }, [logged, loginDropdown]);
 
   const closeDropdownOnQuery = useCallback(() => {
     setDropdown(false);
@@ -77,11 +94,12 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
           )}
         </StyledSearchDropdown>
       </StyledSearchField>
-      <BasicLink to={'/login'}>
-        <StyledAccountButton outline textColor={COLOR_GRAY_300}>
-          Log in
+      <LoginLink isLinkEnabled={logged}>
+        <StyledAccountButton outline onClick={openLoginDropdown} textColor={COLOR_GRAY_300}>
+          {logged ? login : 'Log in'}
+          {loginDropdown && <LoginDropdown />}
         </StyledAccountButton>
-      </BasicLink>
+      </LoginLink>
     </StyledHeader>
   );
 };
