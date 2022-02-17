@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { logUser } from '../store/actions';
-import { API_LINK } from './common/constants';
 import { User } from './common/types';
 import { AboutPage, MainPage } from './pages';
 import ItemsPage from './pages/ItemsPage';

@@ -1,6 +1,11 @@
 import React, { FC } from 'react';
-import { FaTimes } from 'react-icons/fa';
-import { StyledHistoryPanel } from './styled';
+import {
+  StyledCloseButton,
+  StyledHistoryHeading,
+  StyledHistoryItem,
+  StyledHistoryPanel,
+} from './styled';
+import { historyMock } from '../../../mocks/historyMock';
 
 type HistoryProps = {
   open: boolean;
@@ -10,8 +15,16 @@ type HistoryProps = {
 const HistoryPanel: FC<HistoryProps> = ({ open, setHistoryOpen }) => {
   return (
     <StyledHistoryPanel open={open}>
-      <FaTimes onClick={() => setHistoryOpen(false)} />
-      <p>History...</p>
+      <StyledCloseButton onClick={() => setHistoryOpen(false)} />
+      <StyledHistoryHeading>You searched for:</StyledHistoryHeading>
+
+      {historyMock.map((elem: string, idx) => {
+        return (
+          <StyledHistoryItem key={idx}>
+            <span>{elem}</span>
+          </StyledHistoryItem>
+        );
+      })}
     </StyledHistoryPanel>
   );
 };

@@ -10,7 +10,7 @@ export type Product = {
   price_min: string;
 };
 
-type PriceChartItem = {
+export type PriceChartItem = {
   date: string;
   price: string;
 };

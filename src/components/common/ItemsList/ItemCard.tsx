@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { Flex, StyledItemLink } from '../../typography';
-import { API_LINK } from '../constants';
 import { Product } from '../types';
 import {
   StyledItemCard,

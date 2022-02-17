@@ -12,7 +12,6 @@ import { fetchProducts } from '../../../utils';
 import { Product } from '../types';
 import { Spinner, StyledScrollBar } from '../../typography';
 import ItemCard from './ItemCard';
-import { StyledHistoryPanel } from '../historyPanel/styled';
 import { COLOR_GREEN_100 } from '../constants/colors';
 
 type ItemsProps = {

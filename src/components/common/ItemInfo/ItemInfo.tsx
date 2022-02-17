@@ -10,8 +10,9 @@ import {
   StyledTrackButton,
   StyledItemPrice,
   StyledPriceWrapper,
+  StyledChartButton,
 } from './styled';
-import PriceChart from './PriceChart';
+import PriceChart from './components/PriceChart';
 import { API_LINK } from '../constants';
 import { RootState } from '../../../store/store';
 import { useSelector } from 'react-redux';
@@ -19,7 +20,7 @@ import { Product, ProductPrice } from '../types';
 import { Flex, Spinner } from '../../typography';
 import StarRating from '../StarRating/StarRating';
 import { useProductRating } from '../../../hooks/useProductRating';
-import { COLOR_GREEN_100 } from '../constants/colors';
+import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { useFixedDescription } from '../../../hooks/useFixedDescription';
 
 type ExtendedProductInfo = Product & ProductPrice;
@@ -39,15 +40,12 @@ const ItemInfo = () => {
     fetch(URL)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         setCurrentProduct(data);
-        if (currentProduct) {
-          const itemId = currentProduct.id.toString();
-          setIsTracked(trackedItems.includes(itemId));
-        }
+        const itemId = currentProduct?.id.toString();
+        setIsTracked(trackedItems.includes(itemId as string));
         setIsLoading(false);
       });
-  }, [key, trackedItems]);
+  }, [key, trackedItems, currentProduct?.id]);
 
   if (isLoading) {
     return (
@@ -57,26 +55,40 @@ const ItemInfo = () => {
     );
   } else {
     return (
-      <StyledInfoContainer justify='space-between'>
-        <StyledProductImage
-          bgImage={currentProduct ? currentProduct.image : null}
-        ></StyledProductImage>
-        <StyledWrapper>
-          <StyledHeading>{currentProduct?.extended_name}</StyledHeading>
-          <Flex justify='flex-start' gap='2rem'>
-            <StarRating ratingArr={ratingArr} />
-            <StyledParagraph>Product rating based on users: {rating}.0</StyledParagraph>
+      <>
+        <StyledInfoContainer justify='space-between'>
+          <StyledProductImage
+            bgImage={currentProduct ? currentProduct.image : null}
+          ></StyledProductImage>
+          <StyledWrapper>
+            <StyledHeading>{currentProduct?.extended_name}</StyledHeading>
+            <Flex justify='flex-start' gap='2rem'>
+              <StarRating ratingArr={ratingArr} />
+              <StyledParagraph>Product rating based on users: {rating}.0</StyledParagraph>
+            </Flex>
+            <StyledParagraph>Product description:</StyledParagraph>
+            <StyledParagraph>{fixedDescription}</StyledParagraph>
+            <StyledPriceWrapper justify='flex-start'>
+              <StyledItemPrice>
+                Price: from BYN {currentProduct?.price_min} to BYN{' '}
+                {currentProduct?.prices.max.amount}
+              </StyledItemPrice>
+              <StyledTrackButton color={isTracked ? COLOR_GRAY_300 : COLOR_GREEN_100}>
+                {isTracked ? 'Untrack' : 'Track'}
+              </StyledTrackButton>
+            </StyledPriceWrapper>
+          </StyledWrapper>
+        </StyledInfoContainer>
+        <StyledChartCard>
+          <Flex gap='2rem'>
+            <StyledParagraph>View product price chart and compare prices:</StyledParagraph>
+            <StyledChartButton>Onliner API (Monthly)</StyledChartButton>
+            <StyledChartButton>Custom API (Weekly)</StyledChartButton>
+            <StyledChartButton>Custom API (Daily)</StyledChartButton>
           </Flex>
-          <StyledParagraph>Product description:</StyledParagraph>
-          <StyledParagraph>{fixedDescription}</StyledParagraph>
-          <StyledPriceWrapper justify='flex-start'>
-            <StyledItemPrice>
-              Price: from BYN {currentProduct?.price_min} to BYN {currentProduct?.prices.max.amount}
-            </StyledItemPrice>
-            <StyledTrackButton>Track?</StyledTrackButton>
-          </StyledPriceWrapper>
-        </StyledWrapper>
-      </StyledInfoContainer>
+          <PriceChart data={currentProduct?.prices.charts} />
+        </StyledChartCard>
+      </>
     );
   }
 };
