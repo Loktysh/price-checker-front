@@ -17,7 +17,6 @@ import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
 import { useSelector } from 'react-redux';
 import LoginDropdown from './LoginDropdown';
-import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../../utils';
 import { RootState } from '../../../store/store';
 import LoginLink from './LoginLink';

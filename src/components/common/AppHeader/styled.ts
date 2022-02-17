@@ -51,7 +51,7 @@ export const StyledSearchInput = styled.input`
     width: 30rem;
   }
 
-  @media (max-width: 450px) {
+  @media (max-width: 500px) {
     width: 75%;
   }
 `;
@@ -82,6 +82,7 @@ export const StyledSearchButton = styled(Button)`
 `;
 
 export const StyledAccountButton = styled(Button)`
+  position: relative;
   text-decoration: none;
   color: ${COLOR_GRAY_300};
   font-size: 1.5rem;
@@ -92,6 +93,10 @@ export const StyledAccountButton = styled(Button)`
   align-items: center;
   border: solid 1px ${COLOR_GREEN_100};
   border-radius: 2px;
+
+  :hover {
+    cursor: pointer;
+  }
 
   @media (max-width: 768px) {
     padding: 1.5rem 1rem;
