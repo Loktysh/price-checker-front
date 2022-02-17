@@ -27,10 +27,6 @@ export const handleAuthSubmit = async (
     body: JSON.stringify(params),
   });
 
-  if (response.status !== 200) {
-    const errorMsg = type === 'signup' ? 'User already exists!' : 'Wrong username or password!';
-    throw new Error(errorMsg);
-  }
   const result: AuthorizationResponse = await response.json();
 
   if (remember) {
