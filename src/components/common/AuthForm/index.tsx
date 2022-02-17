@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Flex } from '../../typography';
 import { AuthFormParams } from '../types';
@@ -15,7 +15,9 @@ import {
   StyledLabel,
   StyledRememberOptionContainer,
 } from './styled';
+import { useNavigate } from 'react-router-dom';
 
+<<<<<<< HEAD
 interface AuthFormProps {
   type: 'login' | 'signup';
   onAuthSubmit: (params: AuthFormParams, type: string) => void;
@@ -23,6 +25,20 @@ interface AuthFormProps {
 }
 
 export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit, authError }) => {
+=======
+type AuthVariant = 'login' | 'signup';
+
+type AuthFormProps = {
+  type: AuthVariant;
+  onAuthSubmit: (params: AuthFormParams, type: AuthVariant, remember: boolean) => Promise<void>;
+};
+
+export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
+  const [error, setError] = useState<string>('');
+  const [remember, setRemember] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+>>>>>>> dev
   const {
     register,
     handleSubmit,
@@ -30,8 +46,15 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit, authError }) =
   } = useForm<AuthFormParams>({
     mode: 'onBlur',
   });
+
   const onSubmit: SubmitHandler<AuthFormParams> = data => {
-    onAuthSubmit(data, type);
+    onAuthSubmit(data, type, remember)
+      .then(() => {
+        navigate('/');
+      })
+      .catch(error => {
+        setError(`Error logging in, please retry. ERROR: ${error}`);
+      });
   };
 
   const navLink = useMemo(
@@ -44,6 +67,10 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit, authError }) =
         : { label: 'Have an account?', path: '/login' },
     [type],
   );
+
+  const handleRememberCheckbox = useCallback(() => {
+    setRemember(!remember);
+  }, [remember]);
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)} method='POST'>
@@ -76,12 +103,19 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit, authError }) =
         )}
         <OptionalStyledDiv>
           <StyledRememberOptionContainer>
-            <StyledCheckbox type='checkbox' name='remember' id='remember-user' />
+            <StyledCheckbox
+              type='checkbox'
+              name='remember'
+              id='remember-user'
+              checked={remember}
+              onChange={handleRememberCheckbox}
+            />
             <StyledLabel htmlFor='remember-user'>Remember me</StyledLabel>
           </StyledRememberOptionContainer>
           {type === 'login' && <BasicReactRouterLink to='#'>Forgot password?</BasicReactRouterLink>}
         </OptionalStyledDiv>
         <StyledButton type='submit'>Login</StyledButton>
+        {error.length > 0 && <p>{error}</p>}
         <BasicReactRouterLink to={navLink.path}>{navLink.label}</BasicReactRouterLink>
       </Flex>
     </StyledForm>

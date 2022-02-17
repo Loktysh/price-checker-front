@@ -1,4 +1,5 @@
 import { FaStar } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLOR_GRAY_300, COLOR_GREEN_100, COLOR_YELLOW } from '../common/constants/colors';
 
@@ -109,4 +110,12 @@ export const StyledScrollBar = styled.div`
   *::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+`;
+
+export const StyledItemLink = styled(Link)`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: ${COLOR_GRAY_300};
 `;
