@@ -88,7 +88,9 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage, setHistoryOpen }) => {
 
         <StyledSearchDropdown visible={dropDown} direction='column'>
           {searchItems.length > 0 ? (
-            searchItems.map((item: Product) => <ProductElement key={item.id} item={item} />)
+            searchItems.map((item: Product) => (
+              <ProductElement key={item.id} item={item} clickFunction={closeDropdownOnQuery} />
+            ))
           ) : (
             <StyledDropdownItem>Sorry, no items were found...</StyledDropdownItem>
           )}

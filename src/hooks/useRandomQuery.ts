@@ -1,4 +1,5 @@
 export const useRandomQuery = () => {
+  // TODO: рандомные запросы для красивого лендоса
   const randomQueries = [
     'iPhone 13 Pro',
     'Samsung Galaxy S21 Ultra',
