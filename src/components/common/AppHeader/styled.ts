@@ -1,10 +1,10 @@
 import { COLOR_GRAY_300, COLOR_GRAY_100 } from './../constants/colors';
 import styled from 'styled-components';
 import { Button, Flex } from '../../typography';
-import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300, COLOR_BLACK } from '../constants/colors';
+import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300 } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
-import { NavLink } from 'react-router-dom';
 import { Image } from '../types';
+import { Link, NavLink } from 'react-router-dom';
 
 type Dropdown = {
   visible: boolean;
@@ -26,6 +26,10 @@ export const StyledHeaderName = styled(NavLink)`
     color: ${COLOR_GREEN_300};
     transition: 0.1s ease;
   }
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const StyledSearchField = styled(Flex)`
@@ -40,6 +44,14 @@ export const StyledSearchInput = styled.input`
   font-size: 1.5rem;
   padding: 1.5rem;
   margin-right: 1rem;
+
+  @media (max-width: 768px) {
+    width: 30rem;
+  }
+
+  @media (max-width: 500px) {
+    width: 75%;
+  }
 `;
 
 export const StyledSearchButton = styled(Button)`
@@ -50,8 +62,20 @@ export const StyledSearchButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid ${COLOR_GREEN_100};
+  border-radius: 2px;
   &:hover {
     background-color: ${COLOR_GREEN_300};
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 450px) {
+    padding: 1.5rem 0.6rem;
+    font-size: 1.2rem;
   }
 `;
 
@@ -70,6 +94,7 @@ export const StyledHistoryButton = styled(Button)`
 `;
 
 export const StyledAccountButton = styled(Button)`
+  position: relative;
   text-decoration: none;
   color: ${COLOR_GRAY_300};
   font-size: 1.5rem;
@@ -78,8 +103,22 @@ export const StyledAccountButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  border: solid 2px ${COLOR_BLACK};
+  border: solid 1px ${COLOR_GREEN_100};
+  border-radius: 2px;
+
+  :hover {
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 450px) {
+    padding: 1.5rem 0.8rem;
+    font-size: 1.2rem;
+  }
 `;
 
 export const StyledSearchDropdown = styled(Flex)<Dropdown>`
@@ -91,6 +130,20 @@ export const StyledSearchDropdown = styled(Flex)<Dropdown>`
   background-color: ${COLOR_WHITE};
   display: ${props => (props.visible ? 'block' : 'none')};
   overflow-y: auto;
+
+  @media (max-width: 1060px) {
+    width: 150%;
+  }
+
+  @media (max-width: 850px) {
+    width: 115%;
+    left: 2px;
+  }
+
+  @media (max-width: 450px) {
+    width: 118%;
+    left: 2px;
+  }
 `;
 
 export const StyledDropdownItem = styled(Flex)`
@@ -104,6 +157,22 @@ export const StyledDropdownItem = styled(Flex)`
   }
 `;
 
+export const StyledItemName = styled.p`
+  font-size: 1.6rem;
+
+  @media (max-width: 650px) {
+    font-size: 1.4rem;
+  }
+`;
+
+export const StyledItemPrice = styled.p`
+  font-size: 1.6rem;
+
+  @media (max-width: 650px) {
+    font-size: 1.4rem;
+  }
+`;
+
 export const StyledDropdownImage = styled.div<Image>`
   height: 11rem;
   width: 11rem;
@@ -112,11 +181,26 @@ export const StyledDropdownImage = styled.div<Image>`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+
+  @media (max-width: 650px) {
+    height: 9rem;
+    width: 9rem;
+    margin-right: 0.5rem;
+  }
 `;
 
 export const StyledRating = styled.p`
   margin-right: 2rem;
   font-weight: bold;
+  font-size: 1.6rem;
+
+  @media (max-width: 650px) {
+    font-size: 1.4rem;
+  }
+`;
+
+export const BasicLink = styled(Link)`
+  text-decoration: none;
 `;
 
 export const StyledLoginDropdown = styled(Flex)`

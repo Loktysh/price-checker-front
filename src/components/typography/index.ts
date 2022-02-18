@@ -121,6 +121,7 @@ export const StyledScrollBar = styled.div`
 export const StyledItemLink = styled(Link)`
   height: 100%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   text-decoration: none;
   color: ${COLOR_GRAY_300};

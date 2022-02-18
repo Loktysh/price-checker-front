@@ -7,6 +7,7 @@ import { AboutPage, MainPage } from './pages';
 import ItemsPage from './pages/ItemsPage';
 import { LoginPage } from './pages/LoginPage';
 import ProductPage from './pages/ProductPage';
+import { SettingsPage } from './pages/Settings page/SettingsPage';
 import { SignupPage } from './pages/SignupPage';
 import { fetchUser, getStorageItem } from '../utils/index';
 
@@ -34,8 +35,10 @@ const App = () => {
     <Router>
       <Routes>
         <Route path='/' element={<MainPage />}>
+          <Route path='/' element={<LoginPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignupPage />} />
+          <Route path='/settings' element={<SettingsPage />} />
         </Route>
         <Route path='/about' element={<AboutPage />} />
         <Route path='/products/:query' element={<ItemsPage />} />

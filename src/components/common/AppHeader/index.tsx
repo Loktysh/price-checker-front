@@ -7,6 +7,7 @@ import {
   StyledSearchDropdown,
   StyledDropdownItem,
   StyledHistoryButton,
+  BasicLink,
 } from './styled';
 import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
@@ -17,7 +18,6 @@ import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
 import { useSelector } from 'react-redux';
 import LoginDropdown from './LoginDropdown';
-import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../../utils';
 import { RootState } from '../../../store/store';
 import LoginLink from './LoginLink';
@@ -80,11 +80,11 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage, setHistoryOpen }) => {
           onFocus={openDropdown}
           value={inputValue}
         />
-        <Link to={'/products/' + inputValue}>
+        <BasicLink to={'/products/' + inputValue}>
           <StyledSearchButton color={COLOR_GREEN_100} onClick={closeDropdownOnQuery}>
             Search!
           </StyledSearchButton>
-        </Link>
+        </BasicLink>
 
         <StyledSearchDropdown visible={dropDown} direction='column'>
           {searchItems.length > 0 ? (
