@@ -66,7 +66,6 @@ export const StyledItemPrice = styled.p`
 `;
 
 export const StyledTrackButton = styled(Button)`
-  /* background-color: ${COLOR_GREEN_100}; */
   font-size: 2rem;
   height: 50px;
   width: 150px;

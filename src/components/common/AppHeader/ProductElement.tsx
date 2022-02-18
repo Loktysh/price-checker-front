@@ -7,14 +7,14 @@ import { StyledDropdownItem, StyledDropdownImage, StyledRating } from './styled'
 
 type ProductElementProps = {
   item: Product;
-  clickFunction: () => void;
+  closeDropdownOnQuery: () => void;
 };
 
-const ProductElement: FC<ProductElementProps> = ({ item, clickFunction }) => {
+const ProductElement: FC<ProductElementProps> = ({ item, closeDropdownOnQuery }) => {
   const [ratingArr, itemRating] = useProductRating(item.rating);
 
   return (
-    <StyledDropdownItem justify='flex-start' onClick={() => clickFunction()}>
+    <StyledDropdownItem justify='flex-start' onClick={() => closeDropdownOnQuery()}>
       <StyledItemLink to={'/product/' + item.key}>
         <StyledDropdownImage bgImage={item.image}></StyledDropdownImage>
         <Flex direction='column' alignItems='flex-start'>

@@ -53,44 +53,42 @@ const ItemInfo = () => {
         <Spinner size='50px' color={COLOR_GREEN_100} />;
       </StyledInfoContainer>
     );
-  } else {
-    return (
-      <>
-        <StyledInfoContainer justify='space-between'>
-          <StyledProductImage
-            bgImage={currentProduct ? currentProduct.image : null}
-          ></StyledProductImage>
-          <StyledWrapper>
-            <StyledHeading>{currentProduct?.extended_name}</StyledHeading>
-            <Flex justify='flex-start' gap='2rem'>
-              <StarRating ratingArr={ratingArr} />
-              <StyledParagraph>Product rating based on users: {rating}.0</StyledParagraph>
-            </Flex>
-            <StyledParagraph>Product description:</StyledParagraph>
-            <StyledParagraph>{fixedDescription}</StyledParagraph>
-            <StyledPriceWrapper justify='flex-start'>
-              <StyledItemPrice>
-                Price: from BYN {currentProduct?.price_min} to BYN{' '}
-                {currentProduct?.prices.max.amount}
-              </StyledItemPrice>
-              <StyledTrackButton color={isTracked ? COLOR_GRAY_300 : COLOR_GREEN_100}>
-                {isTracked ? 'Untrack' : 'Track'}
-              </StyledTrackButton>
-            </StyledPriceWrapper>
-          </StyledWrapper>
-        </StyledInfoContainer>
-        <StyledChartCard>
-          <Flex gap='2rem'>
-            <StyledParagraph>View product price chart and compare prices:</StyledParagraph>
-            <StyledChartButton>Onliner API (Monthly)</StyledChartButton>
-            <StyledChartButton>Custom API (Weekly)</StyledChartButton>
-            <StyledChartButton>Custom API (Daily)</StyledChartButton>
-          </Flex>
-          <PriceChart data={currentProduct?.prices.charts} />
-        </StyledChartCard>
-      </>
-    );
   }
+  return (
+    <>
+      <StyledInfoContainer justify='space-between'>
+        <StyledProductImage
+          bgImage={currentProduct ? currentProduct.image : null}
+        ></StyledProductImage>
+        <StyledWrapper>
+          <StyledHeading>{currentProduct?.extended_name}</StyledHeading>
+          <Flex justify='flex-start' gap='2rem'>
+            <StarRating ratingArr={ratingArr} />
+            <StyledParagraph>Product rating based on users: {rating}.0</StyledParagraph>
+          </Flex>
+          <StyledParagraph>Product description:</StyledParagraph>
+          <StyledParagraph>{fixedDescription}</StyledParagraph>
+          <StyledPriceWrapper justify='flex-start'>
+            <StyledItemPrice>
+              Price: from BYN {currentProduct?.price_min} to BYN {currentProduct?.prices.max.amount}
+            </StyledItemPrice>
+            <StyledTrackButton color={isTracked ? COLOR_GRAY_300 : COLOR_GREEN_100}>
+              {isTracked ? 'Untrack' : 'Track'}
+            </StyledTrackButton>
+          </StyledPriceWrapper>
+        </StyledWrapper>
+      </StyledInfoContainer>
+      <StyledChartCard>
+        <Flex gap='2rem'>
+          <StyledParagraph>View product price chart and compare prices:</StyledParagraph>
+          <StyledChartButton>Onliner API (Monthly)</StyledChartButton>
+          <StyledChartButton>Custom API (Weekly)</StyledChartButton>
+          <StyledChartButton>Custom API (Daily)</StyledChartButton>
+        </Flex>
+        <PriceChart data={currentProduct?.prices.charts} />
+      </StyledChartCard>
+    </>
+  );
 };
 
 export default ItemInfo;
