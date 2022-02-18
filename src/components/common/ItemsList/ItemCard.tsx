@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { Flex, StyledItemLink } from '../../typography';
 import { Product } from '../types';
@@ -15,8 +15,7 @@ import {
   StyledTrackInfo,
   StyledTrackMessage,
 } from './styled';
-import { trackItem, untrackItem } from '../../../store/slices/productsSlice';
-import { fetchTrack, getStorageItem } from '../../../utils/index';
+import { fetchTrack, getStorageItem, toggleItemTrack } from '../../../utils/index';
 import { useProductRating } from '../../../hooks/useProductRating';
 import StarRating from '../StarRating/StarRating';
 
@@ -32,7 +31,6 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
   const token = getStorageItem('token');
   const renewToken = getStorageItem('renewToken');
   const allTrackedItems = useSelector((state: RootState) => state.tracking.tracked);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (allTrackedItems.includes(id.toString())) setIsTracked(true);
@@ -41,7 +39,7 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
   const handleTrackClick = async () => {
     const action = isTracked ? 'untrack' : 'track';
 
-    toggleItemTrack(action);
+    toggleItemTrack(action, item.key);
 
     if (token && renewToken) {
       fetchTrack(token, renewToken, action, id).then(() => {
@@ -51,14 +49,6 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
           setInfoVisible(false);
         }, 1000);
       });
-    }
-  };
-
-  const toggleItemTrack = (actionType: string) => {
-    if (actionType === 'track') {
-      dispatch(trackItem(item.key));
-    } else if (actionType === 'untrack') {
-      dispatch(untrackItem(item.key));
     }
   };
 

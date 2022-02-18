@@ -22,6 +22,7 @@ import StarRating from '../StarRating/StarRating';
 import { useProductRating } from '../../../hooks/useProductRating';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { useFixedDescription } from '../../../hooks/useFixedDescription';
+import { fetchTrack, getStorageItem, toggleItemTrack } from '../../../utils';
 
 type ExtendedProductInfo = Product & ProductPrice;
 
@@ -30,22 +31,39 @@ const ItemInfo = () => {
   const [currentProduct, setCurrentProduct] = useState<ExtendedProductInfo | null>(null);
   const [isTracked, setIsTracked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const token = getStorageItem('token');
+  const renewToken = getStorageItem('renewToken');
   const trackedItems = useSelector((state: RootState) => state.tracking.tracked);
   const [ratingArr, rating] = useProductRating(currentProduct?.rating);
   const fixedDescription = useFixedDescription(currentProduct?.description);
 
   useEffect(() => {
+    const itemId = currentProduct?.id.toString();
+    setIsTracked(trackedItems.includes(itemId as string));
     const URL = API_LINK + `product?key=${key}`;
     setIsLoading(true);
     fetch(URL)
       .then(res => res.json())
       .then(data => {
         setCurrentProduct(data);
-        const itemId = currentProduct?.id.toString();
-        setIsTracked(trackedItems.includes(itemId as string));
+
         setIsLoading(false);
       });
-  }, [key, trackedItems, currentProduct?.id]);
+  }, [trackedItems, currentProduct?.id, key]);
+
+  const handleTrackClick = async () => {
+    const action = isTracked ? 'untrack' : 'track';
+
+    if (key) {
+      toggleItemTrack(action, key);
+    }
+
+    if (token && renewToken && currentProduct) {
+      fetchTrack(token, renewToken, action, currentProduct.id).then(() => {
+        setIsTracked(!isTracked);
+      });
+    }
+  };
 
   if (isLoading) {
     return (
@@ -72,7 +90,10 @@ const ItemInfo = () => {
             <StyledItemPrice>
               Price: from BYN {currentProduct?.price_min} to BYN {currentProduct?.prices.max.amount}
             </StyledItemPrice>
-            <StyledTrackButton color={isTracked ? COLOR_GRAY_300 : COLOR_GREEN_100}>
+            <StyledTrackButton
+              color={isTracked ? COLOR_GRAY_300 : COLOR_GREEN_100}
+              onClick={handleTrackClick}
+            >
               {isTracked ? 'Untrack' : 'Track'}
             </StyledTrackButton>
           </StyledPriceWrapper>

@@ -1,5 +1,7 @@
 import { API_LINK } from '../components/common/constants';
 import { ItemsData, User } from '../components/common/types';
+import { trackItem, untrackItem } from '../store/slices';
+import { store } from '../store/store';
 
 export const fetchProducts = async (query: string): Promise<ItemsData> => {
   const res: Response = await fetch(query);
@@ -54,4 +56,12 @@ export const removeStorageTokens = (): void => {
   localStorage.removeItem('renewToken');
   sessionStorage.removeItem('token');
   sessionStorage.removeItem('renewToken');
+};
+
+export const toggleItemTrack = (actionType: string, key: string): void => {
+  if (actionType === 'track') {
+    store.dispatch(trackItem(key));
+  } else if (actionType === 'untrack') {
+    store.dispatch(untrackItem(key));
+  }
 };
