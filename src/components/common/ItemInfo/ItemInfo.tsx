@@ -109,7 +109,6 @@ const ItemInfo = () => {
           <StyledParagraph>View product price chart and compare prices:</StyledParagraph>
           <StyledChartButton
             onClick={() => {
-              console.log('onliner');
               setProductPrices(currentProduct?.prices.charts);
             }}
           >
@@ -117,7 +116,6 @@ const ItemInfo = () => {
           </StyledChartButton>
           <StyledChartButton
             onClick={() => {
-              console.log('custom');
               setProductPrices(currentProduct?.prices.dbCharts);
             }}
           >

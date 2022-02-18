@@ -100,7 +100,9 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage, setHistoryOpen }) => {
           )}
         </StyledSearchDropdown>
       </StyledSearchField>
-      {/* {logged && setHistoryOpen ? (
+      {/* 
+      // TODO: button temporarily disabled due to layout conflicts, enable later
+      {logged && setHistoryOpen ? (
         <StyledHistoryButton outline onClick={() => setHistoryOpen(prev => !prev)}>
           Show history
         </StyledHistoryButton>
