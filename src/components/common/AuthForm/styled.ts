@@ -12,6 +12,10 @@ import {
 export const StyledForm = styled.form`
   margin: auto;
   width: 40rem;
+
+  @media (max-width: 600px) {
+    width: 30rem;
+  }
 `;
 
 export const FormTitle = styled.h2`
@@ -19,6 +23,10 @@ export const FormTitle = styled.h2`
   font-weight: 700;
   font-size: 2.4rem;
   color: ${COLOR_GRAY_300};
+
+  @media (max-width: 600px) {
+    font-size: 2.1rem;
+  }
 `;
 
 export const StyledInput = styled.input`
@@ -38,6 +46,10 @@ export const StyledInput = styled.input`
   :hover {
     border-color: ${COLOR_BLACK};
   }
+
+  @media (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 export const StyledCheckbox = styled.input`
@@ -52,6 +64,10 @@ export const OptionalStyledDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 export const StyledRememberOptionContainer = styled.div`
@@ -94,6 +110,11 @@ export const StyledButton = styled.button`
 
   :hover {
     border-color: ${COLOR_BLACK};
+  }
+
+  @media (max-width: 600px) {
+    width: 90%;
+    font-weight: 500;
   }
 `;
 
