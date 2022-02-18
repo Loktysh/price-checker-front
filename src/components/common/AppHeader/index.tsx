@@ -100,11 +100,11 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage, setHistoryOpen }) => {
           )}
         </StyledSearchDropdown>
       </StyledSearchField>
-      {logged && setHistoryOpen ? (
+      {/* {logged && setHistoryOpen ? (
         <StyledHistoryButton outline onClick={() => setHistoryOpen(prev => !prev)}>
           Show history
         </StyledHistoryButton>
-      ) : null}
+      ) : null} */}
       <LoginLink isLinkEnabled={logged}>
         <StyledAccountButton outline onClick={openLoginDropdown} textColor={COLOR_GRAY_300}>
           {logged ? login : 'Log in'}
