@@ -26,7 +26,7 @@ export const StyledProductImage = styled.div<Image>`
 `;
 
 export const StyledChartCard = styled.div`
-  height: 500px;
+  height: 580px;
   width: 55%;
   background-color: ${COLOR_WHITE};
   box-shadow: ${SHADOW_SMALL};
@@ -77,4 +77,12 @@ export const StyledChartButton = styled(Button)`
   font-size: 1.2rem;
   height: 40px;
   width: 100px;
+`;
+
+export const StyledChartButtons = styled(Flex)`
+  margin-bottom: 3rem;
+`;
+
+export const StyledChartContainer = styled.div`
+  height: 80%;
 `;

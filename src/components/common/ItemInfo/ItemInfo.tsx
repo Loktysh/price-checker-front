@@ -11,6 +11,7 @@ import {
   StyledItemPrice,
   StyledPriceWrapper,
   StyledChartButton,
+  StyledChartContainer,
 } from './styled';
 import PriceChart from './components/PriceChart';
 import { API_LINK } from '../constants';
@@ -23,6 +24,8 @@ import { useProductRating } from '../../../hooks/useProductRating';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { useFixedDescription } from '../../../hooks/useFixedDescription';
 import { fetchTrack, getStorageItem, toggleItemTrack } from '../../../utils';
+import { PriceChartItem } from '../types/index';
+import { StyledChartButtons } from './styled';
 
 type ExtendedProductInfo = Product & ProductPrice;
 
@@ -36,10 +39,12 @@ const ItemInfo = () => {
   const trackedItems = useSelector((state: RootState) => state.tracking.tracked);
   const [ratingArr, rating] = useProductRating(currentProduct?.rating);
   const fixedDescription = useFixedDescription(currentProduct?.description);
+  const [productPrices, setProductPrices] = useState<PriceChartItem[] | undefined>(undefined);
 
   useEffect(() => {
     const itemId = currentProduct?.id.toString();
     setIsTracked(trackedItems.includes(itemId as string));
+    setProductPrices(currentProduct?.prices.charts);
     const URL = API_LINK + `product?key=${key}`;
     setIsLoading(true);
     fetch(URL)
@@ -100,13 +105,29 @@ const ItemInfo = () => {
         </StyledWrapper>
       </StyledInfoContainer>
       <StyledChartCard>
-        <Flex gap='2rem'>
+        <StyledChartButtons gap='2rem'>
           <StyledParagraph>View product price chart and compare prices:</StyledParagraph>
-          <StyledChartButton>Onliner API (Monthly)</StyledChartButton>
-          <StyledChartButton>Custom API (Weekly)</StyledChartButton>
+          <StyledChartButton
+            onClick={() => {
+              console.log('onliner');
+              setProductPrices(currentProduct?.prices.charts);
+            }}
+          >
+            Onliner API (Monthly)
+          </StyledChartButton>
+          <StyledChartButton
+            onClick={() => {
+              console.log('custom');
+              setProductPrices(currentProduct?.prices.dbCharts);
+            }}
+          >
+            Custom API (Weekly)
+          </StyledChartButton>
           <StyledChartButton>Custom API (Daily)</StyledChartButton>
-        </Flex>
-        <PriceChart data={currentProduct?.prices.charts} />
+        </StyledChartButtons>
+        <StyledChartContainer>
+          <PriceChart data={productPrices} />
+        </StyledChartContainer>
       </StyledChartCard>
     </>
   );
