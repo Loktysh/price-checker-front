@@ -58,7 +58,7 @@ export const StyledItemsPage = styled(Flex)`
 `;
 
 export const StyledItemContainer = styled(Flex)`
-  width: 75%;
+  width: 100%;
   height: 80vh;
 
   @media (max-width: 1350px) {
@@ -76,7 +76,6 @@ export const StyledItemsWrapper = styled(Grid)`
   height: 100%;
   margin-left: 0;
   overflow-y: auto;
-  direction: rtl;
   gap: 4rem 2rem;
   grid-template-columns: repeat(3, 1fr);
 
@@ -98,7 +97,7 @@ export const StyledItemImage = styled.div<Image>`
   width: 100%;
   height: 60%;
   margin: 3rem 0;
-  background-image: url(${props => props.bgImage});
+  background-image: url(${props => (props ? props.bgImage : null)});
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;

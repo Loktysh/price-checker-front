@@ -1,16 +1,13 @@
-import { COLOR_GRAY_300, COLOR_GRAY_100 } from './../constants/colors';
 import styled from 'styled-components';
+import { COLOR_GRAY_300, COLOR_GRAY_100, COLOR_BLACK } from './../constants/colors';
 import { Button, Flex } from '../../typography';
 import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300 } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
+import { Image } from '../types';
 import { Link, NavLink } from 'react-router-dom';
 
 type Dropdown = {
   visible: boolean;
-};
-
-type Image = {
-  bgImage: string;
 };
 
 export const StyledHeader = styled(Flex)`
@@ -18,6 +15,7 @@ export const StyledHeader = styled(Flex)`
   min-height: 85px;
   width: 100%;
   box-shadow: ${SHADOW_SMALL};
+  padding: 0 10rem;
 `;
 
 export const StyledHeaderName = styled(NavLink)`
@@ -79,6 +77,20 @@ export const StyledSearchButton = styled(Button)`
     padding: 1.5rem 0.6rem;
     font-size: 1.2rem;
   }
+`;
+
+export const StyledHistoryButton = styled(Button)`
+  text-decoration: none;
+  color: ${COLOR_GRAY_300};
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: solid 2px ${COLOR_BLACK};
+  margin-right: 20px;
 `;
 
 export const StyledAccountButton = styled(Button)`
@@ -165,7 +177,7 @@ export const StyledDropdownImage = styled.div<Image>`
   height: 11rem;
   width: 11rem;
   margin-right: 3rem;
-  background-image: url(${props => props.bgImage});
+  background-image: url(${props => (props ? props.bgImage : null)});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;

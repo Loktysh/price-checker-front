@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { getProductRating } from '../../../utils';
-import { Flex, StyledItemLink, StyledStar } from '../../typography';
+import { useProductRating } from '../../../hooks/useProductRating';
+import { Flex, StyledItemLink } from '../../typography';
+import StarRating from '../StarRating/StarRating';
 import { Product } from '../types';
 import {
   StyledDropdownItem,
@@ -12,14 +13,15 @@ import {
 
 type ProductElementProps = {
   item: Product;
+  closeDropdownOnQuery: () => void;
 };
 
-const ProductElement: FC<ProductElementProps> = ({ item }) => {
-  const [ratingArr, itemRating] = getProductRating(item.rating);
+const ProductElement: FC<ProductElementProps> = ({ item, closeDropdownOnQuery }) => {
+  const [ratingArr, itemRating] = useProductRating(item.rating);
 
   return (
-    <StyledDropdownItem justify='flex-start'>
-      <StyledItemLink to={'/product/' + item.id}>
+    <StyledDropdownItem justify='flex-start' onClick={() => closeDropdownOnQuery()}>
+      <StyledItemLink to={'/product/' + item.key}>
         <StyledDropdownImage bgImage={item.image}></StyledDropdownImage>
         <Flex direction='column' alignItems='flex-start'>
           <StyledItemName>{item.extended_name}</StyledItemName>
@@ -27,9 +29,7 @@ const ProductElement: FC<ProductElementProps> = ({ item }) => {
 
           <Flex direction='row'>
             <StyledRating>Рейтинг: {itemRating}.0</StyledRating>
-            {ratingArr.map((elem, index) => {
-              return <StyledStar enabled={elem.toString()} key={index} />;
-            })}
+            <StarRating ratingArr={ratingArr} />
           </Flex>
         </Flex>
       </StyledItemLink>

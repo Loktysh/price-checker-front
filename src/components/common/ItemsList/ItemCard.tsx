@@ -1,9 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
-import { getProductRating } from '../../../utils';
-import { Flex, StyledItemLink, StyledStar } from '../../typography';
-import { API_LINK } from '../constants';
+import { Flex, StyledItemLink } from '../../typography';
 import { Product } from '../types';
 import {
   StyledItemCard,
@@ -17,58 +15,40 @@ import {
   StyledTrackInfo,
   StyledTrackMessage,
 } from './styled';
-import { trackItem, untrackItem } from '../../../store/slices/productsSlice';
-import { getStorageItem } from '../../../utils/index';
+import { fetchTrack, getStorageItem, toggleItemTrack } from '../../../utils/index';
+import { useProductRating } from '../../../hooks/useProductRating';
+import StarRating from '../StarRating/StarRating';
 
 type ItemCardProps = {
   item: Product;
 };
 
 const ItemCard: FC<ItemCardProps> = ({ item }) => {
-  const { image, extended_name, rating, id, price_min } = item;
-  const [ratingArr, itemRating] = getProductRating(rating);
+  const { image, extended_name, rating, id, price_min, key } = item;
+  const [ratingArr, itemRating] = useProductRating(rating);
   const [isTracked, setIsTracked] = useState<boolean>(false);
   const [infoVisible, setInfoVisible] = useState<boolean>(false);
   const token = getStorageItem('token');
   const renewToken = getStorageItem('renewToken');
   const allTrackedItems = useSelector((state: RootState) => state.tracking.tracked);
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (allTrackedItems.includes(item.id.toString())) setIsTracked(true);
-  }, [allTrackedItems, item.id]);
+    if (allTrackedItems.includes(id.toString())) setIsTracked(true);
+  }, [allTrackedItems, id]);
 
   const handleTrackClick = async () => {
     const action = isTracked ? 'untrack' : 'track';
-    const params = { product: item.id, action: action };
-    const URL = API_LINK + 'products/track';
 
-    toggleItemTrack(action);
+    toggleItemTrack(action, item.key);
 
-    const response: Response = await fetch(URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Bearer ${token + ' ' + renewToken}`,
-      },
-      body: JSON.stringify(params),
-    });
-
-    const result = await response.json().then(() => {
-      setIsTracked(!isTracked);
-      setInfoVisible(true);
-      setTimeout(() => {
-        setInfoVisible(false);
-      }, 1000);
-    });
-    return result;
-  };
-
-  const toggleItemTrack = (actionType: string) => {
-    if (actionType === 'track') {
-      dispatch(trackItem(item.key));
-    } else if (actionType === 'untrack') {
-      dispatch(untrackItem(item.key));
+    if (token && renewToken) {
+      fetchTrack(token, renewToken, action, id).then(() => {
+        setIsTracked(!isTracked);
+        setInfoVisible(true);
+        setTimeout(() => {
+          setInfoVisible(false);
+        }, 1000);
+      });
     }
   };
 
@@ -85,16 +65,14 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
         </StyledTrackInfo>
       </StyledItemImage>
       <Flex justify='space-between'>
-        <StyledItemLink to={'/product/' + id}>
+        <StyledItemLink to={'/product/' + key}>
           <StyledItemName>{extended_name}</StyledItemName>
           <StyledItemPrice>От {price_min} BYN</StyledItemPrice>
         </StyledItemLink>
       </Flex>
       <Flex justify='flex-start' alignItems='center'>
         <StyledItemRating>Оценка: {itemRating}.0</StyledItemRating>
-        {ratingArr.map((elem, index) => {
-          return <StyledStar enabled={elem.toString()} key={index}></StyledStar>;
-        })}
+        <StarRating ratingArr={ratingArr} />
       </Flex>
     </StyledItemCard>
   );

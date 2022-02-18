@@ -6,6 +6,7 @@ import {
   StyledSearchInput,
   StyledSearchDropdown,
   StyledDropdownItem,
+  StyledHistoryButton,
   BasicLink,
 } from './styled';
 import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react';
@@ -26,7 +27,7 @@ type HeaderProps = {
   setHistoryOpen?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 };
 
-const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
+const AppHeader: FC<HeaderProps> = ({ setCurrentPage, setHistoryOpen }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [searchItems, setSearchItems] = useState<Product[]>([]);
   const [dropDown, setDropdown] = useState<boolean>(false);
@@ -36,7 +37,7 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
   const login = useSelector((state: RootState) => state.login.userLogin);
 
   useEffect(() => {
-    const url = API_LINK + 'products?query=';
+    const url = API_LINK + 'products?page=1&query=';
     if (debouncedSearch.length > 0) {
       fetchProducts(url + debouncedSearch).then(data => {
         setSearchItems(data.products);
@@ -67,7 +68,7 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
   }, [inputValue.length]);
 
   return (
-    <StyledHeader justify='space-around'>
+    <StyledHeader as='header' justify='space-around'>
       <StyledHeaderName to='/'>
         <h1>PRICE CHECKER</h1>
       </StyledHeaderName>
@@ -87,12 +88,25 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage }) => {
 
         <StyledSearchDropdown visible={dropDown} direction='column'>
           {searchItems.length > 0 ? (
-            searchItems.map((item: Product) => <ProductElement key={item.id} item={item} />)
+            searchItems.map((item: Product) => (
+              <ProductElement
+                key={item.id}
+                item={item}
+                closeDropdownOnQuery={closeDropdownOnQuery}
+              />
+            ))
           ) : (
             <StyledDropdownItem>Sorry, no items were found...</StyledDropdownItem>
           )}
         </StyledSearchDropdown>
       </StyledSearchField>
+      {/* 
+      // TODO: button temporarily disabled due to layout conflicts, enable later
+      {logged && setHistoryOpen ? (
+        <StyledHistoryButton outline onClick={() => setHistoryOpen(prev => !prev)}>
+          Show history
+        </StyledHistoryButton>
+      ) : null} */}
       <LoginLink isLinkEnabled={logged}>
         <StyledAccountButton outline onClick={openLoginDropdown} textColor={COLOR_GRAY_300}>
           {logged ? login : 'Log in'}
