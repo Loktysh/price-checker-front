@@ -1,5 +1,5 @@
 import { API_LINK } from '../components/common/constants';
-import { ItemsData, User } from '../components/common/types';
+import { ItemsData, Product, ProductPrice, User } from '../components/common/types';
 import { trackItem, untrackItem } from '../store/slices';
 import { store } from '../store/store';
 
@@ -10,6 +10,13 @@ export const fetchProducts = async (query: string): Promise<ItemsData> => {
   }
   const data: ItemsData = await res.json();
   return data;
+};
+
+export const fetchProduct = async (key: string) => {
+  const URL = API_LINK + `product?key=${key}`;
+  const response: Response = await fetch(URL);
+  const result: Product & ProductPrice = await response.json();
+  return result;
 };
 
 export const fetchUser = async (token: string, renewToken: string): Promise<User> => {

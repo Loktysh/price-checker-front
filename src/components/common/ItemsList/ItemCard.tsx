@@ -15,7 +15,7 @@ import {
   StyledTrackInfo,
   StyledTrackMessage,
 } from './styled';
-import { fetchTrack, getStorageItem, toggleItemTrack } from '../../../utils/index';
+import { fetchTrack, getStorageItem, toggleItemTrack } from '../../../utils';
 import { useProductRating } from '../../../hooks/useProductRating';
 import StarRating from '../StarRating/StarRating';
 
@@ -24,7 +24,7 @@ type ItemCardProps = {
 };
 
 const ItemCard: FC<ItemCardProps> = ({ item }) => {
-  const { image, extended_name, rating, id, price_min, key } = item;
+  const { image, extended_name, rating, price_min, key } = item;
   const [ratingArr, itemRating] = useProductRating(rating);
   const [isTracked, setIsTracked] = useState<boolean>(false);
   const [infoVisible, setInfoVisible] = useState<boolean>(false);
@@ -33,8 +33,8 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
   const allTrackedItems = useSelector((state: RootState) => state.tracking.tracked);
 
   useEffect(() => {
-    if (allTrackedItems.includes(id.toString())) setIsTracked(true);
-  }, [allTrackedItems, id]);
+    if (allTrackedItems.includes(key.toString())) setIsTracked(true);
+  }, [allTrackedItems, key]);
 
   const handleTrackClick = async () => {
     const action = isTracked ? 'untrack' : 'track';
@@ -42,7 +42,7 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
     toggleItemTrack(action, item.key);
 
     if (token && renewToken) {
-      fetchTrack(token, renewToken, action, id).then(() => {
+      fetchTrack(token, renewToken, action, key).then(() => {
         setIsTracked(!isTracked);
         setInfoVisible(true);
         setTimeout(() => {

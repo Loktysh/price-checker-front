@@ -92,6 +92,7 @@ export const Button = styled.button<ButtonStyling>`
     props.outline ? 'transparent' : props.color ? props.color : 'black'};
   border-color: ${props => (props.outline ? (props.color ? props.color : 'black') : 'transparent')};
   color: ${props => (props.textColor ? props.textColor : props.outline ? 'black' : 'white')};
+  cursor: pointer;
 `;
 
 export const StyledStar = styled(FaStar)<Star>`
