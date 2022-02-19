@@ -16,6 +16,14 @@ export const StyledHeader = styled(Flex)`
   width: 100%;
   box-shadow: ${SHADOW_SMALL};
   padding: 0 10rem;
+
+  @media (max-width: 900px) {
+    padding: 0 2rem;
+  }
+
+  @media (max-width: 500px) {
+    padding: 0 0.5rem;
+  }
 `;
 
 export const StyledHeaderName = styled(NavLink)`
@@ -51,6 +59,7 @@ export const StyledSearchInput = styled.input`
 
   @media (max-width: 500px) {
     width: 75%;
+    margin-right: 0.3rem;
   }
 `;
 
