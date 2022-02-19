@@ -224,6 +224,23 @@ export const StyledLoginDropdown = styled(Flex)`
 export const StyledMenuItem = styled(Flex)`
   width: 100%;
   height: 5rem;
+  border-bottom: solid 1px ${COLOR_GRAY_100};
+
+  &:hover {
+    background-color: ${COLOR_GRAY_100};
+  }
+`;
+
+export const StyledMenuLink = styled(Link)`
+  width: 100%;
+  height: 5rem;
+  border-bottom: solid 1px ${COLOR_GRAY_100};
+  text-decoration: none;
+  color: ${COLOR_GRAY_300};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &:hover {
     background-color: ${COLOR_GRAY_100};
   }
