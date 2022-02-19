@@ -10,6 +10,7 @@ import ProductPage from './pages/ProductPage';
 import { SettingsPage } from './pages/Settings page/SettingsPage';
 import { SignupPage } from './pages/SignupPage';
 import { fetchUser, getStorageItem } from '../utils/index';
+import ProfilePage from './pages/ProfilePage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const App = () => {
           <Route path='/signup' element={<SignupPage />} />
           <Route path='/settings' element={<SettingsPage />} />
         </Route>
+        <Route path='/profile' element={<ProfilePage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/products/:query' element={<ItemsPage />} />
         <Route path='/product/:key' element={<ProductPage />} />
