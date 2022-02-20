@@ -100,6 +100,11 @@ export const StyledStar = styled(FaStar)<Star>`
   width: 20px;
   margin: 0 0.2rem;
   color: ${props => (props.enabled === 'true' ? COLOR_YELLOW : COLOR_GRAY_300)};
+
+  @media (max-width: 768px) {
+    height: 15px;
+    width: 15px;
+  }
 `;
 
 export const StyledScrollBar = styled.div`

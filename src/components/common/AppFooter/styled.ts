@@ -16,7 +16,7 @@ export const FooterContainer = styled.div`
   background-color: ${COLOR_WHITE};
 
   @media (max-width: 600px) {
-    padding: 2rem 3rem 3rem 5rem;
+    padding: 1rem 2rem 2rem 3rem;
   }
 `;
 

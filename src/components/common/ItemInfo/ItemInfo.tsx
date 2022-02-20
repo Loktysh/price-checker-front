@@ -12,12 +12,14 @@ import {
   StyledPriceWrapper,
   StyledChartButton,
   StyledChartContainer,
+  StyledDescription,
+  StyledRatingContainer,
 } from './styled';
 import PriceChart from './components/PriceChart';
 import { RootState } from '../../../store/store';
 import { useSelector } from 'react-redux';
 import { Product, ProductPrice } from '../types';
-import { Flex, Spinner } from '../../typography';
+import { Spinner } from '../../typography';
 import StarRating from '../StarRating/StarRating';
 import { useProductRating } from '../../../hooks/useProductRating';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
@@ -82,12 +84,12 @@ const ItemInfo = () => {
         ></StyledProductImage>
         <StyledWrapper>
           <StyledHeading>{currentProduct?.extended_name}</StyledHeading>
-          <Flex justify='flex-start' gap='2rem'>
+          <StyledRatingContainer>
             <StarRating ratingArr={ratingArr} />
             <StyledParagraph>Product rating based on users: {rating}.0</StyledParagraph>
-          </Flex>
+          </StyledRatingContainer>
           <StyledParagraph>Product description:</StyledParagraph>
-          <StyledParagraph>{fixedDescription}</StyledParagraph>
+          <StyledDescription>{fixedDescription}</StyledDescription>
           <StyledPriceWrapper justify='flex-start'>
             <StyledItemPrice>
               Price: from BYN {currentProduct?.price_min} to BYN {currentProduct?.prices.max.amount}
@@ -102,7 +104,7 @@ const ItemInfo = () => {
         </StyledWrapper>
       </StyledInfoContainer>
       <StyledChartCard>
-        <StyledChartButtons gap='2rem'>
+        <StyledChartButtons>
           <StyledParagraph>View product price chart and compare prices:</StyledParagraph>
           <StyledChartButton
             onClick={() => {

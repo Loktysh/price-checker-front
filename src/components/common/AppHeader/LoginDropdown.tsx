@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { unlogUser } from '../../../store/actions';
 import { removeStorageTokens } from '../../../utils';
-import { StyledLoginDropdown, StyledMenuItem } from './styled';
+import { StyledLoginDropdown, StyledMenuItem, StyledMenuLink } from './styled';
 
 const LoginDropdown: FC = () => {
   const navigate = useNavigate();
@@ -14,12 +14,8 @@ const LoginDropdown: FC = () => {
   };
   return (
     <StyledLoginDropdown direction='column'>
-      <Link to='/profile'>
-        <StyledMenuItem>Profile</StyledMenuItem>
-      </Link>
-      <Link to='/settings'>
-        <StyledMenuItem>Settings</StyledMenuItem>
-      </Link>
+      <StyledMenuLink to='/profile'>Profile</StyledMenuLink>
+      <StyledMenuLink to='/settings'>Settings</StyledMenuLink>
       <StyledMenuItem onClick={logout}>Logout</StyledMenuItem>
     </StyledLoginDropdown>
   );
