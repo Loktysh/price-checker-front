@@ -43,7 +43,8 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
         navigate('/');
       })
       .catch(error => {
-        setError(`${error} Please, retry. `);
+        console.log(error);
+        setError(`${error}. Please, retry.`);
       });
   };
 
