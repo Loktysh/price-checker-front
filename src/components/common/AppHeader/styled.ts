@@ -239,6 +239,7 @@ export const StyledLoginDropdown = styled(Flex)`
   top: 150%;
   background-color: ${COLOR_WHITE};
   position: absolute;
+  z-index: 2;
   box-shadow: ${SHADOW_SMALL};
 `;
 
