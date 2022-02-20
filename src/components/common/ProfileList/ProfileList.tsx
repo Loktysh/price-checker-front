@@ -31,13 +31,10 @@ const ProfileList: FC<ProfileProps> = ({ user }) => {
   const [fetchedItems, setFetchedItems] = useState<ExtendedProductInfo[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
 
-  console.log(user.user);
-
   useEffect(() => {
     fetch(API_LINK + `profile?user=${user.user}`)
       .then((res: Response) => res.json())
       .then(data => {
-        console.log(data);
         setTrackedItems(data);
       });
   }, [user.user]);
