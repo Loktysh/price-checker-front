@@ -4,7 +4,9 @@ import { RootState } from '../../../store/store';
 import AppHeader from '../../common/AppHeader';
 import ProfileList from '../../common/ProfileList';
 import { NotLoggedButton, NotLoggedWrapper, StyledNotLogged } from './styled';
-import { Link } from 'react-router-dom';
+
+import { Link, useParams } from 'react-router-dom';
+
 import { AppFooter } from '../../common/AppFooter';
 import styled from 'styled-components';
 
@@ -15,10 +17,11 @@ const Container = styled.div`
 `;
 
 const ProfilePage = () => {
+  const user = useParams();
   const isLogged = useSelector((state: RootState) => state.login.logged);
 
   const content = isLogged ? (
-    <ProfileList />
+    <ProfileList user={user} />
   ) : (
     <NotLoggedWrapper direction='column'>
       <StyledNotLogged>Please login to view profile.</StyledNotLogged>
