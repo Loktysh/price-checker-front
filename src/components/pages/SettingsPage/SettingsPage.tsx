@@ -20,7 +20,8 @@ export const SettingsPage = () => {
         )}
         {!enabledNotifications && (
           <NotificationLink
-            to={'#'}
+            href={'https://t.me/rspricecheckerbot?stop=логин'}
+            target={'_blank'}
             onClick={() => {
               setNotificationEnabled(true);
             }}
