@@ -5,6 +5,7 @@ import {
   COLOR_GRAY_200,
   COLOR_GRAY_300,
   COLOR_GREEN_100,
+  COLOR_GREEN_300,
   COLOR_RED,
   COLOR_WHITE,
 } from '../constants/colors';
@@ -47,6 +48,7 @@ export const StyledInput = styled.input`
   border-radius: 2px;
   font-size: 2rem;
   color: ${COLOR_BLACK};
+  transition: 0.3s;
 
   ::placeholder {
     color: ${COLOR_GRAY_200};
@@ -90,9 +92,10 @@ export const StyledLabel = styled.label`
   line-height: 1.4rem;
   color: ${COLOR_GRAY_300};
   margin-left: 1rem;
+  transition: 0.3s;
 
   :hover {
-    color: ${COLOR_BLACK};
+    color: ${COLOR_GRAY_200};
   }
 `;
 
@@ -100,26 +103,28 @@ export const BasicReactRouterLink = styled(Link)`
   text-decoration: none;
   font-size: 1.2rem;
   color: ${COLOR_GRAY_300};
+  transition: 0.3s;
 
   :hover {
-    color: ${COLOR_BLACK};
+    color: ${COLOR_GRAY_200};
   }
 `;
 
 export const StyledButton = styled.button`
   width: 100%;
   height: 3.5rem;
-  background-color: ${COLOR_GREEN_100};
+  background-color: ${COLOR_GREEN_300};
   color: ${COLOR_WHITE};
   font-size: 1.7rem;
   font-weight: 700;
   text-align: center;
   vertical-align: middle;
-  border: 1px solid transparent;
   border-radius: 2px;
+  border: none;
+  transition: 0.3s;
 
   :hover {
-    border-color: ${COLOR_BLACK};
+    background-color: ${COLOR_GREEN_100};
   }
 
   @media (max-width: 600px) {
