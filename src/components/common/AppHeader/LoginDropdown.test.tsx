@@ -3,7 +3,6 @@ import { screen, render, fireEvent } from '@testing-library/react';
 import LoginDropdown from './LoginDropdown';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-const ProfilePage = () => <p>Profile page</p>;
 const SettingsPage = () => <p>Settings page</p>;
 
 describe('AppHeader/LoginDropdown', () => {
