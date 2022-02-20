@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import {
   SettingsContainer,
   PageTitle,
@@ -13,12 +13,7 @@ import { toggleSubscribe } from '../../../store/slices/loginSlice';
 
 export const SettingsPage = () => {
   const { isSubscribed, userLogin } = useSelector((state: RootState) => state.login);
-  const [subscribe, setSubscribe] = useState(false);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setSubscribe(isSubscribed);
-  }, [isSubscribed]);
 
   const telegramLink = useMemo(() => {
     return `https://t.me/rspricecheckerbot?${isSubscribed ? 'stop' : 'start'}=${userLogin}`;
@@ -30,7 +25,7 @@ export const SettingsPage = () => {
       <SettingTitle>Notifications in Telegram</SettingTitle>
       <CurrentSettingContainer>
         <SettingText>
-          {!subscribe
+          {!isSubscribed
             ? 'For notifications click the link below:'
             : 'Notifications enabled. To unsubscribe, click the button below:'}
         </SettingText>
@@ -38,11 +33,10 @@ export const SettingsPage = () => {
           href={telegramLink}
           target='_blank'
           onClick={() => {
-            setSubscribe(!subscribe);
-            dispatch(toggleSubscribe(subscribe));
+            dispatch(toggleSubscribe(!isSubscribed));
           }}
         >
-          {subscribe ? 'Do not receive notifications' : 'Receive notifications'}
+          {isSubscribed ? 'Do not receive notifications' : 'Receive notifications'}
         </NotificationLink>
       </CurrentSettingContainer>
     </SettingsContainer>
