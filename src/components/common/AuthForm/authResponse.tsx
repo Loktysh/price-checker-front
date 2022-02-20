@@ -26,6 +26,7 @@ export const handleAuthSubmit = async (
     },
     body: JSON.stringify(params),
   });
+
   const result: AuthorizationResponse = await response.json();
 
   if (remember) {

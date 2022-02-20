@@ -29,6 +29,16 @@ export const FormTitle = styled.h2`
   }
 `;
 
+export const AuthError = styled.h3`
+  margin: 0;
+  line-height: 3rem;
+  font-weight: 400;
+  font-size: 1.6rem;
+  margin-top: -3rem;
+  margin-bottom: -3rem;
+  color: ${COLOR_RED};
+`;
+
 export const StyledInput = styled.input`
   border: 1px solid ${COLOR_GRAY_200};
   width: 100%;
