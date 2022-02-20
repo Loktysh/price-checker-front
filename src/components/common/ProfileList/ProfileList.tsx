@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import {
@@ -16,18 +16,34 @@ import { Flex } from '../../typography';
 import { fetchProduct } from '../../../utils';
 import { ExtendedProductInfo } from '../ItemInfo/ItemInfo';
 import { COLOR_GREEN_100 } from '../constants/colors';
-import { Link } from 'react-router-dom';
+import { Link, Params } from 'react-router-dom';
+import { API_LINK } from '../constants';
+
+type ProfileProps = {
+  user: Readonly<Params<string>>;
+};
 
 const ITEMS_PER_PAGE = 10;
 
-const ProfileList = () => {
-  const userName = useSelector((state: RootState) => state.login.userLogin);
-  const trackedItemsArray = useSelector((state: RootState) => state.tracking.tracked);
+const ProfileList: FC<ProfileProps> = ({ user }) => {
+  const currentUser = useSelector((state: RootState) => state.login.userLogin);
+  const [trackedItems, setTrackedItems] = useState<string[]>([]);
   const [fetchedItems, setFetchedItems] = useState<ExtendedProductInfo[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
 
+  console.log(user.user);
+
   useEffect(() => {
-    const itemsByPage = trackedItemsArray.slice(
+    fetch(API_LINK + `profile?user=${user.user}`)
+      .then((res: Response) => res.json())
+      .then(data => {
+        console.log(data);
+        setTrackedItems(data);
+      });
+  }, [user.user]);
+
+  useEffect(() => {
+    const itemsByPage = trackedItems.slice(
       currentPage * ITEMS_PER_PAGE,
       currentPage * ITEMS_PER_PAGE + ITEMS_PER_PAGE,
     );
@@ -40,13 +56,15 @@ const ProfileList = () => {
         }
       },
     );
-  }, [trackedItemsArray, currentPage]);
+  }, [trackedItems, currentPage]);
 
   return (
     <>
       <StyledProfileHeading justify='flex-start'>
         <StyledProfileH>
-          Welcome back, {userName}. Take a look at your tracked items:
+          {currentUser === user.user
+            ? 'Welcome back. Take a look at your tracked items:'
+            : `Take a look at items tracked by ${user.user}:`}
         </StyledProfileH>
       </StyledProfileHeading>
       <StyledProfileWrapper direction='column'>

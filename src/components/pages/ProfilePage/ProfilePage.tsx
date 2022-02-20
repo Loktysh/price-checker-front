@@ -4,13 +4,14 @@ import { RootState } from '../../../store/store';
 import AppHeader from '../../common/AppHeader';
 import ProfileList from '../../common/ProfileList';
 import { NotLoggedButton, NotLoggedWrapper, StyledNotLogged } from './styled';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const ProfilePage = () => {
+  const user = useParams();
   const isLogged = useSelector((state: RootState) => state.login.logged);
 
   const content = isLogged ? (
-    <ProfileList />
+    <ProfileList user={user} />
   ) : (
     <NotLoggedWrapper direction='column'>
       <StyledNotLogged>Please log in to view profile.</StyledNotLogged>
