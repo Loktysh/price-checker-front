@@ -82,7 +82,7 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage, setHistoryOpen }) => {
         />
         <BasicLink to={'/products/' + inputValue}>
           <StyledSearchButton color={COLOR_GREEN_100} onClick={closeDropdownOnQuery}>
-            Search!
+            Search
           </StyledSearchButton>
         </BasicLink>
 

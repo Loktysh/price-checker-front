@@ -48,7 +48,7 @@ export const FooterLink = styled(Link)`
   font-weight: 600;
   color: ${COLOR_GRAY_300};
   text-decoration: none;
-  transition: 0.5s;
+  transition: 0.3s;
 
   :hover {
     color: ${COLOR_GRAY_200};
@@ -66,7 +66,7 @@ export const FooterLink = styled(Link)`
 export const GithubLink = styled.a`
   width: 25px;
   height: 25px;
-  transition: 0.5s;
+  transition: 0.3s;
 
   :hover {
     transform: scale(1.1);
@@ -88,7 +88,7 @@ export const PriceChecker = styled(Link)`
   font-weight: 700;
   color: ${COLOR_GREEN_100};
   text-decoration: none;
-  transition: 0.5s;
+  transition: 0.3s;
 
   :hover {
     color: ${COLOR_GREEN_300};

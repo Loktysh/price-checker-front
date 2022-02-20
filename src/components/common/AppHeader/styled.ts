@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR_GRAY_300, COLOR_GRAY_100, COLOR_BLACK } from './../constants/colors';
+import { COLOR_GRAY_300, COLOR_GRAY_100, COLOR_BLACK, COLOR_GRAY_200 } from './../constants/colors';
 import { Button, Flex } from '../../typography';
 import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300 } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
@@ -32,7 +32,7 @@ export const StyledHeaderName = styled(NavLink)`
   transition: 0.1s ease;
   &:hover {
     color: ${COLOR_GREEN_300};
-    transition: 0.1s ease;
+    transition: 0.3s ease;
   }
 
   @media (max-width: 600px) {
@@ -73,6 +73,7 @@ export const StyledSearchButton = styled(Button)`
   align-items: center;
   border: 1px solid ${COLOR_GREEN_100};
   border-radius: 2px;
+  transition: 0.3s;
   &:hover {
     background-color: ${COLOR_GREEN_300};
   }
@@ -114,9 +115,12 @@ export const StyledAccountButton = styled(Button)`
   align-items: center;
   border: solid 1px ${COLOR_GREEN_100};
   border-radius: 2px;
+  transition: 0.3s;
 
   :hover {
     cursor: pointer;
+    border: solid 1px ${COLOR_GREEN_300};
+    color: ${COLOR_GRAY_200};
   }
 
   @media (max-width: 768px) {
