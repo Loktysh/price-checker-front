@@ -7,12 +7,14 @@ import {
   NotificationLink,
   CurrentSettingContainer,
 } from './styled';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
+import { toggleSubscribe } from '../../../store/slices/loginSlice';
 
 export const SettingsPage = () => {
   const { isSubscribed, userLogin } = useSelector((state: RootState) => state.login);
   const [subscribe, setSubscribe] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setSubscribe(isSubscribed);
@@ -36,7 +38,8 @@ export const SettingsPage = () => {
           href={telegramLink}
           target='_blank'
           onClick={() => {
-            setSubscribe(true);
+            setSubscribe(!subscribe);
+            dispatch(toggleSubscribe(subscribe));
           }}
         >
           {subscribe ? 'Do not receive notifications' : 'Receive notifications'}
