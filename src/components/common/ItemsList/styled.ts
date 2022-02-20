@@ -1,7 +1,7 @@
 import { FaPlus, FaTrashAlt } from 'react-icons/fa';
 import styled from 'styled-components';
 import { Button, Flex, Grid } from '../../typography';
-import { COLOR_GRAY_300, COLOR_GREEN_100, COLOR_WHITE } from '../constants/colors';
+import { COLOR_GRAY_300, COLOR_GREEN_100, COLOR_GREEN_300, COLOR_WHITE } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
 import { Image } from '../types';
 
@@ -21,12 +21,15 @@ export const StyledHeading = styled.h1`
 
 export const StyledItemCard = styled.article`
   width: 100%;
-  height: 500px;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   font-size: 1.3rem;
   box-shadow: ${SHADOW_SMALL};
   direction: ltr;
   background-color: ${COLOR_WHITE};
-  padding: 1.5rem;
+  padding: 0 1.5rem;
 
   @media (max-width: 1350px) {
     padding: 1rem;
@@ -92,7 +95,7 @@ export const StyledItemsWrapper = styled(Grid)`
 export const StyledItemImage = styled.div<Image>`
   width: 100%;
   height: 60%;
-  margin: 3rem 0;
+  margin: 2.5rem 0;
   background-image: url(${props => (props ? props.bgImage : null)});
   background-repeat: no-repeat;
   background-size: contain;
@@ -109,7 +112,6 @@ export const StyledItemImage = styled.div<Image>`
 export const StyledItemName = styled.h3`
   margin: 1rem 0;
   font-weight: 600;
-  padding-bottom: 1rem;
 
   @media (max-width: 1050px) {
     font-size: 1.5rem;
@@ -141,9 +143,12 @@ export const StyledLoadButton = styled(Button)`
   margin: 1rem 0;
   font-size: 1.5rem;
   border-radius: 2px;
+  background-color: ${COLOR_GREEN_300};
+  transition: 0.3s;
 
   :hover {
     cursor: pointer;
+    background-color: ${COLOR_GREEN_100};
   }
 
   @media (max-width: 1050px) {
@@ -163,6 +168,11 @@ export const StyledTrackButton = styled.button`
   background-color: transparent;
   right: 4%;
   pointer-events: all;
+  transition: 0.3s;
+
+  :hover {
+    transform: scale(1.2);
+  }
 
   @media (max-width: 1250px) {
     background-color: ${COLOR_WHITE};
