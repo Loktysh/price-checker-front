@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   COLOR_GRAY_300,
@@ -55,7 +54,7 @@ export const SettingText = styled.p`
   }
 `;
 
-export const NotificationLink = styled(Link)`
+export const NotificationLink = styled.a`
   text-decoration: none;
   font-size: 1.8rem;
   color: ${COLOR_WHITE};

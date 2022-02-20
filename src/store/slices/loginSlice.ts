@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 type LoginState = {
   logged: boolean;
+  isSubscribed: boolean;
   userLogin: string;
   userToken: string;
   userRenewToken: string;
@@ -9,6 +10,7 @@ type LoginState = {
 
 const initialState: LoginState = {
   logged: false,
+  isSubscribed: false,
   userLogin: '',
   userToken: '',
   userRenewToken: '',
@@ -27,9 +29,12 @@ const loginSlice = createSlice({
     setUserLogin: (state, action) => {
       state.userLogin = action.payload;
     },
+    toggleSubscribe: (state, action) => {
+      state.isSubscribed = action.payload;
+    },
   },
 });
 
-export const { loginUser, logoutUser, setUserLogin } = loginSlice.actions;
+export const { loginUser, logoutUser, setUserLogin, toggleSubscribe } = loginSlice.actions;
 
 export default loginSlice.reducer;
