@@ -9,7 +9,7 @@ const StarRating: FC<RatingProps> = ({ ratingArr }) => {
   return (
     <div>
       {ratingArr.map((elem, index) => {
-        return <StyledStar enabled={elem.toString()} key={index} />;
+        return <StyledStar data-testid='style-star' enabled={elem.toString()} key={index} />;
       })}
     </div>
   );
