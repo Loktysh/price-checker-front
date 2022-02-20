@@ -4,6 +4,7 @@ import {
   StyledHistoryHeading,
   StyledHistoryItem,
   StyledHistoryPanel,
+  StyledHistorySpan,
 } from './styled';
 import { historyMock } from '../../../mocks/historyMock';
 
@@ -21,7 +22,7 @@ const HistoryPanel: FC<HistoryProps> = ({ open, setHistoryOpen }) => {
       {historyMock.map((elem: string, idx) => {
         return (
           <StyledHistoryItem key={idx}>
-            <span>{elem}</span>
+            <StyledHistorySpan>{elem}</StyledHistorySpan>
           </StyledHistoryItem>
         );
       })}

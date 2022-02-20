@@ -62,11 +62,7 @@ export const StyledItemContainer = styled(Flex)`
   height: 80vh;
 
   @media (max-width: 1350px) {
-    width: 80%;
-  }
-
-  @media (max-width: 600px) {
-    width: 70%;
+    width: 90%;
   }
 `;
 

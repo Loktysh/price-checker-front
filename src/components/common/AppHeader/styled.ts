@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR_GRAY_300, COLOR_GRAY_100, COLOR_BLACK, COLOR_GRAY_200 } from './../constants/colors';
+import { COLOR_GRAY_300, COLOR_GRAY_100, COLOR_GRAY_200 } from './../constants/colors';
 import { Button, Flex } from '../../typography';
 import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300 } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
@@ -90,6 +90,9 @@ export const StyledSearchButton = styled(Button)`
 `;
 
 export const StyledHistoryButton = styled(Button)`
+  position: fixed;
+  bottom: 1rem;
+  left: 2rem;
   text-decoration: none;
   color: ${COLOR_GRAY_300};
   font-size: 1.5rem;
@@ -98,9 +101,23 @@ export const StyledHistoryButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  border: solid 2px ${COLOR_BLACK};
-  margin-right: 20px;
+  border: solid 1px ${COLOR_GREEN_100};
+  border-radius: 2px;
+  transition: 0.3s;
+
+  :hover {
+    border-color: ${COLOR_GREEN_300};
+    color: ${COLOR_GRAY_200};
+  }
+
+  @media (max-width: 500px) {
+    left: 0;
+    bottom: 0;
+    padding: 0.5rem;
+    font-size: 1.3rem;
+    height: 5rem;
+    max-width: 5rem;
+  }
 `;
 
 export const StyledAccountButton = styled(Button)`
