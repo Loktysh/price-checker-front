@@ -43,7 +43,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
         navigate('/');
       })
       .catch(error => {
-        setError(`${error} Please, retry. `);
+        setError(`${error}. Please, retry.`);
       });
   };
 
@@ -65,7 +65,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)} method='POST'>
       <Flex direction='column' gap='3rem'>
-        <FormTitle>{type === 'login' ? 'LOGIN' : 'SIGN UP'}</FormTitle>
+        <FormTitle>{type === 'login' ? 'LOGIN' : 'SIGNUP'}</FormTitle>
         {error.length > 0 && <AuthError>{error}</AuthError>}
         <StyledInput
           id='login'
@@ -104,7 +104,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
           </StyledRememberOptionContainer>
           {type === 'login' && <BasicReactRouterLink to='#'>Forgot password?</BasicReactRouterLink>}
         </OptionalStyledDiv>
-        <StyledButton type='submit'>Login</StyledButton>
+        <StyledButton type='submit'>Log in</StyledButton>
         <BasicReactRouterLink to={navLink.path}>{navLink.label}</BasicReactRouterLink>
       </Flex>
     </StyledForm>

@@ -22,13 +22,13 @@ export const AppFooter: FC = () => {
           <FooterLink to='/about'>About Price Checker</FooterLink>
         ) : (
           <>
-            <FooterLink to='/'>Home</FooterLink>
+            <FooterLink to='/profile'>Home</FooterLink>
             <FooterLink to='/about'>About Price Checker</FooterLink>
           </>
         )}
       </LeftSide>
       <RightSide>
-        <GithubLink href='github.com' target='_blank'>
+        <GithubLink href='https://github.com/Loktysh/price-checker-front' target='_blank'>
           <GithubLogo src={github} />
         </GithubLink>
         <PriceChecker to='/'>PRICE CHECKER</PriceChecker>

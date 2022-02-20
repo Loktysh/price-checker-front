@@ -29,6 +29,10 @@ export const handleAuthSubmit = async (
     body: JSON.stringify(params),
   });
 
+  if (!response.ok) {
+    throw new Error(`${await response.text()}`);
+  }
+
   const result: AuthorizationResponse = await response.json();
 
   if (remember) {

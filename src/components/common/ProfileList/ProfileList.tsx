@@ -11,17 +11,23 @@ import {
   StyledProfileItem,
   StyledProfilePrice,
   StyledProfileWrapper,
+  ProductLinkWrapper,
 } from './styled';
 import { Flex } from '../../typography';
 import { fetchProduct } from '../../../utils';
 import { ExtendedProductInfo } from '../ItemInfo/ItemInfo';
 import { COLOR_GREEN_100 } from '../constants/colors';
+import styled from 'styled-components';
 import { Link, Params } from 'react-router-dom';
 import { API_LINK } from '../constants';
 
 type ProfileProps = {
   user: Readonly<Params<string>>;
 };
+
+const Container = styled.div`
+  flex-grow: 1;
+`;
 
 const ITEMS_PER_PAGE = 10;
 
@@ -56,7 +62,7 @@ const ProfileList: FC<ProfileProps> = ({ user }) => {
   }, [trackedItems, currentPage]);
 
   return (
-    <>
+    <Container>
       <StyledProfileHeading justify='flex-start'>
         <StyledProfileH>
           {currentUser === user.user
@@ -67,23 +73,23 @@ const ProfileList: FC<ProfileProps> = ({ user }) => {
       <StyledProfileWrapper direction='column'>
         {fetchedItems.map((elem: ExtendedProductInfo) => (
           <StyledProfileItem key={elem.key}>
-            <Flex justify='flex-start' wrap='wrap'>
+            <Flex justify='flex-start' wrap='nowrap' gap='0.5rem'>
               <StyledProfileImage bgImage={elem.image} />
               <ProfileParagraph>{elem.extended_name}</ProfileParagraph>
             </Flex>
-            <Flex justify='flex-start' alignItems='center'>
+            <ProductLinkWrapper>
               <Link to={'/product/' + elem.key}>
                 <ProfileButton color={COLOR_GREEN_100}>Go to item page</ProfileButton>
               </Link>
               <StyledProfilePrice>Price: from {elem.price_min} BYN</StyledProfilePrice>
-            </Flex>
+            </ProductLinkWrapper>
           </StyledProfileItem>
         ))}
         <StyledMoreButton color={COLOR_GREEN_100} onClick={() => setCurrentPage(currentPage + 1)}>
           Load more items
         </StyledMoreButton>
       </StyledProfileWrapper>
-    </>
+    </Container>
   );
 };
 
