@@ -23,7 +23,7 @@ const ITEMS_PER_PAGE = 10;
 const ProfileList = () => {
   const userName = useSelector((state: RootState) => state.login.userLogin);
   const trackedItemsArray = useSelector((state: RootState) => state.tracking.tracked);
-  const [fetchedItems, setFetchedItems] = useState<ExtendedProductInfo[] | null>(null);
+  const [fetchedItems, setFetchedItems] = useState<ExtendedProductInfo[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const ProfileList = () => {
         if (currentPage === 0) {
           setFetchedItems(products);
         } else {
-          setFetchedItems(prevItems => (prevItems ? [...prevItems, ...products] : null));
+          setFetchedItems([...fetchedItems, ...products]);
         }
       },
     );
@@ -50,21 +50,20 @@ const ProfileList = () => {
         </StyledProfileH>
       </StyledProfileHeading>
       <StyledProfileWrapper direction='column'>
-        {fetchedItems &&
-          fetchedItems.map((elem: ExtendedProductInfo) => (
-            <StyledProfileItem key={elem.key}>
-              <Flex justify='flex-start' wrap='wrap'>
-                <StyledProfileImage bgImage={elem.image} />
-                <ProfileParagraph>{elem.extended_name}</ProfileParagraph>
-              </Flex>
-              <Flex justify='flex-start' alignItems='center'>
-                <Link to={'/product/' + elem.key}>
-                  <ProfileButton color={COLOR_GREEN_100}>Go to item page</ProfileButton>
-                </Link>
-                <StyledProfilePrice>Price: from {elem.price_min} BYN</StyledProfilePrice>
-              </Flex>
-            </StyledProfileItem>
-          ))}
+        {fetchedItems.map((elem: ExtendedProductInfo) => (
+          <StyledProfileItem key={elem.key}>
+            <Flex justify='flex-start' wrap='wrap'>
+              <StyledProfileImage bgImage={elem.image} />
+              <ProfileParagraph>{elem.extended_name}</ProfileParagraph>
+            </Flex>
+            <Flex justify='flex-start' alignItems='center'>
+              <Link to={'/product/' + elem.key}>
+                <ProfileButton color={COLOR_GREEN_100}>Go to item page</ProfileButton>
+              </Link>
+              <StyledProfilePrice>Price: from {elem.price_min} BYN</StyledProfilePrice>
+            </Flex>
+          </StyledProfileItem>
+        ))}
         <StyledMoreButton color={COLOR_GREEN_100} onClick={() => setCurrentPage(currentPage + 1)}>
           Load more items
         </StyledMoreButton>
