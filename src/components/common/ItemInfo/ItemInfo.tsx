@@ -16,7 +16,6 @@ import {
   StyledRatingContainer,
 } from './styled';
 import PriceChart from './components/PriceChart';
-import { API_LINK } from '../constants';
 import { RootState } from '../../../store/store';
 import { useSelector } from 'react-redux';
 import { Product, ProductPrice } from '../types';
@@ -25,11 +24,11 @@ import StarRating from '../StarRating/StarRating';
 import { useProductRating } from '../../../hooks/useProductRating';
 import { COLOR_GRAY_300, COLOR_GREEN_100 } from '../constants/colors';
 import { useFixedDescription } from '../../../hooks/useFixedDescription';
-import { fetchTrack, getStorageItem, toggleItemTrack } from '../../../utils';
-import { PriceChartItem } from '../types/index';
+import { fetchProduct, fetchTrack, getStorageItem, toggleItemTrack } from '../../../utils';
+import { PriceChartItem } from '../types';
 import { StyledChartButtons } from './styled';
 
-type ExtendedProductInfo = Product & ProductPrice;
+export type ExtendedProductInfo = Product & ProductPrice;
 
 const ItemInfo = () => {
   const { key } = useParams();
@@ -44,19 +43,17 @@ const ItemInfo = () => {
   const [productPrices, setProductPrices] = useState<PriceChartItem[] | undefined>(undefined);
 
   useEffect(() => {
-    const itemId = currentProduct?.id.toString();
+    const itemId = currentProduct?.key.toString();
     setIsTracked(trackedItems.includes(itemId as string));
     setProductPrices(currentProduct?.prices.charts);
-    const URL = API_LINK + `product?key=${key}`;
     setIsLoading(true);
-    fetch(URL)
-      .then(res => res.json())
-      .then(data => {
+    if (key) {
+      fetchProduct(key).then(data => {
         setCurrentProduct(data);
-
         setIsLoading(false);
       });
-  }, [trackedItems, currentProduct?.id, key]);
+    }
+  }, [trackedItems, currentProduct?.key, key]);
 
   const handleTrackClick = async () => {
     const action = isTracked ? 'untrack' : 'track';
@@ -66,7 +63,7 @@ const ItemInfo = () => {
     }
 
     if (token && renewToken && currentProduct) {
-      fetchTrack(token, renewToken, action, currentProduct.id).then(() => {
+      fetchTrack(token, renewToken, action, currentProduct.key).then(() => {
         setIsTracked(!isTracked);
       });
     }

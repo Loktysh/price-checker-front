@@ -7,9 +7,10 @@ import { AboutPage, MainPage } from './pages';
 import ItemsPage from './pages/ItemsPage';
 import { LoginPage } from './pages/LoginPage';
 import ProductPage from './pages/ProductPage';
-import { SettingsPage } from './pages/Settings page/SettingsPage';
+import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { SignupPage } from './pages/SignupPage';
-import { fetchUser, getStorageItem } from '../utils/index';
+import { fetchUser, getStorageItem } from '../utils';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const App = () => {
           <Route path='/signup' element={<SignupPage />} />
           <Route path='/settings' element={<SettingsPage />} />
         </Route>
+        <Route path='/profile' element={<ProfilePage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/products/:query' element={<ItemsPage />} />
         <Route path='/product/:key' element={<ProductPage />} />
