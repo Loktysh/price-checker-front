@@ -238,11 +238,16 @@ export const BasicLink = styled(Link)`
 export const StyledLoginDropdown = styled(Flex)`
   height: auto;
   width: 100%;
+  min-width: 9rem;
   top: 150%;
   background-color: ${COLOR_WHITE};
   position: absolute;
   z-index: 2;
   box-shadow: ${SHADOW_SMALL};
+
+  @media (max-width: 500px) {
+    min-width: 5rem;
+  }
 `;
 
 export const StyledMenuItem = styled(Flex)`
