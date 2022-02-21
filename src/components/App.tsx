@@ -36,12 +36,11 @@ const App = () => {
     <Router>
       <Routes>
         <Route path='/' element={<MainPage />}>
-          <Route path='/' element={<LoginPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignupPage />} />
           <Route path='/settings' element={<SettingsPage />} />
         </Route>
-        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/profile/:user' element={<ProfilePage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/products/:query' element={<ItemsPage />} />
         <Route path='/product/:key' element={<ProductPage />} />

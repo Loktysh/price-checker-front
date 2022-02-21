@@ -13,10 +13,10 @@ const AuthPageContainer = styled.div`
 `;
 
 export const LoginPage = () => {
-  const logged = useSelector((state: RootState) => state.login.logged);
+  const { logged, userLogin } = useSelector((state: RootState) => state.login);
   return (
     <AuthPageContainer>
-      {logged && <Navigate to='/profile' />}
+      {logged && <Navigate to={'/profile/' + userLogin} />}
       <AuthForm type='login' onAuthSubmit={handleAuthSubmit} />
     </AuthPageContainer>
   );
