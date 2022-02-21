@@ -67,6 +67,7 @@ export const StyledHistoryLink = styled(Link)`
   font-size: 1.8rem;
   color: ${COLOR_GRAY_300};
   transition: 0.3s;
+  text-decoration: none;
 
   :hover {
     color: ${COLOR_GRAY_200};
