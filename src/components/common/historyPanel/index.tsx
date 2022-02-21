@@ -16,7 +16,6 @@ type HistoryProps = {
 
 const HistoryPanel: FC<HistoryProps> = ({ open, setHistoryOpen }) => {
   const historyItems = getStorageItem('history');
-  console.log(historyItems);
   return (
     <StyledHistoryPanel open={open}>
       <StyledCloseButton onClick={() => setHistoryOpen(false)} />
