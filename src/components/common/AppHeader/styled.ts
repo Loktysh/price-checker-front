@@ -91,6 +91,7 @@ export const StyledSearchButton = styled(Button)`
 
 export const StyledHistoryButton = styled(Button)`
   position: fixed;
+  z-index: 2;
   bottom: 1rem;
   left: 2rem;
   text-decoration: none;
