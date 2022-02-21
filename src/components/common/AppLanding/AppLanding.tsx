@@ -5,7 +5,13 @@ import landingImage2 from '../../../assets/land2.jpg';
 
 const AppLanding = () => {
   return (
-    <LandingWrapper>
+    <LandingWrapper
+      {...scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      })}
+    >
       <StyledLandingH>Search products:</StyledLandingH>
       <StyledImage src={landingImage1} alt='Phone search results' />
       <StyledLandingH>Track prices by day or week:</StyledLandingH>
