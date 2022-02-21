@@ -96,6 +96,7 @@ export const RssLink = styled.a`
 export const Logo = styled.img`
   width: 100%;
   height: 100%;
+  filter: invert(50%) sepia(9%) saturate(685%) hue-rotate(174deg) brightness(105%) contrast(96%);
 `;
 
 export const PriceChecker = styled(Link)`
