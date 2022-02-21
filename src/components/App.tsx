@@ -12,6 +12,7 @@ import { SignupPage } from './pages/SignupPage';
 import { fetchUser, getStorageItem } from '../utils';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { toggleSubscribe } from '../store/slices/loginSlice';
+import AppLanding from './common/AppLanding';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path='/' element={<MainPage />}>
+          <Route path='/' element={<AppLanding />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignupPage />} />
           <Route path='/settings' element={<SettingsPage />} />
