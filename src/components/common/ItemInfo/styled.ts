@@ -1,32 +1,29 @@
 import styled from 'styled-components';
 import { Button, Flex } from '../../typography';
-import { COLOR_GRAY_300, COLOR_GREEN_100, COLOR_WHITE } from '../constants/colors';
+import { COLOR_GRAY_300, COLOR_GREEN_100, COLOR_GREEN_300, COLOR_WHITE } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
 import { Image } from '../types';
 
 export const StyledInfoContainer = styled(Flex)`
   width: 55%;
-  height: 300px;
   margin: 4rem auto 0;
   gap: 0 2rem;
-  padding: 3rem;
+  padding: 2rem;
   background-color: ${COLOR_WHITE};
   box-shadow: ${SHADOW_SMALL};
   flex-grow: 1;
 
   @media (max-width: 1000px) {
     width: 75%;
+    margin-top: 2rem;
   }
 
   @media (max-width: 768px) {
     width: 90%;
-    height: 250px;
-    padding: 2rem;
   }
 
   @media (max-width: 600px) {
     width: 98%;
-    height: 300px;
     padding: 1rem;
   }
 `;
@@ -42,7 +39,7 @@ export const StyledProductImage = styled.div<Image>`
   z-index: 1;
 
   @media (max-width: 768px) {
-    height: 200px;
+    height: 180px;
   }
 `;
 
@@ -70,15 +67,10 @@ export const StyledChartCard = styled.div`
 `;
 
 export const StyledWrapper = styled.div`
-  height: 250px;
   width: 65%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
-  @media (max-width: 768px) {
-    padding: 1rem 0;
-  }
 `;
 
 export const StyledPriceWrapper = styled(Flex)`
@@ -92,7 +84,7 @@ export const StyledHeading = styled.h3`
   color: ${COLOR_GRAY_300};
 
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 1.9rem;
   }
 
   @media (max-width: 600px) {
@@ -102,7 +94,7 @@ export const StyledHeading = styled.h3`
 
 export const StyledParagraph = styled.p`
   color: ${COLOR_GRAY_300};
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   margin: 0.5rem 0;
 
   @media (max-width: 600px) {
@@ -136,18 +128,18 @@ export const StyledRatingContainer = styled.div`
 
 export const StyledItemPrice = styled.p`
   color: ${COLOR_GREEN_100};
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
   margin: 0;
   margin-right: 4rem;
 
   @media (max-width: 768px) {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 500;
   }
 
   @media (max-width: 600px) {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 `;
 
@@ -155,6 +147,12 @@ export const StyledTrackButton = styled(Button)`
   font-size: 2rem;
   height: 40px;
   width: 150px;
+  transition: 0.3s;
+  border-radius: 2px;
+
+  :hover {
+    background-color: ${COLOR_GREEN_300};
+  }
 
   @media (max-width: 768px) {
     width: 130px;
@@ -175,6 +173,12 @@ export const StyledChartButton = styled(Button)`
   font-size: 1.2rem;
   height: 40px;
   width: 100px;
+  border-radius: 2px;
+  transition: 0.3s;
+
+  :hover {
+    background-color: ${COLOR_GREEN_300};
+  }
 
   @media (max-width: 768px) {
     width: 130px;
