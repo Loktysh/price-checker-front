@@ -9,6 +9,7 @@ import {
   COLOR_WHITE,
 } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
+import { Link } from 'react-router-dom';
 
 type StyledProps = {
   open: boolean;
@@ -62,7 +63,7 @@ export const StyledHistoryItem = styled.div`
   }
 `;
 
-export const StyledHistorySpan = styled.span`
+export const StyledHistoryLink = styled(Link)`
   font-size: 1.8rem;
   color: ${COLOR_GRAY_300};
   transition: 0.3s;

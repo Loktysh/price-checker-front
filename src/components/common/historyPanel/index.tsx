@@ -4,9 +4,10 @@ import {
   StyledHistoryHeading,
   StyledHistoryItem,
   StyledHistoryPanel,
-  StyledHistorySpan,
+  StyledHistoryLink,
 } from './styled';
 import { historyMock } from '../../../mocks/historyMock';
+import { getStorageItem } from '../../../utils';
 
 type HistoryProps = {
   open: boolean;
@@ -14,18 +15,21 @@ type HistoryProps = {
 };
 
 const HistoryPanel: FC<HistoryProps> = ({ open, setHistoryOpen }) => {
+  const historyItems = getStorageItem('history');
+  console.log(historyItems);
   return (
     <StyledHistoryPanel open={open}>
       <StyledCloseButton onClick={() => setHistoryOpen(false)} />
       <StyledHistoryHeading>You searched for:</StyledHistoryHeading>
 
-      {historyMock.map((elem: string, idx) => {
-        return (
-          <StyledHistoryItem key={idx}>
-            <StyledHistorySpan>{elem}</StyledHistorySpan>
-          </StyledHistoryItem>
-        );
-      })}
+      {historyItems &&
+        historyItems.map((elem: string, idx: number) => {
+          return (
+            <StyledHistoryItem key={idx} onClick={() => setHistoryOpen(false)}>
+              <StyledHistoryLink to={'/products/' + elem}>{elem}</StyledHistoryLink>
+            </StyledHistoryItem>
+          );
+        })}
     </StyledHistoryPanel>
   );
 };
