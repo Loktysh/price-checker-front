@@ -11,6 +11,7 @@ import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { SignupPage } from './pages/SignupPage';
 import { fetchUser, getStorageItem } from '../utils';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
+import { toggleSubscribe } from '../store/slices/loginSlice';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const App = () => {
   useEffect(() => {
     initializeFetch().then((info: User | undefined) => {
       if (info) {
+        dispatch(toggleSubscribe(info.user.isNotificationOn));
         logUser(info.user.login, info.user.trackingProducts);
       }
     });

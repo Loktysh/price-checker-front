@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import {
   SettingsContainer,
   PageTitle,
@@ -7,29 +7,37 @@ import {
   NotificationLink,
   CurrentSettingContainer,
 } from './styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
+import { toggleSubscribe } from '../../../store/slices/loginSlice';
 
 export const SettingsPage = () => {
-  const [enabledNotifications, setNotificationEnabled] = useState(false);
+  const { isSubscribed, userLogin } = useSelector((state: RootState) => state.login);
+  const dispatch = useDispatch();
+
+  const telegramLink = useMemo(() => {
+    return `https://t.me/rspricecheckerbot?${isSubscribed ? 'stop' : 'start'}=${userLogin}`;
+  }, [isSubscribed, userLogin]);
+
   return (
     <SettingsContainer>
       <PageTitle>My settings</PageTitle>
       <SettingTitle>Notifications in Telegram</SettingTitle>
       <CurrentSettingContainer>
-        {!enabledNotifications && (
-          <SettingText>For notifications follow the link below:</SettingText>
-        )}
-        {!enabledNotifications && (
-          <NotificationLink
-            href={'https://t.me/rspricecheckerbot?stop=логин'}
-            target={'_blank'}
-            onClick={() => {
-              setNotificationEnabled(true);
-            }}
-          >
-            Receive notifications
-          </NotificationLink>
-        )}
-        {enabledNotifications && <SettingText>Notification enabled</SettingText>}
+        <SettingText>
+          {!isSubscribed
+            ? 'For notifications click the link below:'
+            : 'Notifications enabled. To unsubscribe, click the button below:'}
+        </SettingText>
+        <NotificationLink
+          href={telegramLink}
+          target='_blank'
+          onClick={() => {
+            dispatch(toggleSubscribe(!isSubscribed));
+          }}
+        >
+          {isSubscribed ? 'Do not receive notifications' : 'Receive notifications'}
+        </NotificationLink>
       </CurrentSettingContainer>
     </SettingsContainer>
   );

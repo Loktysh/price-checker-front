@@ -17,8 +17,9 @@ import { Flex } from '../../typography';
 import { fetchProduct } from '../../../utils';
 import { ExtendedProductInfo } from '../ItemInfo/ItemInfo';
 import { COLOR_GREEN_100 } from '../constants/colors';
-import { Link, Params } from 'react-router-dom';
+
 import styled from 'styled-components';
+import { Link, Params } from 'react-router-dom';
 import { API_LINK } from '../constants';
 
 type ProfileProps = {
@@ -41,7 +42,6 @@ const ProfileList: FC<ProfileProps> = ({ user }) => {
     fetch(API_LINK + `profile?user=${user.user}`)
       .then((res: Response) => res.json())
       .then(data => {
-        console.log(data);
         setTrackedItems(data);
       });
   }, [user.user]);
