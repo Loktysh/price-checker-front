@@ -7,13 +7,13 @@ const AppLanding = () => {
   return (
     <LandingWrapper>
       <StyledLandingH>Search products:</StyledLandingH>
-      <StyledImage src={landingImage1} alt='' />
+      <StyledImage src={landingImage1} alt='Phone search results' />
       <StyledLandingH>Track prices by day or week:</StyledLandingH>
-      <StyledImage src={landingImage2} alt='' />
+      <StyledImage src={landingImage2} alt='Single product information with chart' />
       <StyledLandingH>Created using API by:</StyledLandingH>
       <StyledLogo
         src='https://upload.wikimedia.org/wikipedia/commons/f/f3/Logo-onliner-by.png'
-        alt=''
+        alt='Onliner logo'
       />
     </LandingWrapper>
   );
