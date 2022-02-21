@@ -25,7 +25,7 @@ const ProfilePage = () => {
     <NotLoggedWrapper direction='column'>
       <StyledNotLogged>Please login to view profile.</StyledNotLogged>
       <Link to='/login'>
-        <NotLoggedButton>Log in</NotLoggedButton>
+        <NotLoggedButton data-testid='profile-login'>Log in</NotLoggedButton>
       </Link>
     </NotLoggedWrapper>
   );

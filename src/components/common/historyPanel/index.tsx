@@ -21,7 +21,7 @@ const HistoryPanel: FC<HistoryProps> = ({ open, setHistoryOpen }) => {
 
       {historyMock.map((elem: string, idx) => {
         return (
-          <StyledHistoryItem key={idx}>
+          <StyledHistoryItem key={idx} data-testid='history-item'>
             <StyledHistorySpan>{elem}</StyledHistorySpan>
           </StyledHistoryItem>
         );
