@@ -197,6 +197,7 @@ export const StyledItemName = styled.p`
 
 export const StyledItemPrice = styled.p`
   font-size: 1.6rem;
+  margin: 0;
 
   @media (max-width: 650px) {
     font-size: 1.4rem;
@@ -204,23 +205,24 @@ export const StyledItemPrice = styled.p`
 `;
 
 export const StyledDropdownImage = styled.div<Image>`
-  height: 11rem;
-  width: 11rem;
-  margin-right: 3rem;
+  height: 13rem;
+  width: 13rem;
+  margin-right: 1rem;
   background-image: url(${props => (props ? props.bgImage : null)});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
 
   @media (max-width: 650px) {
-    height: 9rem;
-    width: 9rem;
+    height: 10rem;
+    width: 10rem;
     margin-right: 0.5rem;
   }
 `;
 
 export const StyledRating = styled.p`
   margin-right: 2rem;
+  margin-top: 1.2rem;
   font-weight: bold;
   font-size: 1.6rem;
 

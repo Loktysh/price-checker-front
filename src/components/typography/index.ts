@@ -125,6 +125,18 @@ export const StyledScrollBar = styled.div`
   }
 `;
 
+export const StyledItemHeaderLink = styled(Link)`
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: ${COLOR_GRAY_300};
+  text-decoration: none;
+  transition: 0.3s;
+`;
+
 export const StyledItemLink = styled(Link)`
   width: 100%;
   height: 100%;
