@@ -21,11 +21,11 @@ export const SettingsPage = () => {
     return `https://t.me/rspricecheckerbot?${isSubscribed ? 'stop' : 'start'}=${userLogin}`;
   }, [isSubscribed, userLogin]);
 
-  const isLogged = useSelector((state: RootState) => state.login.logged);
+  const { logged } = useSelector((state: RootState) => state.login);
 
   return (
     <>
-      {isLogged ? (
+      {logged ? (
         <SettingsContainer>
           <PageTitle>My settings</PageTitle>
           <SettingTitle>Notifications in Telegram</SettingTitle>
