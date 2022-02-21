@@ -4,6 +4,7 @@ import { RootState } from '../../../store/store';
 import AppHeader from '../../common/AppHeader';
 import ProfileList from '../../common/ProfileList';
 import { NotLoggedButton, NotLoggedWrapper, StyledNotLogged } from './styled';
+
 import { Link, useParams } from 'react-router-dom';
 import { AppFooter } from '../../common/AppFooter';
 import styled from 'styled-components';
