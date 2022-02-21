@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   COLOR_GRAY_300,
@@ -14,7 +13,7 @@ export const SettingsContainer = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   gap: 2rem;
-  min-height: 55vh;
+  flex-grow: 1;
 `;
 
 export const PageTitle = styled.h2`
@@ -55,23 +54,23 @@ export const SettingText = styled.p`
   }
 `;
 
-export const NotificationLink = styled(Link)`
+export const NotificationLink = styled.a`
   text-decoration: none;
   font-size: 1.8rem;
   color: ${COLOR_WHITE};
   width: 20rem;
   height: 4.5rem;
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${COLOR_GREEN_100};
-  border: 1px solid transparent;
+  background-color: ${COLOR_GREEN_300};
   border-radius: 2px;
+  transition: 0.3s;
 
   :hover {
-    background-color: ${COLOR_GREEN_300};
+    background-color: ${COLOR_GREEN_100};
     cursor: pointer;
-    border-color: ${COLOR_GRAY_300};
   }
 
   @media (max-width: 650px) {

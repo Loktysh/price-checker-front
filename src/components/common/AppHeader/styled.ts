@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR_GRAY_300, COLOR_GRAY_100, COLOR_BLACK } from './../constants/colors';
+import { COLOR_GRAY_300, COLOR_GRAY_100, COLOR_GRAY_200 } from './../constants/colors';
 import { Button, Flex } from '../../typography';
 import { COLOR_WHITE, COLOR_GREEN_100, COLOR_GREEN_300 } from '../constants/colors';
 import { SHADOW_SMALL } from '../constants/shadows';
@@ -32,7 +32,7 @@ export const StyledHeaderName = styled(NavLink)`
   transition: 0.1s ease;
   &:hover {
     color: ${COLOR_GREEN_300};
-    transition: 0.1s ease;
+    transition: 0.3s ease;
   }
 
   @media (max-width: 600px) {
@@ -73,6 +73,7 @@ export const StyledSearchButton = styled(Button)`
   align-items: center;
   border: 1px solid ${COLOR_GREEN_100};
   border-radius: 2px;
+  transition: 0.3s;
   &:hover {
     background-color: ${COLOR_GREEN_300};
   }
@@ -89,6 +90,10 @@ export const StyledSearchButton = styled(Button)`
 `;
 
 export const StyledHistoryButton = styled(Button)`
+  position: fixed;
+  z-index: 2;
+  bottom: 1rem;
+  left: 2rem;
   text-decoration: none;
   color: ${COLOR_GRAY_300};
   font-size: 1.5rem;
@@ -97,9 +102,23 @@ export const StyledHistoryButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  border: solid 2px ${COLOR_BLACK};
-  margin-right: 20px;
+  border: solid 1px ${COLOR_GREEN_100};
+  border-radius: 2px;
+  transition: 0.3s;
+
+  :hover {
+    border-color: ${COLOR_GREEN_300};
+    color: ${COLOR_GRAY_200};
+  }
+
+  @media (max-width: 500px) {
+    left: 0;
+    bottom: 0;
+    padding: 0.5rem;
+    font-size: 1.3rem;
+    height: 5rem;
+    max-width: 5rem;
+  }
 `;
 
 export const StyledAccountButton = styled(Button)`
@@ -114,9 +133,12 @@ export const StyledAccountButton = styled(Button)`
   align-items: center;
   border: solid 1px ${COLOR_GREEN_100};
   border-radius: 2px;
+  transition: 0.3s;
 
   :hover {
     cursor: pointer;
+    border: solid 1px ${COLOR_GREEN_300};
+    color: ${COLOR_GRAY_200};
   }
 
   @media (max-width: 768px) {
@@ -176,6 +198,7 @@ export const StyledItemName = styled.p`
 
 export const StyledItemPrice = styled.p`
   font-size: 1.6rem;
+  margin: 0;
 
   @media (max-width: 650px) {
     font-size: 1.4rem;
@@ -183,23 +206,24 @@ export const StyledItemPrice = styled.p`
 `;
 
 export const StyledDropdownImage = styled.div<Image>`
-  height: 11rem;
-  width: 11rem;
-  margin-right: 3rem;
+  height: 13rem;
+  width: 13rem;
+  margin-right: 1rem;
   background-image: url(${props => (props ? props.bgImage : null)});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
 
   @media (max-width: 650px) {
-    height: 9rem;
-    width: 9rem;
+    height: 10rem;
+    width: 10rem;
     margin-right: 0.5rem;
   }
 `;
 
 export const StyledRating = styled.p`
   margin-right: 2rem;
+  margin-top: 1.2rem;
   font-weight: bold;
   font-size: 1.6rem;
 
@@ -215,10 +239,16 @@ export const BasicLink = styled(Link)`
 export const StyledLoginDropdown = styled(Flex)`
   height: auto;
   width: 100%;
+  min-width: 9rem;
   top: 150%;
   background-color: ${COLOR_WHITE};
   position: absolute;
+  z-index: 2;
   box-shadow: ${SHADOW_SMALL};
+
+  @media (max-width: 500px) {
+    min-width: 5rem;
+  }
 `;
 
 export const StyledMenuItem = styled(Flex)`

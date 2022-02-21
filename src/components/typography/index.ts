@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { keyframes } from 'styled-components';
 import { COLOR_GRAY_300, COLOR_GREEN_100, COLOR_YELLOW } from '../common/constants/colors';
+import { SHADOW_SMALL } from '../common/constants/shadows';
 
 type FlexStyling = {
   justify?: string;
@@ -124,13 +125,33 @@ export const StyledScrollBar = styled.div`
   }
 `;
 
+export const StyledItemHeaderLink = styled(Link)`
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: ${COLOR_GRAY_300};
+  text-decoration: none;
+  transition: 0.3s;
+`;
+
 export const StyledItemLink = styled(Link)`
+  width: 100%;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   text-decoration: none;
+  padding: 0.5rem;
   color: ${COLOR_GRAY_300};
+  transition: 0.3s;
+
+  :hover {
+    box-shadow: ${SHADOW_SMALL};
+  }
 `;
 
 const spinnerAnimation = keyframes`

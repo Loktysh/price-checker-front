@@ -2,6 +2,8 @@ import { API_LINK } from '../constants';
 import { AuthFormParams, User } from '../types';
 import { logUser } from '../../../store/actions';
 import { fetchUser, getStorageItem } from '../../../utils';
+import { store } from '../../../store/store';
+import { toggleSubscribe } from '../../../store/slices/loginSlice';
 
 type AuthorizationResponse = {
   user: {
@@ -26,6 +28,11 @@ export const handleAuthSubmit = async (
     },
     body: JSON.stringify(params),
   });
+
+  if (!response.ok) {
+    throw new Error(`${await response.text()}`);
+  }
+
   const result: AuthorizationResponse = await response.json();
 
   if (remember) {
@@ -40,6 +47,7 @@ export const handleAuthSubmit = async (
   const parsedRenewToken = getStorageItem('renewToken');
   if (parsedToken && parsedRenewToken) {
     fetchUser(parsedToken, parsedRenewToken).then((data: User) => {
+      store.dispatch(toggleSubscribe(data.user.isNotificationOn));
       logUser(data.user.login, data.user.trackingProducts);
     });
   }

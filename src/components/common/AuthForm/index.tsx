@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Flex } from '../../typography';
 import { AuthFormParams } from '../types';
 import {
+  AuthError,
   BasicReactRouterLink,
   FormTitle,
   OptionalStyledDiv,
@@ -42,7 +43,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
         navigate('/');
       })
       .catch(error => {
-        setError(`Error logging in, please retry. ERROR: ${error}`);
+        setError(`${error}. Please, retry.`);
       });
   };
 
@@ -64,7 +65,8 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)} method='POST'>
       <Flex direction='column' gap='3rem'>
-        <FormTitle>{type === 'login' ? 'LOGIN' : 'SIGN UP'}</FormTitle>
+        <FormTitle>{type === 'login' ? 'LOGIN' : 'SIGNUP'}</FormTitle>
+        {error.length > 0 && <AuthError>{error}</AuthError>}
         <StyledInput
           id='login'
           type='text'
@@ -102,8 +104,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type, onAuthSubmit }) => {
           </StyledRememberOptionContainer>
           {type === 'login' && <BasicReactRouterLink to='#'>Forgot password?</BasicReactRouterLink>}
         </OptionalStyledDiv>
-        <StyledButton type='submit'>Login</StyledButton>
-        {error.length > 0 && <p>{error}</p>}
+        <StyledButton type='submit'>Log in</StyledButton>
         <BasicReactRouterLink to={navLink.path}>{navLink.label}</BasicReactRouterLink>
       </Flex>
     </StyledForm>

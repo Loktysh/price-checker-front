@@ -34,6 +34,7 @@ export type User = {
     login: string;
     user: string;
     trackingProducts: string[];
+    isNotificationOn: boolean;
   };
   currentToken: string;
   currentRenewToken: string;

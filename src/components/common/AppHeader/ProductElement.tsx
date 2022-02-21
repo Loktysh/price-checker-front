@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useProductRating } from '../../../hooks/useProductRating';
-import { Flex, StyledItemLink } from '../../typography';
+import { Flex, StyledItemHeaderLink } from '../../typography';
 import StarRating from '../StarRating/StarRating';
 import { Product } from '../types';
 import {
@@ -21,7 +21,7 @@ const ProductElement: FC<ProductElementProps> = ({ item, closeDropdownOnQuery })
 
   return (
     <StyledDropdownItem justify='flex-start' onClick={() => closeDropdownOnQuery()}>
-      <StyledItemLink to={'/product/' + item.key}>
+      <StyledItemHeaderLink to={'/product/' + item.key}>
         <StyledDropdownImage bgImage={item.image}></StyledDropdownImage>
         <Flex direction='column' alignItems='flex-start'>
           <StyledItemName>{item.extended_name}</StyledItemName>
@@ -32,7 +32,7 @@ const ProductElement: FC<ProductElementProps> = ({ item, closeDropdownOnQuery })
             <StarRating ratingArr={ratingArr} />
           </Flex>
         </Flex>
-      </StyledItemLink>
+      </StyledItemHeaderLink>
     </StyledDropdownItem>
   );
 };
