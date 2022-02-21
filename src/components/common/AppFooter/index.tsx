@@ -3,12 +3,15 @@ import {
   FooterContainer,
   FooterLink,
   GithubLink,
-  GithubLogo,
+  Logo,
   LeftSide,
   PriceChecker,
   RightSide,
+  RssLink,
+  StyledSpan,
 } from './styled';
 import github from './github.svg';
+import rss from './rss.svg';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 
@@ -27,11 +30,15 @@ export const AppFooter: FC = () => {
           </>
         )}
       </LeftSide>
+      <StyledSpan>2022</StyledSpan>
       <RightSide>
         <GithubLink href='https://github.com/Loktysh/price-checker-front' target='_blank'>
-          <GithubLogo src={github} />
+          <Logo src={github} />
         </GithubLink>
         <PriceChecker to='/'>PRICE CHECKER</PriceChecker>
+        <RssLink href='https://rs.school/js/' target='_blank'>
+          <Logo src={rss} />
+        </RssLink>
       </RightSide>
     </FooterContainer>
   );
