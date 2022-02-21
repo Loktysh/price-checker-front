@@ -16,7 +16,7 @@ const LoginDropdown: FC = () => {
     unlogUser();
   };
   return (
-    <StyledLoginDropdown direction='column'>
+    <StyledLoginDropdown data-testid='login-dropdown' direction='column'>
       <StyledMenuLink to={'/profile/' + userLogin}>Profile</StyledMenuLink>
       <StyledMenuLink to='/settings'>Settings</StyledMenuLink>
       <StyledMenuItem onClick={logout}>Log out</StyledMenuItem>

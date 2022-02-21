@@ -91,6 +91,7 @@ export const StyledSearchButton = styled(Button)`
 
 export const StyledHistoryButton = styled(Button)`
   position: fixed;
+  z-index: 2;
   bottom: 1rem;
   left: 2rem;
   text-decoration: none;
@@ -197,6 +198,7 @@ export const StyledItemName = styled.p`
 
 export const StyledItemPrice = styled.p`
   font-size: 1.6rem;
+  margin: 0;
 
   @media (max-width: 650px) {
     font-size: 1.4rem;
@@ -204,23 +206,24 @@ export const StyledItemPrice = styled.p`
 `;
 
 export const StyledDropdownImage = styled.div<Image>`
-  height: 11rem;
-  width: 11rem;
-  margin-right: 3rem;
+  height: 13rem;
+  width: 13rem;
+  margin-right: 1rem;
   background-image: url(${props => (props ? props.bgImage : null)});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
 
   @media (max-width: 650px) {
-    height: 9rem;
-    width: 9rem;
+    height: 10rem;
+    width: 10rem;
     margin-right: 0.5rem;
   }
 `;
 
 export const StyledRating = styled.p`
   margin-right: 2rem;
+  margin-top: 1.2rem;
   font-weight: bold;
   font-size: 1.6rem;
 
@@ -236,11 +239,16 @@ export const BasicLink = styled(Link)`
 export const StyledLoginDropdown = styled(Flex)`
   height: auto;
   width: 100%;
+  min-width: 9rem;
   top: 150%;
   background-color: ${COLOR_WHITE};
   position: absolute;
   z-index: 2;
   box-shadow: ${SHADOW_SMALL};
+
+  @media (max-width: 500px) {
+    min-width: 5rem;
+  }
 `;
 
 export const StyledMenuItem = styled(Flex)`

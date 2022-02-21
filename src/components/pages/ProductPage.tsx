@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AppFooter } from '../common/AppFooter';
 
 import AppHeader from '../common/AppHeader';
+import HistoryPanel from '../common/historyPanel';
 import ItemInfo from '../common/ItemInfo';
 
 const Container = styled.div`
@@ -11,9 +12,12 @@ const Container = styled.div`
   flex-direction: column;
 `;
 const ProductPage = () => {
+  const [historyOpen, setHistoryOpen] = useState<boolean>(false);
+
   return (
     <Container>
-      <AppHeader />
+      <HistoryPanel open={historyOpen} setHistoryOpen={setHistoryOpen} />
+      <AppHeader setHistoryOpen={setHistoryOpen} />
       <ItemInfo />
       <AppFooter />
     </Container>

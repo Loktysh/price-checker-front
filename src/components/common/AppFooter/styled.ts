@@ -10,13 +10,13 @@ import {
 
 export const FooterContainer = styled.div`
   width: 100%;
-  padding: 4rem 6rem 4rem 10rem;
+  padding: 3rem 6rem 1rem 10rem;
   display: flex;
   justify-content: space-between;
   background-color: ${COLOR_WHITE};
 
   @media (max-width: 800px) {
-    padding: 2rem 2rem 2rem 3rem;
+    padding: 2rem 2rem 1rem 3rem;
   }
 `;
 
@@ -78,9 +78,25 @@ export const GithubLink = styled.a`
   }
 `;
 
-export const GithubLogo = styled.img`
+export const RssLink = styled.a`
+  width: 70px;
+  height: 40px;
+  transition: 0.3s;
+
+  :hover {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 800px) {
+    width: 50px;
+    height: 20px;
+  }
+`;
+
+export const Logo = styled.img`
   width: 100%;
   height: 100%;
+  filter: invert(50%) sepia(9%) saturate(685%) hue-rotate(174deg) brightness(105%) contrast(96%);
 `;
 
 export const PriceChecker = styled(Link)`
@@ -101,4 +117,11 @@ export const PriceChecker = styled(Link)`
   @media (max-width: 500px) {
     font-size: 1.8rem;
   }
+`;
+
+export const StyledSpan = styled.p`
+  align-self: flex-end;
+  margin: 0;
+  font-size: 1.6rem;
+  color: ${COLOR_GRAY_300};
 `;

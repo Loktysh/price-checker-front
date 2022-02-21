@@ -60,6 +60,7 @@ export const NotificationLink = styled.a`
   color: ${COLOR_WHITE};
   width: 20rem;
   height: 4.5rem;
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
