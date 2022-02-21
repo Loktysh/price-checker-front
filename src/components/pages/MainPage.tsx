@@ -17,8 +17,8 @@ const MainPage = () => {
   return (
     <MainContainer>
       <AppHeader />
-      <AppLanding />
       <Outlet />
+      <AppLanding />
       <AppFooter />
     </MainContainer>
   );

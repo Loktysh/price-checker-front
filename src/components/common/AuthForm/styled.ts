@@ -20,7 +20,7 @@ export const StyledForm = styled.form`
 `;
 
 export const FormTitle = styled.h2`
-  margin: 0;
+  margin: 2rem 0 0;
   font-weight: 700;
   font-size: 2.4rem;
   color: ${COLOR_GRAY_300};
