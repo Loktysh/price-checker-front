@@ -18,7 +18,7 @@ import ProductElement from './ProductElement';
 import { StyledAccountButton } from './styled';
 import { useSelector } from 'react-redux';
 import LoginDropdown from './LoginDropdown';
-import { fetchProducts } from '../../../utils';
+import { fetchProducts, getStorageItem } from '../../../utils';
 import { RootState } from '../../../store/store';
 import LoginLink from './LoginLink';
 
@@ -67,6 +67,17 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage, setHistoryOpen }) => {
     if (inputValue.length) setDropdown(true);
   }, [inputValue.length]);
 
+  const addToHistory = useCallback((value: string) => {
+    const historyArray = getStorageItem('history');
+    let newHistoryArray;
+    if (historyArray) {
+      newHistoryArray = [...historyArray, value];
+    } else {
+      newHistoryArray = [value];
+    }
+    localStorage.setItem('history', JSON.stringify(newHistoryArray));
+  }, []);
+
   return (
     <StyledHeader as='header' justify='space-around'>
       <StyledHeaderName to='/'>
@@ -81,7 +92,13 @@ const AppHeader: FC<HeaderProps> = ({ setCurrentPage, setHistoryOpen }) => {
           value={inputValue}
         />
         <BasicLink to={'/products/' + inputValue}>
-          <StyledSearchButton color={COLOR_GREEN_100} onClick={closeDropdownOnQuery}>
+          <StyledSearchButton
+            color={COLOR_GREEN_100}
+            onClick={() => {
+              closeDropdownOnQuery();
+              addToHistory(inputValue);
+            }}
+          >
             Search
           </StyledSearchButton>
         </BasicLink>

@@ -52,7 +52,7 @@ export const fetchTrack = async (
   return result;
 };
 
-export const getStorageItem = (key: string): string | null => {
+export const getStorageItem = (key: string) => {
   const localItem = JSON.parse(localStorage.getItem(key) as string);
   const sessionItem = JSON.parse(sessionStorage.getItem(key) as string);
   return localItem || sessionItem;
