@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 
 export const AppFooter: FC = () => {
-  const logged = useSelector((state: RootState) => state.login.logged);
+  const { logged, userLogin } = useSelector((state: RootState) => state.login);
 
   return (
     <FooterContainer>
@@ -22,7 +22,7 @@ export const AppFooter: FC = () => {
           <FooterLink to='/about'>About Price Checker</FooterLink>
         ) : (
           <>
-            <FooterLink to='/profile'>Home</FooterLink>
+            <FooterLink to={'/profile/' + userLogin}>Home</FooterLink>
             <FooterLink to='/about'>About Price Checker</FooterLink>
           </>
         )}

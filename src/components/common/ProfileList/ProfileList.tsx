@@ -17,6 +17,7 @@ import { Flex } from '../../typography';
 import { fetchProduct } from '../../../utils';
 import { ExtendedProductInfo } from '../ItemInfo/ItemInfo';
 import { COLOR_GREEN_100 } from '../constants/colors';
+
 import styled from 'styled-components';
 import { Link, Params } from 'react-router-dom';
 import { API_LINK } from '../constants';
