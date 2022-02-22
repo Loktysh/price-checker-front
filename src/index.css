@@ -1,0 +1,24 @@
+@import './styles/fonts.css';
+@import './styles/normalize.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #F4F6F8;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
