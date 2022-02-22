@@ -18,7 +18,7 @@ export const SettingsPage = () => {
   const dispatch = useDispatch();
 
   const telegramLink = useMemo(() => {
-    return `https://t.me/rspricecheckerbot?${isSubscribed ? 'stop' : 'start'}=${userLogin}`;
+    return `https://t.me/rspricecheckerbot?${isSubscribed ? 'start' : 'stop'}=${userLogin}`;
   }, [isSubscribed, userLogin]);
 
   const { logged } = useSelector((state: RootState) => state.login);
